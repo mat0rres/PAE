@@ -1,0 +1,156 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.RepresentativeInputViewModel
+
+@{
+    const string TITLE = "Modificar Representante";
+    const string HEADER = "Administración de Representantes";
+
+    ViewData["TITLE"] = TITLE;
+    ViewData["HEADER"] = HEADER;
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<i class=\"fas fa-fw fa-tachometer-alt\"></i> " + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = Url.Action("Index", "Dashboard", new { Area = "management" })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = HEADER,
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = TITLE
+        }
+    };
+
+    Layout = "_BackendLayout";
+
+    var prioritySelectListItems = new List<SelectListItem>();
+
+    for (int i = 1; i <= 10; i++)
+    {
+        prioritySelectListItems.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+    }
+}
+
+@section styles {
+    <style type="text/css">
+        #ImageFile {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    </style>
+}
+
+@section scripts {
+    <script type="text/javascript" src="/vendor/ckeditor/ckeditor.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ClassicEditor
+                .create(document.querySelector('#About'))
+                .then(editor => {
+                    editor.editing.view.change(writer => {
+                        writer.setStyle('height', '400px', editor.editing.view.document.getRoot());
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+
+        $(function () {
+            $(document).on("change", "#ImageFile", function () {
+                var files = !!this.files ? this.files : [];
+
+                if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+                if (/^image/.test(files[0].type)) {
+                    var reader = new FileReader();
+
+                    reader.readAsDataURL(files[0]);
+
+                    reader.onloadend = function () {
+                        $('#ImageFilePreview').attr('src', this.result);
+                    }
+                }
+
+            });
+        });
+    </script>
+}
+
+<hr class="mt-0 mb-4" />
+
+@using (Html.BeginForm("edit", "representatives", new { Area = "site", key = string.Empty }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.ImageId)
+
+    <div class="card mb-4">
+        <div class="card-header"><h5 class="mb-0 font-weight-bold text-primary">@TITLE</h5></div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-4 mb-3">
+                    <div class="card">
+                        <img src="~/media/images/@Model.ImageId.@Model.ImageExtension" class="card-img-top" id="ImageFilePreview" />
+                        <label class="btn btn-light" style="border-top-left-radius: 0; border-top-right-radius: 0; margin-bottom: 0;">
+                            @GlobalViewLocalizationHelper.Localize("Upload", ViewLocalizer) ...
+                            @Html.EditorFor(model => model.ImageFile)
+                        </label>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.ImageFile, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-9 col-md-8">
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.EditorFor(model => model.Enabled) Habilitado?
+                                    @Html.ValidationMessageFor(model => model.Enabled)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 mb-3">
+                            @Html.LabelFor(model => model.Position, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.Position, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Position, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-4 mb-3">
+                            @Html.LabelFor(model => model.Priority, new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.Priority, prioritySelectListItems, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Priority, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.About, new { @class = "control-label" })
+                        @Html.TextAreaFor(model => model.About, 10, 0, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.About, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Modificar</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Regresar al listado</a>
+        </div>
+    </div>
+}

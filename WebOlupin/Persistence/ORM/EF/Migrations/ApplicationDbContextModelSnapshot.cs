@@ -1326,6 +1326,40 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                     b.ToTable("productimagebridges");
                 });
 
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Representative", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("boolean")
+                        .HasColumnName("enabled");
+
+                    b.Property<Guid>("IdentityId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("identityid");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("position");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("integer")
+                        .HasColumnName("priority");
+
+                    b.HasKey("Id")
+                        .HasName("pk_representatives");
+
+                    b.HasIndex("IdentityId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_representatives_identityid");
+
+                    b.ToTable("representatives");
+                });
+
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.RichTextBlock", b =>
                 {
                     b.Property<int>("Id")
@@ -2038,6 +2072,18 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                     b.Navigation("Prow");
 
                     b.Navigation("Stern");
+                });
+
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Representative", b =>
+                {
+                    b.HasOne("MOROPO.Framework.Guama.Identity.Persistence.Entities.PersonIdentity", "Identity")
+                        .WithOne()
+                        .HasForeignKey("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Representative", "IdentityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_representatives_personidentities_identityid");
+
+                    b.Navigation("Identity");
                 });
 
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Service", b =>

@@ -10,7 +10,8 @@
                 {
                     new Configurators.ProductCustomAttributeBridgeEntityTypeConfigurator(),
                     new Configurators.ProductImageBridgeEntityTypeConfigurator(),
-                    new Configurators.BrandEntityTypeConfigurator()
+                    new Configurators.BrandEntityTypeConfigurator(),
+                    new Configurators.RepresentativeEntityTypeConfigurator()
                 };
             }
         }

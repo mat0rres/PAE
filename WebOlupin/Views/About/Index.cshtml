@@ -22,5 +22,22 @@
         </div>
     </div>
 
-    <hr />
+    @foreach (var item in Model.Representatives)
+    {
+        <hr class="mt-5 mb-0" />
+
+        <div class="row mt-5">
+            <div class="col-sm-4">
+                <div class="pl-5">
+                    <img class="img-fluid" title="@item.Fullname" src="/media/images/@item.Image.Id.@item.Image.Extension" />
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="pr-5">
+                    <h4 class="mb-4">@item.Fullname<span class="font-weight-normal"> | @item.Position</span></h4>
+                    @Html.Raw(item.About)
+                </div>
+            </div>
+        </div>
+    }
 </div>

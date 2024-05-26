@@ -102,5 +102,16 @@
         public const string ProductRemoverPermission = "product-remover-permission";
 
         #endregion
+
+        #region Representative
+
+        public const string RepresentativeManagementPermissionGroup = "representative-management-permission-group";
+
+        public const string RepresentativeViewerPermission = "representative-viewer-permission";
+        public const string RepresentativeCreatorPermission = "representative-creator-permission";
+        public const string RepresentativeEditorPermission = "representative-editor-permission";
+        public const string RepresentativeRemoverPermission = "representative-remover-permission";
+
+        #endregion
     }
 }

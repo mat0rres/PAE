@@ -67,6 +67,14 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                     Action = "index",
                     Area = "site",
                     Role = Constants.Authorization.PostViewerPermission
+                },
+                new ManagementDashboardSectionViewModel
+                {
+                    Title = "Representantes",
+                    Controller = "representatives",
+                    Action = "index",
+                    Area = "site",
+                    Role = Constants.Authorization.RepresentativeViewerPermission
                 }
             };
 

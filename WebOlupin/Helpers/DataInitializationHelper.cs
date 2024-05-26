@@ -217,6 +217,27 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Helpers
 
             #endregion
 
+            #region Representative
+
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.RepresentativeViewerPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.RepresentativeViewerPermission.ToPermissionEntity(Constants.Authorization.RepresentativeManagementPermissionGroup));
+            }
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.RepresentativeCreatorPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.RepresentativeCreatorPermission.ToPermissionEntity(Constants.Authorization.RepresentativeManagementPermissionGroup));
+            }
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.RepresentativeEditorPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.RepresentativeEditorPermission.ToPermissionEntity(Constants.Authorization.RepresentativeManagementPermissionGroup));
+            }
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.RepresentativeRemoverPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.RepresentativeRemoverPermission.ToPermissionEntity(Constants.Authorization.RepresentativeManagementPermissionGroup));
+            }
+
+            #endregion
+
             if (dbContext is Framework.Guama.Core.Persistence.ORM.EF.Context.Contract.ITraceableDbContext)
             {
                 ((Framework.Guama.Core.Persistence.ORM.EF.Context.Contract.ITraceableDbContext)dbContext).SaveChanges("system");

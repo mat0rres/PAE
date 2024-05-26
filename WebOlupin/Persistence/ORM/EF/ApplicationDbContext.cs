@@ -76,5 +76,6 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF
         public DbSet<Service> Services { get; set; }
         public DbSet<ShowcaseItem> ShowcaseItems { get; set; }
         public DbSet<BrandSupportOffer> BrandSupportOffers { get; set; }
+        public DbSet<Representative> Representatives { get; set; }
     }
 }

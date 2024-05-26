@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>disable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<AssemblyName>MOROPO.PremierAutomotiveExport.WebOlupin</AssemblyName>
+		<RootNamespace>MOROPO.PremierAutomotiveExport.WebOlupin</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="dpkeys\**" />
+		<Compile Remove="logs\**" />
+		<Compile Remove="wwwroot\media\**" />
+		<Content Remove="dpkeys\**" />
+		<Content Remove="logs\**" />
+		<Content Remove="wwwroot\media\**" />
+		<EmbeddedResource Remove="dpkeys\**" />
+		<EmbeddedResource Remove="logs\**" />
+		<EmbeddedResource Remove="wwwroot\media\**" />
+		<None Remove="dpkeys\**" />
+		<None Remove="logs\**" />
+		<None Remove="wwwroot\media\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.css.map" />
+	  <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+	  <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+	  <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+	  <None Include="wwwroot\vendor\bootstrap\css\bootstrap.css.map" />
+	  <None Include="wwwroot\vendor\bootstrap\css\bootstrap.min.css.map" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="GuamaFramework.Core.Presentation.Web.Security" Version="6.0.0.20" />
+		<PackageReference Include="GuamaFramework.Core.Security.Common.Presentation.Web.Frontend" Version="6.0.0.20" />
+		<PackageReference Include="GuamaFramework.Media.Presentation.Web.Common" Version="6.0.0.20" />
+		<PackageReference Include="GuamaFramework.Security.Personal.Presentation.Web.Backend" Version="6.0.0.20" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+		<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+		<PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+		<PackageReference Include="SkiaSharp" Version="2.88.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Persistence.Domain\Persistence.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

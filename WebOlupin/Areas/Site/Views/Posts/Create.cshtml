@@ -1,0 +1,165 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.PostInputViewModel
+
+@{
+    const string TITLE = "Agregar Noticia";
+    const string HEADER = "Administración de Noticias";
+
+    ViewData["TITLE"] = TITLE;
+    ViewData["HEADER"] = HEADER;
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<i class=\"fas fa-fw fa-tachometer-alt\"></i> " + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = Url.Action("Index", "Dashboard", new { Area = "management" })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = HEADER,
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = TITLE
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+@section styles {
+    <link href="~/vendor/gijgo/modular/css/core.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/vendor/gijgo/modular/css/datepicker.min.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        #FeatureImageFile {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+    </style>
+}
+
+@section scripts {
+    <script src="~/vendor/gijgo/modular/js/core.min.js" type="text/javascript"></script>
+    <script src="~/vendor/gijgo/modular/js/datepicker.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/vendor/ckeditor/ckeditor.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#CreatedAt').datepicker({
+                uiLibrary: 'bootstrap4',
+                modal: true,
+                header: true,
+                footer: true,
+                format: 'dd/mm/yyyy',
+                maxDate: @Html.Raw(string.Format("'{0}'", System.DateTime.Now.ToString("dd/MM/yyyy"))),
+                value: @Html.Raw(string.Format("'{0}'", Model.CreatedAt.ToString("dd/MM/yyyy")))
+            });
+
+            ClassicEditor
+                .create(document.querySelector('#Summary'))
+                .then(editor => {
+                    editor.editing.view.change(writer => {
+                        writer.setStyle('height', '400px', editor.editing.view.document.getRoot());
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            ClassicEditor
+                .create(document.querySelector('#Content'))
+                .then(editor => {
+                    editor.editing.view.change(writer => {
+                        writer.setStyle('height', '900px', editor.editing.view.document.getRoot());
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+
+        $(function () {
+            $(document).on("change", "#FeatureImageFile", function () {
+                var files = !!this.files ? this.files : [];
+
+                if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+                if (/^image/.test(files[0].type)) {
+                    var reader = new FileReader();
+
+                    reader.readAsDataURL(files[0]);
+
+                    reader.onloadend = function () {
+                        $('#ImageFilePreview').attr('src', this.result);
+                    }
+                }
+
+            });
+        });
+    </script>
+}
+
+<hr class="mt-0 mb-4" />
+
+@using (Html.BeginForm("create", "posts", new { Area = "site" }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+
+    <div class="card mb-4">
+        <div class="card-header"><h5 class="mb-0 font-weight-bold text-primary">@TITLE</h5></div>
+
+        <div class="card-body">
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Title, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Title, null, new { @class = "text-danger" })
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="~/img/default-organization-picture.png" class="card-img-top" id="ImageFilePreview" />
+                        <label class="btn btn-light" style="border-top-left-radius: 0; border-top-right-radius: 0; margin-bottom: 0;">
+                            @GlobalViewLocalizationHelper.Localize("Upload", ViewLocalizer) ...
+                            @Html.EditorFor(model => model.FeatureImageFile)
+                        </label>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.FeatureImageFile, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.EditorFor(model => model.Enabled) Habilitada?
+                                    @Html.ValidationMessageFor(model => model.Enabled)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(model => model.CreatedAt, new { @class = "control-label" })
+                            @Html.TextBoxFor(model => model.CreatedAt, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(model => model.CreatedAt, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Summary, new { @class = "control-label" })
+                        @Html.TextAreaFor(model => model.Summary, 10, 0, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Summary, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Content, new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.Content, 16, 0, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Content, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Agregar</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Cancelar</a>
+        </div>
+    </div>
+}

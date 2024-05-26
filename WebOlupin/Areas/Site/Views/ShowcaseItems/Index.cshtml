@@ -1,0 +1,94 @@
+﻿@model MOROPO.Framework.Guama.Core.Presentation.Web.Frontend.Models.View.PaginationViewModel<MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ShowcaseItem, System.Guid, MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.ShowcaseItemDisplayViewModel>
+
+@{
+    const string HEADER = "Administración de Instantáneas";
+
+    ViewData["TITLE"] = ViewData["HEADER"] = HEADER;
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<i class=\"fas fa-fw fa-tachometer-alt\"></i> " + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = Url.Action("Index", "Dashboard", new { Area = "management" })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = HEADER
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+<hr class="mt-0 mb-4" />
+
+<a class="btn btn-primary float-right" href="#" data-toggle="modal" data-target="#add-image"><span class="fas fa-fw fa-plus"></span> Agregar</a>
+
+<div class="clearfix mb-3"></div>
+
+<div class="modal fade" id="add-image" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add-image-title">Agregar Instantánea</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("create", "showcaseitems", new { Area = "site" }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-body">
+                    <input type="file" class="form-control" id="ImageFile" name="ImageFile" />
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@if (Model.List.Count <= 0)
+{
+    <p class="text-muted mb-4">Sin elementos que mostrar</p>
+}
+else
+{
+    <div class="card-columns mb-1">
+        @foreach (var item in Model.List)
+        {
+            <div class="card" style="margin-bottom: 1.25rem !important;">
+                <img class="card-img" src="~/media/images/@item.Image.Id.@item.Image.Extension" />
+                <div class="card-img-overlay">
+                    <div class="btn-group btn-group-sm float-right">
+                        <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#delete-@item.Id"><span class="fas fa-fw fa-trash"></span></a>
+                    </div>
+                </div>
+                <div class="modal fade" id="delete-@item.Id" tabindex="-1" role="dialog" aria-labelledby="delete-@item.Id-lable" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            @using (Html.BeginForm("delete", "showcaseitems", new { Area = "site" }, FormMethod.Post, true, new { @class = "modal-content" }))
+                            {
+                                @Html.Hidden("Id", item.Id)
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="delete-image-@item.Id-lable">Eliminar Instantánea</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="mb-0">Esta seguro que desea eliminar la instantánea seleccionada?</p>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0;">
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

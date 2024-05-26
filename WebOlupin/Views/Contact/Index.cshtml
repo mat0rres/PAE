@@ -1,0 +1,45 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.RichTextBlockDisplayViewModel
+
+@{
+    ViewData["Title"] = "Contacto";
+
+    Layout = "_FrontendLayout";
+}
+
+<div class="ahead-picture" style="background-image: url('/img/contact-aheat-picture.jpg')"></div>
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4 my-5">Contactar</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            @Html.Raw(Model.Content)
+        </div>
+        <div class="col-md-7">
+            <form asp-action="send" asp-controller="contact" asp-antiforgery="true" method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="Name">Nombre</label>
+                            <input name="Name" type="text" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Email">Correo Electrónico</label>
+                            <input name="Email" type="text" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Phone">Teléfono</label>
+                            <input name="Phone" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="Message">Mensaje</label>
+                        <textarea name="Message" rows="8" class="form-control"></textarea>
+                    </div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Enviar" />
+            </form>
+        </div>
+    </div>
+</div>

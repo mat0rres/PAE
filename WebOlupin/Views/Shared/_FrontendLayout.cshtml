@@ -1,0 +1,35 @@
+﻿@{ 
+    Layout = "_Layout";
+}
+
+@section styles {
+    <style type="text/css">
+        .ahead-picture {
+            height: 315px;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-color: lightgray;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .nav-item {
+            text-transform: uppercase;
+        }
+    </style>
+}
+
+<div class="py-4 fixed-top bg-white">
+    <div class="container ">
+        <div class="text-center">
+            <img class="m-3" style="width: 278px;" title="Premier Automotive Export" src="/img/PAE-logo_d400.png" />
+        </div>
+        <!-- Begin Navigation Bar -->
+        @await Component.InvokeAsync("FrontendNavigationBar")
+        <!-- End Navigation Bar -->
+    </div>
+</div>
+
+<div class="mb-4" style="margin-top: 216px;">
+    @RenderBody()
+</div>

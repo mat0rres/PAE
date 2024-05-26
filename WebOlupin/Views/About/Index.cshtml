@@ -1,0 +1,26 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend.AboutIndexViewModel
+
+@{
+    ViewData["Title"] = "Nosotros";
+
+    Layout = "_FrontendLayout";
+}
+
+<div class="ahead-picture" style="background-image: url('/img/about-ahead-picture.jpg')"></div>
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4 my-5">Nosotros</h1>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-sm-4">
+            <img class="img-fluid" title="Premier Automotive Export" src="/img/founders.jpg" />
+        </div>
+        <div class="col-sm-8">
+            @Html.Raw(Model.MainTextBlock.Content)
+        </div>
+    </div>
+
+    <hr />
+</div>

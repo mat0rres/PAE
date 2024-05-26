@@ -1,0 +1,25 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend.HomeIndexViewModel
+
+@{ 
+    Layout = "_FrontendLayout";
+}
+
+<div class="ahead-picture" style="background-image: url('/img/home-ahead-picture.jpg')"></div>
+
+<div class="container">
+    @if (Model.BrandPromotions.Length > 0)
+    {
+        foreach (var item in Model.BrandPromotions)
+        {
+            <div class="jumbotron text-center bg-white">
+                <img style="max-width: 400px;" src="/media/images/@item.Brand.Image.Id.@item.Brand.Image.Extension" title="@item.Brand.Name" />
+                <h1 class="my-4">@item.Title</h1>
+                <img class="img-fluid" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" title="@item.Brand.Name" />
+                <a class="btn btn-primary btn-lg mt-4" href="#">Conocer más</a>
+            </div>
+        }
+
+        <hr />
+    }
+
+</div>

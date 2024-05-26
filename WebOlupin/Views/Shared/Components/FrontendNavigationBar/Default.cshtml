@@ -1,0 +1,25 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.CategoryDisplayViewModel[]
+
+<ul class="nav nav-pills nav-fill mt-4">
+    <li class="nav-item">
+        <a class="nav-link active" asp-action="index" asp-controller="home">INICIO</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="index" asp-controller="about">NOSOTROS</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="index" asp-controller="news">NOTICIAS</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-action="index" asp-controller="services">SERVICIOS</a>
+    </li>
+    @foreach (var item in Model)
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-action="index" asp-controller="category" asp-route-key="@item.Id">@item.Name</a>
+        </li>
+    }
+    <li class="nav-item">
+        <a class="nav-link" asp-action="index" asp-controller="contact">CONTACTO</a>
+    </li>
+</ul>

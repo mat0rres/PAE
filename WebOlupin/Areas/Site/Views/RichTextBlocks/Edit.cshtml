@@ -1,0 +1,78 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.RichTextBlockInputViewModel
+
+@{
+    const string TITLE = "Modificar Bloque de Texto";
+    const string HEADER = "Administración de Bloques de Texto";
+
+    ViewData["TITLE"] = TITLE;
+    ViewData["HEADER"] = HEADER;
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<i class=\"fas fa-fw fa-tachometer-alt\"></i> " + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = Url.Action("Index", "Dashboard", new { Area = "management" })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = HEADER,
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = TITLE
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+@section scripts
+{
+    <script type="text/javascript" src="/vendor/ckeditor/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Content'))
+            .then(editor => {
+                editor.editing.view.change(writer => {
+                    writer.setStyle('height', '900px', editor.editing.view.document.getRoot());
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+}
+
+<hr class="mt-0 mb-4" />
+
+@using (Html.BeginForm("edit", "richtextblocks", new { Area = "site", key = string.Empty }, FormMethod.Post, true, null))
+{
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="card mb-4">
+        <div class="card-header"><h5 class="mb-0 font-weight-bold text-primary">@TITLE</h5></div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6 mb-3">
+                    @Html.LabelFor(model => model.Id, new { @class = "control-label" })
+                    <input type="text" readonly="readonly" class="form-control" value="@GlobalViewLocalizationHelper.Localize(Model.Id.ToString())" />
+                    @Html.HiddenFor(model => model.Id)
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Content, new { @class = "control-label" })
+                @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Content, null, new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Modificar</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Regresar al listado</a>
+        </div>
+    </div>
+}

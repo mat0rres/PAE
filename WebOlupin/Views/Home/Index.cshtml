@@ -1,0 +1,65 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend.HomeIndexViewModel
+
+@{ 
+    Layout = "_FrontendLayout";
+}
+
+<div class="ahead-picture" style="background-image: url('/img/home-ahead-picture.jpg')"></div>
+
+<div class="container">
+    @if (Model.BrandPromotions.Length > 0)
+    {
+        foreach (var item in Model.BrandPromotions)
+        {
+            <div class="jumbotron text-center bg-white">
+                <img style="max-width: 400px;" src="/media/images/@item.Brand.Image.Id.@item.Brand.Image.Extension" title="@item.Brand.Name" />
+                <h1 class="my-4">@item.Title</h1>
+                <img class="img-fluid" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" title="@item.Brand.Name" />
+                <a class="btn btn-primary btn-lg mt-4" href="#">Conocer más</a>
+            </div>
+        }
+
+        <hr class="mt-0 mb-5" />
+    }
+
+    <a href="#">
+        <img class="img-fluid" title="Driving Towards Change" src="/img/promo-link.jpg" />
+    </a>
+
+    @if (Model.BrandSupportOffers.Length > 0)
+    {
+        foreach (var item in Model.BrandSupportOffers)
+        {
+            <hr class="mt-5 mb-0" />
+
+            @foreach (var _item in item.Value)
+            {
+                <div class="row mt-5">
+                    <div class="col-sm-4">
+                        <img class="img-fluid" src="/media/images/@_item.FeatureImage.Id.@_item.FeatureImage.Extension" title="@_item.Title" />
+                    </div>
+                    <div class="col-sm-8">
+                        <h3 class="mb-4">@_item.Title</h3>
+                        @Html.Raw(_item.Description)
+                    </div>
+                </div>
+            }
+        }
+    }
+
+    @if (Model.Brands.Length > 0)
+    {
+        <hr class="my-5" />
+
+        <div class="row">
+            @foreach (var item in Model.Brands)
+            {
+                <div class="col-lg-2 col-md-3 col-sm-4">
+                    <a asp-action="index" asp-controller="brand" asp-route-key="@item.Id">
+                        <img class="img-fluid vertical-align-center" src="/media/images/@item.Image.Id.@item.Image.Extension" title="@item.Name" />
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</div>

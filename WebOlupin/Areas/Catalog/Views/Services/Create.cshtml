@@ -26,6 +26,13 @@
     };
 
     Layout = "_BackendLayout";
+
+    var prioritySelectListItems = new List<SelectListItem>();
+
+    for (int i = 1; i <= 10; i++)
+    {
+        prioritySelectListItems.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+    }
 }
 
 @section styles {
@@ -39,7 +46,22 @@
 }
 
 @section scripts {
+    <script type="text/javascript" src="/vendor/ckeditor/ckeditor.js"></script>
+
     <script type="text/javascript">
+        $(document).ready(function () {
+            ClassicEditor
+                .create(document.querySelector('#Description'))
+                .then(editor => {
+                    editor.editing.view.change(writer => {
+                        writer.setStyle('height', '480px', editor.editing.view.document.getRoot());
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+
         $(function () {
             $(document).on("change", "#FeatureImageFile", function () {
                 var files = !!this.files ? this.files : [];
@@ -87,6 +109,21 @@
                         @Html.LabelFor(model => model.Name, new { @class = "control-label" })
                         @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.EditorFor(model => model.Enabled) Habilitado?
+                                    @Html.ValidationMessageFor(model => model.Enabled)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            @Html.LabelFor(model => model.Priority, new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.Priority, prioritySelectListItems, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Priority, null, new { @class = "text-danger" })
+                        </div>
                     </div>
                     <div class="mb-3">
                         @Html.LabelFor(model => model.Description, new { @class = "control-label" })

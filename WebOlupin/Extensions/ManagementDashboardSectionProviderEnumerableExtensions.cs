@@ -19,7 +19,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
 
             securitySections.Add(new ManagementDashboardSectionViewModel
             {
-                Title = "Registros",
+                Title = "Changes",
                 Controller = "traces",
                 Action = "index",
                 Area = "security",
@@ -82,7 +82,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
             {
                 new ManagementDashboardSectionViewModel
                 {
-                    Title = "Servicios",
+                    Title = "Services",
                     Controller = "services",
                     Action= "index",
                     Area = "catalog",
@@ -90,7 +90,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                 },
                 new ManagementDashboardSectionViewModel
                 {
-                    Title = "Productos",
+                    Title = "Products",
                     Controller = "products",
                     Action= "index",
                     Area = "catalog",
@@ -98,7 +98,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                 },
                 new ManagementDashboardSectionViewModel
                 {
-                    Title = "Marcas",
+                    Title = "Brands",
                     Controller = "brands",
                     Action= "index",
                     Area = "catalog",
@@ -106,19 +106,27 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                 },
                 new ManagementDashboardSectionViewModel
                 {
-                    Title = "Categorías",
+                    Title = "Categories",
                     Controller = "categories",
                     Action= "index",
                     Area = "catalog",
                     Role = Constants.Authorization.CategoryViewerPermission
+                },
+                new ManagementDashboardSectionViewModel
+                {
+                    Title = "Custom Attributes",
+                    Controller = "customattributes",
+                    Action= "index",
+                    Area = "catalog",
+                    Role = Constants.Authorization.CustomAttributeViewerPermission
                 }
             };
 
             return new Dictionary<string, ICollection<ManagementDashboardSectionViewModel>>
             {
-                { "Seguridad", securitySections },
-                { "Contenidos del Sitio", siteContentsSection },
-                { "Catálogo", catalogSections }
+                { "Security", securitySections },
+                { "Site Contents", siteContentsSection },
+                { "PAE Catalog", catalogSections }
             };
         }
     }

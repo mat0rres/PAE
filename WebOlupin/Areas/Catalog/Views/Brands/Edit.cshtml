@@ -101,6 +101,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.PromotionalSlogan, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.PromotionalSlogan, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.PromotionalSlogan, null, new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
         </div>

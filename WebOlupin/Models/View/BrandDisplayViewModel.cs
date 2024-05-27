@@ -10,11 +10,14 @@
 
         public bool IsFavorite { get; set; }
 
+        public string PromotionalSlogan { get; set; }
+
         public void Import(PremierAutomotiveExport.Persistence.Domain.Entities.Brand entity)
         {
             Id = entity.Id;
             Name = entity.Identity.Name;
             IsFavorite = entity.IsFavorite;
+            PromotionalSlogan = entity.PromotionalSlogan;
             Image = new ImageDisplayViewModel();
 
             Image.Import(entity.Identity.Image);

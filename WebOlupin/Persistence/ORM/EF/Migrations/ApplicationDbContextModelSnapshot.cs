@@ -1016,6 +1016,10 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("isfavorite");
 
+                    b.Property<string>("PromotionalSlogan")
+                        .HasColumnType("text")
+                        .HasColumnName("promotionalslogan");
+
                     b.HasKey("Id")
                         .HasName("pk_brands");
 
@@ -1171,6 +1175,10 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnType("text")
                         .HasColumnName("content");
 
+                    b.Property<string>("Context")
+                        .HasColumnType("text")
+                        .HasColumnName("context");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("createdat");
@@ -1183,10 +1191,9 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("featureimageid");
 
-                    b.Property<string>("Summary")
-                        .IsRequired()
+                    b.Property<string>("Label")
                         .HasColumnType("text")
-                        .HasColumnName("summary");
+                        .HasColumnName("label");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -1218,7 +1225,6 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnName("categoryid");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("description");
 
@@ -1255,6 +1261,30 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasDatabaseName("ix_products_videoid");
 
                     b.ToTable("products");
+                });
+
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductColor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("text")
+                        .HasColumnName("color");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("productid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_productcolors");
+
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_productcolors_productid");
+
+                    b.ToTable("productcolors");
                 });
 
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductCustomAttributeBridge", b =>
@@ -1425,6 +1455,10 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnType("text")
                         .HasColumnName("description");
 
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("boolean")
+                        .HasColumnName("enabled");
+
                     b.Property<Guid>("FeatureImageId")
                         .HasColumnType("uuid")
                         .HasColumnName("featureimageid");
@@ -1433,6 +1467,10 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("name");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("integer")
+                        .HasColumnName("priority");
 
                     b.HasKey("Id")
                         .HasName("pk_services");
@@ -2020,6 +2058,18 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                     b.Navigation("Video");
                 });
 
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductColor", b =>
+                {
+                    b.HasOne("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Product", "Product")
+                        .WithMany("Colors")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_productcolors_products_productid");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductCustomAttributeBridge", b =>
                 {
                     b.HasOne("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Product", "Prow")
@@ -2190,6 +2240,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
 
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Product", b =>
                 {
+                    b.Navigation("Colors");
+
                     b.Navigation("CustomAttributeBridges");
 
                     b.Navigation("ExtraImageBridges");

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.ServiceDisplayViewModel[]
+
+@{
     ViewData["Title"] = "Servicios";
 
     Layout = "_FrontendLayout";
@@ -10,4 +12,17 @@
     <div class="text-center">
         <h1 class="display-4 my-5">Servicios</h1>
     </div>
+
+    @foreach (var item in Model)
+    {
+        <div class="row mt-5">
+            <div class="col-sm-4">
+                <img class="img-fluid" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" title="@item.Name" />
+            </div>
+            <div class="col-sm-8">
+                <h3 class="mb-4">@item.Name</h3>
+                @Html.Raw(item.Description)
+            </div>
+        </div>
+    }
 </div>

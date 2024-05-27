@@ -10,7 +10,9 @@
 
         public string Title { get; set; }
 
-        public string Summary { get; set; }
+        public string Label { get; set; }
+
+        public string Context { get; set; }
 
         public string Content { get; set; }
 
@@ -22,7 +24,8 @@
             CreatedAt = entity.CreatedAt;
             Enabled = entity.Enabled;
             Title = entity.Title;
-            Summary = entity.Summary;
+            Label = entity.Label;
+            Context = entity.Context;
             Content = entity.Content;
 
             if (entity.FeatureImage == null) return;

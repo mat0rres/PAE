@@ -70,6 +70,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF
         public DbSet<Post> Posts { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductFeature> ProductFeatures { get; set; }
+        public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductCustomAttributeBridge> ProductCustomAttributeBridges { get; set; }
         public DbSet<ProductImageBridge> ProductImageBridges { get; set; }
         public DbSet<SectionView> SectionViews { get; set; }

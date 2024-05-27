@@ -19,9 +19,11 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         [Display(Name = "Title")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "RequiredValidationErrorMessage")]
-        [Display(Name = "Summary")]
-        public string Summary { get; set; }
+        [Display(Name = "Label")]
+        public string Label { get; set; }
+
+        [Display(Name = "Context")]
+        public string Context { get; set; }
 
         [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [Display(Name = "Content")]
@@ -49,7 +51,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
             Id = entity.Id;
             Enabled = entity.Enabled;
             Title = entity.Title;
-            Summary = entity.Summary;
+            Label = entity.Label;
+            Context = entity.Context;
             Content = entity.Content;
             CreatedAt = entity.CreatedAt;
             FeatureImageId = entity.FeatureImageId;
@@ -61,7 +64,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
             entity.Enabled = Enabled;
             entity.CreatedAt = CreatedAt;
             entity.Title = Title;
-            entity.Summary = Summary;
+            entity.Label = Label;
+            entity.Context = Context;
             entity.Content = Content;
         }
     }

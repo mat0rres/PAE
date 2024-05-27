@@ -2,16 +2,44 @@
 
 <ul class="nav nav-pills nav-fill mt-4">
     <li class="nav-item">
-        <a class="nav-link active" asp-action="index" asp-controller="home">INICIO</a>
+        @if (Context.Request.Path.Value == "/")
+        {
+            <a class="nav-link active" asp-action="index" asp-controller="home">INICIO</a>
+        }
+        else
+        {
+            <a class="nav-link" asp-action="index" asp-controller="home">INICIO</a>
+        }
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-action="index" asp-controller="about">NOSOTROS</a>
+        @if (Context.Request.Path.Value.StartsWith("/about"))
+        {
+            <a class="nav-link active" asp-action="index" asp-controller="about">NOSOTROS</a>
+        }
+        else
+        {
+            <a class="nav-link" asp-action="index" asp-controller="about">NOSOTROS</a>
+        }
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-action="index" asp-controller="news">NOTICIAS</a>
+        @if (Context.Request.Path.Value.StartsWith("/news"))
+        {
+            <a class="nav-link active" asp-action="index" asp-controller="news">NOTICIAS</a>
+        }
+        else
+        {
+            <a class="nav-link" asp-action="index" asp-controller="news">NOTICIAS</a>
+        }
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-action="index" asp-controller="services">SERVICIOS</a>
+        @if (Context.Request.Path.Value.StartsWith("/services"))
+        {
+            <a class="nav-link active" asp-action="index" asp-controller="services">SERVICIOS</a>
+        }
+        else
+        {
+            <a class="nav-link" asp-action="index" asp-controller="services">SERVICIOS</a>
+        }
     </li>
     @foreach (var item in Model)
     {
@@ -20,6 +48,13 @@
         </li>
     }
     <li class="nav-item">
-        <a class="nav-link" asp-action="index" asp-controller="contact">CONTACTO</a>
+        @if (Context.Request.Path.Value.StartsWith("/contact"))
+        {
+            <a class="nav-link active" asp-action="index" asp-controller="contact">CONTACTO</a>
+        }
+        else
+        {
+            <a class="nav-link" asp-action="index" asp-controller="contact">CONTACTO</a>
+        }
     </li>
 </ul>

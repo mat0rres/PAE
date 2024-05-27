@@ -200,8 +200,28 @@
                                                                 <span>@GlobalViewLocalizationHelper.Localize("No")</span>
                                                             }
                                                         </dd>
-                                                        <dt>@GlobalViewLocalizationHelper.Localize("Summary")</dt>
-                                                        <dd>@Html.Raw(item.Summary)</dd>
+                                                        <dt>@GlobalViewLocalizationHelper.Localize("Label")</dt>
+                                                        <dd>
+                                                            @if (string.IsNullOrEmpty(item.Label))
+                                                            {
+                                                                <span>---</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>@item.Label</span>
+                                                            }
+                                                        </dd>
+                                                        <dt>@GlobalViewLocalizationHelper.Localize("Context")</dt>
+                                                        <dd>
+                                                            @if (string.IsNullOrEmpty(item.Context))
+                                                            {
+                                                                <span>---</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>@item.Context</span>
+                                                            }
+                                                        </dd>
                                                         <dt>@GlobalViewLocalizationHelper.Localize("Content")</dt>
                                                         <dd>@Html.Raw(item.Content)</dd>
                                                     </dl>

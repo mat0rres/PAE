@@ -7,7 +7,6 @@
 
         public bool Enabled { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
         public string Description { get; set; }
 
         [System.ComponentModel.DataAnnotations.Schema.ForeignKey(nameof(CategoryId))]
@@ -30,6 +29,8 @@
         public string Model { get; set; }
 
         public System.Collections.Generic.List<ProductFeature> Features { get; set; } = new System.Collections.Generic.List<ProductFeature>();
+
+        public System.Collections.Generic.List<ProductColor> Colors {  get; set; } = new System.Collections.Generic.List<ProductColor>();
 
         public System.Collections.Generic.List<ProductImageBridge> ExtraImageBridges { get; set; } = new System.Collections.Generic.List<ProductImageBridge> { };
 

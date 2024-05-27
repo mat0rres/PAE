@@ -52,7 +52,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
 
                     return _item;
                 }).ToArray(),
-                Brands = brandRepository.FindBy(_entity => _entity.IsFavorite).ToArray().Select(_entity =>
+                Brands = brandRepository.GetAll().ToArray().Select(_entity =>
                 {
                     var _model = new BrandDisplayViewModel();
 

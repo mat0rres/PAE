@@ -10,5 +10,7 @@
         public System.Guid IdentityId { get; set; }
 
         public bool IsFavorite { get; set; }
+
+        public string PromotionalSlogan { get; set; }
     }
 }

@@ -238,6 +238,27 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Helpers
 
             #endregion
 
+            #region CustomAttribute
+
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.CustomAttributeViewerPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.CustomAttributeViewerPermission.ToPermissionEntity(Constants.Authorization.CustomAttributeManagementPermissionGroup));
+            }
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.CustomAttributeCreatorPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.CustomAttributeCreatorPermission.ToPermissionEntity(Constants.Authorization.CustomAttributeManagementPermissionGroup));
+            }
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.CustomAttributeEditorPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.CustomAttributeEditorPermission.ToPermissionEntity(Constants.Authorization.CustomAttributeManagementPermissionGroup));
+            }
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.CustomAttributeRemoverPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.CustomAttributeRemoverPermission.ToPermissionEntity(Constants.Authorization.CustomAttributeManagementPermissionGroup));
+            }
+
+            #endregion
+
             if (dbContext is Framework.Guama.Core.Persistence.ORM.EF.Context.Contract.ITraceableDbContext)
             {
                 ((Framework.Guama.Core.Persistence.ORM.EF.Context.Contract.ITraceableDbContext)dbContext).SaveChanges("system");

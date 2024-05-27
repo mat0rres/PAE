@@ -12,8 +12,9 @@
         [System.ComponentModel.DataAnnotations.Required]
         public string Title { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
-        public string Summary { get; set; }
+        public string Label { get; set; }
+
+        public string Context { get; set; }
 
         [System.ComponentModel.DataAnnotations.Required]
         public string Content { get; set; }

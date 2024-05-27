@@ -10,11 +10,17 @@
 
         public ImageDisplayViewModel FeatureImage { get; set; }
 
+        public bool Enabled { get; set; }
+
+        public int Priority { get; set; }
+
         public void Import(PremierAutomotiveExport.Persistence.Domain.Entities.Service entity)
         {
             Id = entity.Id;
             Name = entity.Name;
             Description = entity.Description;
+            Enabled = entity.Enabled;
+            Priority = entity.Priority;
             FeatureImage = new ImageDisplayViewModel();
 
             FeatureImage.Import(entity.FeatureImage);

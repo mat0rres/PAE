@@ -16,6 +16,10 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        public bool Enabled { get; set; }
+
+        public int Priority { get; set; }
+
         [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [FormFileContentTypes(ContentTypes = new string[] { "image/png", "image/jpeg" }, ErrorMessage = "PNG_JPEG_FileAllowedOnlyMessage")]
         [Display(Name = "ImageFile")]
@@ -39,6 +43,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
             Id = entity.Id;
             Name = entity.Name;
             Description = entity.Description;
+            Enabled = entity.Enabled;
+            Priority = entity.Priority;
             FeatureImageId = entity.FeatureImageId;
             FeatureImageExtension = MimeTypes.MimeTypeMap.GetExtension(entity.FeatureImage.ContentType);
         }
@@ -47,6 +53,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         {
             entity.Name = Name;
             entity.Description = Description;
+            entity.Enabled = Enabled;
+            entity.Priority = Priority;
         }
     }
 }

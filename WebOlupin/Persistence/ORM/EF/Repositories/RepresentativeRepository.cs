@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Repositories
 {
@@ -9,9 +8,14 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Repositori
         {
         }
 
-        protected override IQueryable<PremierAutomotiveExport.Persistence.Domain.Entities.Representative> GetQueryableDbSet()
+        protected override System.Linq.IQueryable<PremierAutomotiveExport.Persistence.Domain.Entities.Representative> GetQueryableDbSet()
         {
             return base.GetQueryableDbSet().Include(entity => entity.Identity).ThenInclude(entity => entity.Image);
+        }
+
+        public override System.Func<PremierAutomotiveExport.Persistence.Domain.Entities.Representative, object> GetPagingOrderSelector()
+        {
+            return entity => entity.Priority;
         }
     }
 }

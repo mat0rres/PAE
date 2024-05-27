@@ -1,7 +1,11 @@
-﻿@{
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.PostDisplayViewModel[]
+
+@{
     ViewData["Title"] = "Noticias";
 
     Layout = "_FrontendLayout";
+
+    var firstPlaced = false;
 }
 
 <div class="ahead-picture" style="background-image: url('/img/news-ahead-picture.jpg')"></div>
@@ -10,4 +14,36 @@
     <div class="text-center">
         <h1 class="display-4 my-5">Noticias</h1>
     </div>
+
+    @foreach (var item in Model)
+    {
+        if (firstPlaced)
+        {
+            <hr class="my-4" />
+        }
+        else
+        {
+            firstPlaced = true;
+        }
+
+        <div>
+            @if (!string.IsNullOrEmpty(item.Label))
+            {
+                <p class="font-weight-bold text-muted">@item.Label</p>
+            }
+
+            <h2>@item.Title</h2>
+
+            <div class="mb-4">
+                @if (!string.IsNullOrEmpty(item.Context)) { <span><span><b>@item.Context</b></span> | </span> } <span>@item.CreatedAt.ToShortDateString()</span>
+            </div>
+
+            @if (item.FeatureImage != null)
+            {
+                <img class="img-fluid my-4" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" title="@item.Title" />
+            }
+
+            @Html.Raw(item.Content)
+        </div>
+    }
 </div>

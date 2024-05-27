@@ -59,17 +59,6 @@
                     });
 
             ClassicEditor
-                .create(document.querySelector('#Summary'))
-                .then(editor => {
-                    editor.editing.view.change(writer => {
-                        writer.setStyle('height', '400px', editor.editing.view.document.getRoot());
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-            ClassicEditor
                 .create(document.querySelector('#Content'))
                 .then(editor => {
                     editor.editing.view.change(writer => {
@@ -155,9 +144,14 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        @Html.LabelFor(model => model.Summary, new { @class = "control-label" })
-                        @Html.TextAreaFor(model => model.Summary, 10, 0, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Summary, null, new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.Label, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Label, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Label, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Context, new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Context, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Context, null, new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

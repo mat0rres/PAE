@@ -113,5 +113,16 @@
         public const string RepresentativeRemoverPermission = "representative-remover-permission";
 
         #endregion
+
+        #region CustomAttribute
+
+        public const string CustomAttributeManagementPermissionGroup = "custom-attribute-management-permission-group";
+
+        public const string CustomAttributeViewerPermission = "custom-attribute-viewer-permission";
+        public const string CustomAttributeCreatorPermission = "custom-attribute-creator-permission";
+        public const string CustomAttributeEditorPermission = "custom-attribute-editor-permission";
+        public const string CustomAttributeRemoverPermission = "custom-attribute-remover-permission";
+
+        #endregion
     }
 }

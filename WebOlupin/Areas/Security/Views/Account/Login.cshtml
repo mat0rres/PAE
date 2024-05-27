@@ -1,7 +1,7 @@
 ﻿@model MOROPO.Framework.Guama.Core.Presentation.Web.Security.Models.View.LoginViewModel
 
 @{
-    const string TITLE = "Control de Acceso";
+    const string TITLE = "Access Control";
 
     ViewData["Title"] = TITLE;
 
@@ -100,13 +100,13 @@
 
     @Html.ValidationSummary(true)
 
-    <h3 class="mb-0">Premier Automotive Export</h3>
-    <h4 class="text-muted">Administrar el sitio</h4>
+    <img class="m-3" style="width: 278px;" title="Premier Automotive Export" src="/img/PAE-logo_d400.png" />
+    <h4 class="text-muted">Site Backoffice</h4>
     <h5 class="mt-3 mb-3">@TITLE</h5>
 
-    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Usuario" })
+    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username" })
 
-    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
+    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
 
     @if (Context.Session.Keys.Contains(MOROPO.Framework.Guama.Core.Presentation.Web.Security.Constants.HttpSessionMapKeys.CaptchaCodeKey))
     {
@@ -123,6 +123,6 @@
             @Html.CheckBoxFor(m => m.RememberMe) Recordar en este dispositivo
         </label>
     </div>
-    <button class="btn btn-primary btn-block" type="submit">Iniciar Sesión</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2022-@DateTime.Now.Year</p>
+    <button class="btn btn-primary btn-block" type="submit">Login</button>
+    <p class="mt-5 mb-3 text-muted">&copy; @DateTime.Now.Year</p>
 }

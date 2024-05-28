@@ -103,6 +103,11 @@
                         @Html.TextBoxFor(model => model.PromotionalSlogan, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.PromotionalSlogan, null, new { @class = "text-danger" })
                     </div>
+                    <div class="mb-3">
+                        @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+                        @Html.TextAreaFor(model => model.Description, 8, 1, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, null, new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
         </div>

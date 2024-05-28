@@ -12,5 +12,7 @@
         public bool IsFavorite { get; set; }
 
         public string PromotionalSlogan { get; set; }
+
+        public string Description { get; set; }
     }
 }

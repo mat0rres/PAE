@@ -17,6 +17,9 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         [Display(Name = "PromotionalSlogan")]
         public string PromotionalSlogan { get; set; }
 
+        [Display(Name = "Description")]
+        public string Description { get; set; }
+
         [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [FormFileContentTypes(ContentTypes = new string[] { "image/png", "image/jpeg" }, ErrorMessage = "PNG_JPEG_FileAllowedOnlyMessage")]
         [Display(Name = "ImageFile")]
@@ -41,6 +44,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
             Name = entity.Identity.Name;
             IsFavorite = entity.IsFavorite;
             PromotionalSlogan = entity.PromotionalSlogan;
+            Description = entity.Description;
             ImageId = entity.Identity.ImageId.Value;
             ImageExtension = MimeTypes.MimeTypeMap.GetExtension(entity.Identity.Image.ContentType);
         }
@@ -50,6 +54,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
             entity.Identity.Name = Name;
             entity.IsFavorite = IsFavorite;
             entity.PromotionalSlogan = PromotionalSlogan;
+            entity.Description = Description;
         }
     }
 }

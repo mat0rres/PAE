@@ -1,0 +1,127 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.ProductImagesManagementViewModel
+
+@{
+    const string TITLE = "Modify Product (Images)";
+    const string HEADER = "Product's management";
+
+    ViewData["TITLE"] = TITLE;
+    ViewData["HEADER"] = HEADER;
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<i class=\"fas fa-fw fa-tachometer-alt\"></i> " + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = Url.Action("Index", "Dashboard", new { Area = "management" })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = HEADER,
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = TITLE
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="font-weight-bold text-primary">Modify Product</h5>
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("edit", @Model.Product.Id)">Generals</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("EditAttributes", @Model.Product.Id)">Attributes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("EditFeatures", @Model.Product.Id)">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Images</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body pb-2">
+        <div class="alert alert-dark mb-4">
+            <details>
+                <summary class="h4 mb-0">@Model.Product.Brand.Name @Model.Product.Model</summary>
+            </details>
+        </div>
+        <div class="modal fade" id="add-item" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="add-item-title">Add Image</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @using (Html.BeginForm("addimage", "products", new { key = Model.Product.Id }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="modal-body">
+                            <div>
+                                <input type="file" name="imageFile" class="form-control-file" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        @if (Model.Items.Length <= 0)
+        {
+            <p class="text-muted mb-3">No items to show</p>
+        }
+        else
+        {
+            <div class="card-columns">
+                @foreach (var item in Model.Items)
+                {
+                    <div class="card" style="margin-bottom: 1.25rem !important;">
+                        <img class="card-img" src="~/media/images/@item.Id.@item.Extension" />
+                        <div class="card-img-overlay">
+                            <div class="btn-group btn-group-sm float-right">
+                                <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#delete-image-@item.Id"><span class="fas fa-trash fa-fw"></span></a>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="delete-image-@item.Id" tabindex="-1" role="dialog" aria-labelledby="delete-image-@item.Id-lable" aria-hidden="true">
+                            <div class="modal-dialog">
+                                @using (Html.BeginForm("deleteimage", "products", new { key = Model.Product.Id }, FormMethod.Post, true, new { @class = "modal-content" }))
+                                {
+                                    @Html.Hidden("imageId", item.Id)
+
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="delete-image-@item.Id-lable">Remove Imagen</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="mb-0">Are you shure to remove selected image?</p>
+                                    </div>
+                                    <div class="modal-footer" style="margin-top: 0;">
+                                        <button type="submit" class="btn btn-danger">Remove</button>
+                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#add-item">Add</a>
+        <a class="btn btn-secondary" href="@Url.Action("index")">Back to list</a>
+    </div>
+</div>
+
+

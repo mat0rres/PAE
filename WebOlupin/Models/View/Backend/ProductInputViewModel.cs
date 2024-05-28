@@ -11,7 +11,6 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
 
         public bool Enabled { get; set; } = true;
 
-        [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [Display(Name = "Description")]
         public string Description { get; set; }
 

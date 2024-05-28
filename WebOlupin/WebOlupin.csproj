@@ -24,6 +24,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="wwwroot\vendor\bootstrap-combobox\js\bootstrap-combobox.js" />
+	  <None Include="wwwroot\vendor\bootstrap-combobox\js\bootstrap-select.js" />
+	  <None Include="wwwroot\vendor\bootstrap-combobox\less\combobox.less" />
+	  <None Include="wwwroot\vendor\bootstrap-combobox\README.md" />
 	  <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.css.map" />
 	  <None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
 	  <None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.css.map" />

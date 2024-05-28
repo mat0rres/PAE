@@ -1008,6 +1008,10 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
                     b.Property<Guid>("IdentityId")
                         .HasColumnType("uuid")
                         .HasColumnName("identityid");

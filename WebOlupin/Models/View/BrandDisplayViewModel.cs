@@ -12,12 +12,15 @@
 
         public string PromotionalSlogan { get; set; }
 
+        public string Description { get; set; }
+
         public void Import(PremierAutomotiveExport.Persistence.Domain.Entities.Brand entity)
         {
             Id = entity.Id;
             Name = entity.Identity.Name;
             IsFavorite = entity.IsFavorite;
             PromotionalSlogan = entity.PromotionalSlogan;
+            Description = entity.Description;
             Image = new ImageDisplayViewModel();
 
             Image.Import(entity.Identity.Image);

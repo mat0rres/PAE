@@ -1,25 +1,92 @@
-﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend.HomeIndexViewModel
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend.CategoryIndexViewModel
 
 @{ 
+    ViewData["Title"] = Model.Category.Name;
+
     Layout = "_FrontendLayout";
+
+    var firstPlaced = false;
 }
 
 <div class="ahead-picture" style="background-image: url('/img/home-ahead-picture.jpg')"></div>
 
 <div class="container">
-    @if (Model.BrandPromotions.Length > 0)
+    <div class="text-center my-5">
+        <h4>Categoría</h4>
+        <h1 class="display-4">@Model.Category.Name</h1>
+    </div>
+
+    @if (Model.Favorites.Count > 0)
     {
-        foreach (var item in Model.BrandPromotions)
+        foreach (var item in Model.Favorites)
         {
-            <div class="jumbotron text-center bg-white">
-                <img style="max-width: 400px;" src="/media/images/@item.Brand.Image.Id.@item.Brand.Image.Extension" title="@item.Brand.Name" />
-                <h1 class="my-4">@item.Title</h1>
-                <img class="img-fluid" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" title="@item.Brand.Name" />
-                <a class="btn btn-primary btn-lg mt-4" href="#">Conocer más</a>
+            if (firstPlaced)
+            {
+                <hr class="my-4" />
+            }
+            else
+            {
+                firstPlaced = true;
+            }
+
+            <div class="jumbotron bg-white">
+                <div class="text-center mb-5">
+                    <img style="max-width: 400px;" src="/media/images/@item.Key.Image.Id.@item.Key.Image.Extension" title="@item.Key.Name" />
+                    @if (!string.IsNullOrEmpty(item.Key.PromotionalSlogan))
+                    {
+                        <h1 class="my-4">@item.Key.PromotionalSlogan</h1>
+                    }
+                    @if (!string.IsNullOrEmpty(item.Key.Description))
+                    {
+                        <p>@Html.Raw(item.Key.Description)</p>
+                    }
+                </div>
+                <div class="row">
+                    @foreach (var _item in item.Value)
+                    {
+                        <div class="col-md-4 col-sm-6 text-center">
+                            <a asp-action="index" asp-controller="product" asp-route-key="@_item.Id">
+                                <img style="max-height: 280px;" title="@_item.Model" src="/media/images/@_item.FeatureImage.Id.@_item.FeatureImage.Extension" />
+                                <div class="text-center font-weight-bold">@_item.Model</div>
+                            </a>
+                        </div>
+                    }
+                </div>
             </div>
         }
-
-        <hr />
     }
 
+    @if (Model.Regulars.Count > 0)
+    {
+        foreach (var item in Model.Regulars)
+        {
+            if (firstPlaced)
+            {
+                <hr class="my-4" />
+            }
+            else
+            {
+                firstPlaced = true;
+            }
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <img class="img-fluid" src="/media/images/@item.Key.Image.Id.@item.Key.Image.Extension" title="@item.Key.Name" />
+                </div>
+                <div class="col-sm-9">
+                    <div class="row">
+                        @foreach (var _item in item.Value)
+                        {
+                            <div class="col-md-4 col-sm-6">
+                                <a asp-action="index" asp-controller="product" asp-route-key="@_item.Id">
+                                    <img class="img-fluid" title="@_item.Model" src="@_item.FeatureImage.Id.@_item.FeatureImage.Extension" />
+                                    <div class="text-center font-weight-bold">@_item.Model</div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>

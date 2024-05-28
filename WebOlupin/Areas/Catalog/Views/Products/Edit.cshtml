@@ -71,7 +71,23 @@
     @Html.HiddenFor(model => model.FeatureImageId)
 
     <div class="card mb-4">
-        <div class="card-header"><h5 class="mb-0 font-weight-bold text-primary">@TITLE</h5></div>
+        <div class="card-header">
+            <h5 class="font-weight-bold text-primary">@TITLE</h5>
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Generals</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("EditAttributes", @Model.Id)">Attributes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("EditFeatures", @Model.Id)">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("EditImages", @Model.Id)">Images</a>
+                </li>
+            </ul>
+        </div>
 
         <div class="card-body">
             <div class="row">

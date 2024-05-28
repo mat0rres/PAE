@@ -1,25 +1,78 @@
-﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend.HomeIndexViewModel
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend.BrandIndexViewModel
 
-@{ 
+@{
+    ViewData["Title"] = Model.Brand.Name;
+
     Layout = "_FrontendLayout";
 }
 
 <div class="ahead-picture" style="background-image: url('/img/home-ahead-picture.jpg')"></div>
 
 <div class="container">
-    @if (Model.BrandPromotions.Length > 0)
+    <div class="text-center my-5">
+        <h1 class="display-4">Marcas</h1>
+    </div>
+
+    @if (Model.Brand.IsFavorite)
     {
-        foreach (var item in Model.BrandPromotions)
-        {
-            <div class="jumbotron text-center bg-white">
-                <img style="max-width: 400px;" src="/media/images/@item.Brand.Image.Id.@item.Brand.Image.Extension" title="@item.Brand.Name" />
-                <h1 class="my-4">@item.Title</h1>
-                <img class="img-fluid" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" title="@item.Brand.Name" />
-                <a class="btn btn-primary btn-lg mt-4" href="#">Conocer más</a>
+        <div class="jumbotron bg-white">
+            <div class="text-center mb-5">
+                <img style="max-width: 400px;" src="/media/images/@Model.Brand.Image.Id.@Model.Brand.Image.Extension" title="@Model.Brand.Name" />
+                @if (!string.IsNullOrEmpty(Model.Brand.PromotionalSlogan))
+                {
+                    <h1 class="my-4">@Model.Brand.PromotionalSlogan</h1>
+                }
+                @if (!string.IsNullOrEmpty(Model.Brand.Description))
+                {
+                    <p>@Html.Raw(Model.Brand.Description)</p>
+                }
             </div>
-        }
-
-        <hr />
+            @if (Model.Products.Length <= 0)
+            {
+                <div class="text-muted text-center">Sin productos disponibles</div>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var item in Model.Products)
+                    {
+                        <div class="col-md-4 col-sm-6 text-center">
+                            <a asp-action="index" asp-controller="product" asp-route-key="@item.Id">
+                                <img style="max-height: 280px;" title="@item.Model" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" />
+                                <div class="text-center font-weight-bold">@item.Model</div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
     }
-
+    else
+    {
+        <div class="row">
+            <div class="col-sm-3">
+                <img class="img-fluid" src="/media/images/@Model.Brand.Image.Id.@Model.Brand.Image.Extension" title="@Model.Brand.Name" />
+            </div>
+            <div class="col-sm-9">
+                @if (Model.Products.Length <= 0)
+                {
+                    <div class="text-muted">Sin productos disponibles</div>
+                }
+                else
+                {
+                    <div class="row">
+                        @foreach (var item in Model.Products)
+                        {
+                            <div class="col-md-4 col-sm-6">
+                                <a asp-action="index" asp-controller="product" asp-route-key="@item.Id">
+                                    <img class="img-fluid" title="@item.Model" src="@item.FeatureImage.Id.@item.FeatureImage.Extension" />
+                                    <div class="text-center font-weight-bold">@item.Model</div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
 </div>

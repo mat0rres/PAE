@@ -1,0 +1,183 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.ProductCustomAttributesManagementViewModel
+
+@{
+    const string TITLE = "Modify Product (Attributes)";
+    const string HEADER = "Product's management";
+
+    ViewData["TITLE"] = TITLE;
+    ViewData["HEADER"] = HEADER;
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<i class=\"fas fa-fw fa-tachometer-alt\"></i> " + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = Url.Action("Index", "Dashboard", new { Area = "management" })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = HEADER,
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = TITLE
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+@section styles {
+    <link rel="stylesheet" href="~/vendor/bootstrap-combobox/css/bootstrap-combobox.css" />
+    <style type="text/css">
+        .dropdown-toggle {
+            border-radius: 0.25rem;
+            border: 1px solid #ced4da;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            margin-left: -1px;
+            line-height: 36px;
+        }
+
+        .dropdown-toggle::after {
+            margin: 0 5px;
+        }
+
+        ul.dropdown-menu{
+            width: 100%;
+        }
+    </style>
+}
+
+@section scripts {
+    <script src="~/vendor/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+
+    <script type="text/javascript">
+        $('#customAttributeId').combobox();
+    </script>
+
+}
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="font-weight-bold text-primary">Modify Product</h5>
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("edit", @Model.Product.Id)">Generals</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Attributes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("EditFeatures", @Model.Product.Id)">Features</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("EditImages", @Model.Product.Id)">Images</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body pb-2">
+        <div class="alert alert-dark mb-4">
+            <details>
+                <summary class="h4 mb-0">@Model.Product.Brand.Name @Model.Product.Model</summary>
+            </details>
+        </div>
+        <div class="modal fade" id="add-item" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="add-item-title">Specify Attribute</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @using (Html.BeginForm("addattribute", "products", new { key = Model.Product.Id }, FormMethod.Post, true, null))
+                    {
+                        <div class="modal-body">
+                            @if (Model.AvailableCustomAttributeSelectListItems.Length > 0)
+                            {
+                                <div class="mb-3">
+                                    @Html.Label("customAttributeId", "Attribute")
+                                    @Html.DropDownList("customAttributeId", Model.AvailableCustomAttributeSelectListItems, "Search and pick here ...", new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    @Html.Label("value", "Value")
+                                    @Html.TextBox("value", null, new { @class = "form-control" })
+                                </div>
+                            }else{
+                                <div class="text-muted font-italic mb-0">No more custome attribute available!</div>
+                            }
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-3" style="border: 1px solid #DDD; border-radius: 4px;">
+            <table class="table table-bordered table-striped m-0">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Value</th>
+                        <th class="fit">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Items.Length > 0)
+                    {
+                        foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td style="vertical-align: middle;" title="Attribute">@item.CustomAttributeName</td>
+                                <td style="vertical-align: middle;" title="Value">@item.Value</td>
+                                <td class="fit" style="vertical-align: middle;">
+                                    <div class="btn-group btn-group-sm">
+                                        <a role="button" href="@Url.Action("edit", new { key = item.CustomAttributeId })" class="btn btn-light" title="Modify"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Edit</span></a>
+                                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.CustomAttributeId"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Remove</span></button>
+                                    </div>
+                                    <div class="modal fade" id="delete-@item.CustomAttributeId" tabindex="-1" role="dialog" aria-labelledby="delete-@item.CustomAttributeId-lable" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            @using (Html.BeginForm("deleteattribute", "products", new { Area = "catalog" }, FormMethod.Post, true, new { @class = "modal-content" }))
+                                            {
+                                                @Html.Hidden("customAttributeId", item.CustomAttributeId)
+
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.CustomAttributeId-lable">Remove custom attribute</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="mb-0">Are you shure do you want to remove selected product custom attribute?</p>
+                                                </div>
+                                                <div class="modal-footer" style="margin-top: 0;">
+                                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4"><p style="margin: 0 5px;" class="text-muted">No items to show</p></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#add-item">Add</a>
+        <a class="btn btn-secondary" href="@Url.Action("index")">Back to list</a>
+    </div>
+</div>
+
+

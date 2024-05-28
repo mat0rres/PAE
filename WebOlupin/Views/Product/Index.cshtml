@@ -1,0 +1,61 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend.ProductDetailViewModel
+
+@{
+    ViewData["Title"] = string.Format("{0} {1}", Model.Product.Brand.Name, Model.Product.Model);
+
+    Layout = "_FrontendLayout";
+}
+
+<div class="ahead-picture" style="background-image: url('/img/home-ahead-picture.jpg')"></div>
+
+<div class="container">
+    <div class="text-center my-5">
+        @if (!string.IsNullOrEmpty(Model.Referer))
+        {
+            <a class="btn btn-light float-left" href="@Model.Referer">Regresar</a>
+        }
+        <h1 class="display-4">Producto</h1>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <img class="img-fluid" title="@Model.Product.Model" src="/media/images/@Model.Product.FeatureImage.Id.@Model.Product.FeatureImage.Extension" />
+        </div>
+        <div class="col-md-5">
+            <h1 class="display-3 mb-4">@Model.Product.Model</h1>
+
+            <div class="my-4">
+                @foreach (var item in Model.Attributes)
+                {
+                    <div><span class="font-weight-bold">@item.CustomAttributeName</span> @item.Value</div>
+                }
+            </div>
+
+            <div class="mb-4">
+                <h5>Caracter&iacute;sticas:</h5>
+
+                <ul>
+                    @foreach (var item in Model.Features)
+                    {
+                        <li>@item.Description</li>
+                    }
+                </ul>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.Product.Description))
+            {
+                <p>@Html.Raw(Model.Product.Description)</p>
+            }
+        </div>
+        <div class="col-md-3">
+            <img class="img-fluid mb-2" title="@Model.Product.Brand.Name" src="/media/images/@Model.Product.Brand.Image.Id.@Model.Product.Brand.Image.Extension" />
+
+            @foreach (var item in Model.ExtraImages)
+            {
+                <img class="img-fluid img-thumbnail mt-3" title="@Model.Product.Model" src="/media/images/@item.Id.@item.Extension" />
+            }
+        </div>
+    </div>
+</div>

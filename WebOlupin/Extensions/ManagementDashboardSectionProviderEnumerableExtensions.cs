@@ -30,7 +30,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
             {
                 new ManagementDashboardSectionViewModel
                 {
-                    Title = "Bloques de Texto",
+                    Title = "Text Blocks",
                     Controller = "richtextblocks",
                     Action= "index",
                     Area = "site",
@@ -46,7 +46,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                 },
                 new ManagementDashboardSectionViewModel
                 {
-                    Title = "Promociones",
+                    Title = "Promotions",
                     Controller = "brandpromotions",
                     Action = "index",
                     Area = "site",
@@ -54,7 +54,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                 },
                 new ManagementDashboardSectionViewModel
                 {
-                    Title = "Ofertas de Soporte",
+                    Title = "Support Offers",
                     Controller = "brandsupportoffers",
                     Action = "index",
                     Area = "site",
@@ -62,7 +62,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                 },
                 new ManagementDashboardSectionViewModel
                 {
-                    Title = "Noticias",
+                    Title = "News",
                     Controller = "posts",
                     Action = "index",
                     Area = "site",
@@ -70,7 +70,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                 },
                 new ManagementDashboardSectionViewModel
                 {
-                    Title = "Representantes",
+                    Title = "Representatives",
                     Controller = "representatives",
                     Action = "index",
                     Area = "site",

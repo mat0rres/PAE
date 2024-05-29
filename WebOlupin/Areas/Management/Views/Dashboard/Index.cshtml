@@ -10,12 +10,109 @@
 }
 
 @section styles {
+    <link rel="stylesheet" href="~/vendor/apexcharts/apexcharts.css" />
+
     <style type="text/css">
         .card .fas {
             font-size: 32px;
         }
     </style>
 }
+
+@section scripts {
+    <script type="text/javascript" src="~/vendor/apexcharts/apexcharts.min.js"></script>
+
+    <script type="text/javascript">
+        var userActivityLastDaysOptions = {
+            series: [{
+                name: 'Visitors',
+                data: [31, 40, 28, 51, 42, 109, 100]
+            }],
+            chart: {
+                height: 350,
+                type: 'area'
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                type: 'int',
+                categories: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+            }
+        };
+
+        var userActivityLastDaysChart = new ApexCharts(document.querySelector("#user-activity-last-days-chart"), userActivityLastDaysOptions);
+
+        userActivityLastDaysChart.render();
+
+        var userActivityBySectionOptions = {
+            series: [320, 350, 620, 120, 90, 480],
+            labels: ['About', 'Services', 'Products', 'Category', 'Category', 'Brand'],
+            chart: {
+                type: 'polarArea',
+            },
+            stroke: {
+                colors: ['#fff']
+            },
+            fill: {
+                opacity: 0.8
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+
+        var userActivityBySectionChart = new ApexCharts(document.querySelector("#user-activity-by-section-chart"), userActivityBySectionOptions);
+
+        userActivityBySectionChart.render();
+    </script>
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-lg mb-4">
+            <div class="card-header">
+                <h5 class="font-weight-bold text-primary">User Activity</h5>
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Last days</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Last Month</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Semester</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">This Year</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div id="user-activity-last-days-chart" style="min-height: 400px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-lg mb-4">
+            <div class="card-header"><h5 class="font-weight-bold text-primary mb-0">Visits to sections</h5></div>
+            <div class="card-body">
+                <div id="user-activity-by-section-chart" style="min-height: 400px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="management-sections" class="row">
     <div class="col-sm-6">

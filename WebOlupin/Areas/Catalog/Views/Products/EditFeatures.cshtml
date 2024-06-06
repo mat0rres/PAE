@@ -95,7 +95,7 @@
                                 <td style="vertical-align: middle;" title="Description">@item.Description</td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
-                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-light" title="Modify"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Edit</span></a>
+                                        <a role="button" href="@Url.Action("editfeature", new { key = item.Id })" class="btn btn-light" title="Modify"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Edit</span></a>
                                         <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Remove</span></button>
                                     </div>
                                     <div class="modal fade" id="delete-@item.Id" tabindex="-1" role="dialog" aria-labelledby="delete-@item.Id-lable" aria-hidden="true">

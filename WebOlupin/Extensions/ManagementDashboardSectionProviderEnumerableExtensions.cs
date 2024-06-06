@@ -30,6 +30,14 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
             {
                 new ManagementDashboardSectionViewModel
                 {
+                    Title = "Page Headers",
+                    Controller = "pageheaders",
+                    Action= "index",
+                    Area = "site",
+                    Role = Constants.Authorization.PageHeaderViewerPermission
+                },
+                new ManagementDashboardSectionViewModel
+                {
                     Title = "Text Blocks",
                     Controller = "richtextblocks",
                     Action= "index",

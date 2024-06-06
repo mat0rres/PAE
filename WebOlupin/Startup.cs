@@ -50,14 +50,15 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin
             services.AddScoped<IEntityRepository<Brand, System.Guid>, BrandRepository>();
             services.AddScoped<IEntityRepository<BrandPromotion, System.Guid>, BrandPromotionRepository>();
             services.AddScoped<IEntityRepository<BrandSupportOffer, System.Guid>, BrandSupportOfferRepository>();
-            services.AddScoped<IEntityRepository<RichTextBlock, RichTextBlockKind>, RichTextBlockRepository>();
+            services.AddScoped<IEntityRepository<RichTextBlock, RichTextBlockId>, RichTextBlockRepository>();
             services.AddScoped<IEntityRepository<Post, long>, PostRepository>();
-            services.AddScoped<IEntityRepository<SectionView, long>, SectionViewRepository>();
+            services.AddScoped<IEntityRepository<PageVisit, long>, PageVisitRepository>();
             services.AddScoped<IEntityRepository<Service, System.Guid>, ServiceRepository>();
             services.AddScoped<IEntityRepository<Product, System.Guid>, ProductRepository>();
             services.AddScoped<IEntityRepository<ShowcaseItem, System.Guid>, ShowcaseItemRepository>();
             services.AddScoped<IEntityRepository<Representative, System.Guid>, RepresentativeRepository>();
             services.AddScoped<IEntityRepository<CustomAttribute, System.Guid>, CustomAttributeRepository>();
+            services.AddScoped<IEntityRepository<PageHeader, PageId>, PageHeaderRepository>();
 
             services.AddSingleton<Framework.Guama.Core.Persistence.ORM.EF.Providers.Facade.IDbSchemaConfigurationProviderFacade, Persistence.ORM.EF.DbSchemaConfigurationProvider>();
 

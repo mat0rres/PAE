@@ -1,6 +1,6 @@
 ﻿namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend
 {
-    public class BrandIndexViewModel
+    public class BrandIndexViewModel : Contract.AbstractFrontendPageViewModel
     {
         public BrandDisplayViewModel Brand {  get; set; }
 

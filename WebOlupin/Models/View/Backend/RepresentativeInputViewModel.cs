@@ -18,7 +18,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "RequiredValidationErrorMessage")]
-        [FormFileContentTypes(ContentTypes = ["image/png", "image/jpeg"], ErrorMessage = "PNG_JPEG_FileAllowedOnlyMessage")]
+        [FormFileContentTypes(ContentTypes = new string[] { "image/png", "image/jpeg" }, ErrorMessage = "PNG_JPEG_FileAllowedOnlyMessage")]
         [Display(Name = "ImageFile")]
         public Microsoft.AspNetCore.Http.IFormFile ImageFile { get; set; }
 

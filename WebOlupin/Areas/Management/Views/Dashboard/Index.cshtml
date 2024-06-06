@@ -25,8 +25,8 @@
     <script type="text/javascript">
         var userActivityLastDaysOptions = {
             series: [{
-                name: 'Visitors',
-                data: [31, 40, 28, 51, 42, 109, 100]
+                name: 'Views',
+                data: @Newtonsoft.Json.JsonConvert.SerializeObject(Model.WeekUserActivity.Select(_item => _item.Value).ToArray())
             }],
             chart: {
                 height: 350,
@@ -40,7 +40,7 @@
             },
             xaxis: {
                 type: 'int',
-                categories: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+                categories: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.WeekUserActivity.Select(_item => _item.Key.ToString()).ToArray()))
             }
         };
 
@@ -49,8 +49,8 @@
         userActivityLastDaysChart.render();
 
         var userActivityBySectionOptions = {
-            series: [320, 350, 620, 120, 90, 480],
-            labels: ['About', 'Services', 'Products', 'Category', 'Category', 'Brand'],
+            series: @Newtonsoft.Json.JsonConvert.SerializeObject(Model.VisitsBySection),
+            labels: ['About', 'News', 'Services', 'Products', 'Category', 'Brand', 'Contact'],
             chart: {
                 type: 'polarArea',
             },
@@ -106,7 +106,7 @@
     </div>
     <div class="col-md-4">
         <div class="card shadow-lg mb-4">
-            <div class="card-header"><h5 class="font-weight-bold text-primary mb-0">Visits to sections</h5></div>
+            <div class="card-header"><h5 class="font-weight-bold text-primary mb-0">Visits by section</h5></div>
             <div class="card-body">
                 <div id="user-activity-by-section-chart" style="min-height: 400px;"></div>
             </div>

@@ -1165,6 +1165,61 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                     b.ToTable("customattributes");
                 });
 
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.PageHeader", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("imageid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_pageheaders");
+
+                    b.HasIndex("ImageId")
+                        .HasDatabaseName("ix_pageheaders_imageid");
+
+                    b.ToTable("pageheaders");
+                });
+
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.PageVisit", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Carrier")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("carrier");
+
+                    b.Property<string>("Context")
+                        .HasColumnType("text")
+                        .HasColumnName("context");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("createdat");
+
+                    b.Property<string>("NetworkIdentifier")
+                        .HasColumnType("text")
+                        .HasColumnName("networkidentifier");
+
+                    b.Property<int>("PageId")
+                        .HasColumnType("integer")
+                        .HasColumnName("pageid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_pagevisits");
+
+                    b.ToTable("pagevisits");
+                });
+
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Post", b =>
                 {
                     b.Property<long>("Id")
@@ -1409,42 +1464,6 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasName("pk_richtextblocks");
 
                     b.ToTable("richtextblocks");
-                });
-
-            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.SectionView", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Carrier")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("carrier");
-
-                    b.Property<string>("Context")
-                        .HasColumnType("text")
-                        .HasColumnName("context");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("createdat");
-
-                    b.Property<string>("NetworkIdentifier")
-                        .HasColumnType("text")
-                        .HasColumnName("networkidentifier");
-
-                    b.Property<int>("SectionKind")
-                        .HasColumnType("integer")
-                        .HasColumnName("sectionkind");
-
-                    b.HasKey("Id")
-                        .HasName("pk_sectionviews");
-
-                    b.ToTable("sectionviews");
                 });
 
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Service", b =>
@@ -2013,6 +2032,18 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasConstraintName("fk_categories_categories_parentid");
 
                     b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.PageHeader", b =>
+                {
+                    b.HasOne("MOROPO.Framework.Guama.Media.Persistence.Entities.Image", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_pageheaders_images_imageid");
+
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Post", b =>

@@ -6,7 +6,14 @@
     Layout = "_FrontendLayout";
 }
 
-<div class="ahead-picture" style="background-image: url('/img/home-ahead-picture.jpg')"></div>
+@if (Model.Header != null)
+{
+    <div class="ahead-picture" style="background-image: url('/media/images/@Model.Header.Image.Id.@Model.Header.Image.Extension')"></div>
+}
+else
+{
+    <div class="ahead-picture" style="background-image: url('/img/home-ahead-picture.jpg')"></div>
+}
 
 <div class="container">
     <div class="text-center my-5">

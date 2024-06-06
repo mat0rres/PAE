@@ -73,10 +73,11 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductCustomAttributeBridge> ProductCustomAttributeBridges { get; set; }
         public DbSet<ProductImageBridge> ProductImageBridges { get; set; }
-        public DbSet<SectionView> SectionViews { get; set; }
+        public DbSet<PageVisit> PageVisits { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<ShowcaseItem> ShowcaseItems { get; set; }
         public DbSet<BrandSupportOffer> BrandSupportOffers { get; set; }
         public DbSet<Representative> Representatives { get; set; }
+        public DbSet<PageHeader> PageHeaders { get; set; }
     }
 }

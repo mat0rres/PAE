@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MOROPO.Framework.Guama.Core.Persistence.Repositories;
+using MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities;
 using MOROPO.PremierAutomotiveExport.WebOlupin.Extensions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend
 {
@@ -14,17 +17,43 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend
     public class DashboardController : Framework.Guama.Core.Presentation.Web.Common.Controllers.BaseWebController
     {
         private readonly IEnumerable<Framework.Guama.Core.Presentation.Web.Backend.Providers.Facade.IManagementDashboardSectionProviderFacade> managementDashboardSectionProviders;
+        private readonly IEntityRepository<PageVisit, long> pageVisitRepository;
 
-        public DashboardController(IEnumerable<Framework.Guama.Core.Presentation.Web.Backend.Providers.Facade.IManagementDashboardSectionProviderFacade> managementDashboardSectionProviders, Microsoft.Extensions.Localization.IStringLocalizer<DashboardController> localizer, ILogger<DashboardController> logger) : base(localizer, logger)
+        public DashboardController(IEntityRepository<PageVisit, long> pageVisitRepository, IEnumerable<Framework.Guama.Core.Presentation.Web.Backend.Providers.Facade.IManagementDashboardSectionProviderFacade> managementDashboardSectionProviders, Microsoft.Extensions.Localization.IStringLocalizer<DashboardController> localizer, ILogger<DashboardController> logger) : base(localizer, logger)
         {
             this.managementDashboardSectionProviders = managementDashboardSectionProviders;
+            this.pageVisitRepository = pageVisitRepository;
         }
 
         public IActionResult Index()
         {
+            var now = System.DateTime.Now;
+
+            var weekPageVisit = pageVisitRepository.FindBy(_entity => _entity.CreatedAt > now.AddDays(-5)).ToArray();
+
             var model = new Models.View.Backend.HomeViewModel
             {
-                Sections = managementDashboardSectionProviders.ToManagementDashboardSectionGroups()
+                Sections = managementDashboardSectionProviders.ToManagementDashboardSectionGroups(),
+                VisitsBySection =
+                [
+                    pageVisitRepository.Count(_entity => _entity.PageId == PremierAutomotiveExport.Persistence.Domain.Enumerations.PageId.About),
+                    pageVisitRepository.Count(_entity => _entity.PageId == PremierAutomotiveExport.Persistence.Domain.Enumerations.PageId.News),
+                    pageVisitRepository.Count(_entity => _entity.PageId == PremierAutomotiveExport.Persistence.Domain.Enumerations.PageId.Services),
+                    pageVisitRepository.Count(_entity => _entity.PageId == PremierAutomotiveExport.Persistence.Domain.Enumerations.PageId.Product),
+                    pageVisitRepository.Count(_entity => _entity.PageId == PremierAutomotiveExport.Persistence.Domain.Enumerations.PageId.Category),
+                    pageVisitRepository.Count(_entity => _entity.PageId == PremierAutomotiveExport.Persistence.Domain.Enumerations.PageId.Brand),
+                    pageVisitRepository.Count(_entity => _entity.PageId == PremierAutomotiveExport.Persistence.Domain.Enumerations.PageId.Contact)
+                ],
+                WeekUserActivity =
+                [
+                    new KeyValuePair<System.DayOfWeek,long>(now.DayOfWeek, weekPageVisit.LongCount(_entity => _entity.CreatedAt.Day == now.Day)),
+                    new KeyValuePair<System.DayOfWeek,long>(now.AddDays(-1).DayOfWeek, weekPageVisit.LongCount(_entity => _entity.CreatedAt.Day == now.Day - 1)),
+                    new KeyValuePair<System.DayOfWeek,long>(now.AddDays(-2).DayOfWeek, weekPageVisit.LongCount(_entity => _entity.CreatedAt.Day == now.Day - 2)),
+                    new KeyValuePair<System.DayOfWeek,long>(now.AddDays(-3).DayOfWeek, weekPageVisit.LongCount(_entity => _entity.CreatedAt.Day == now.Day - 3)),
+                    new KeyValuePair<System.DayOfWeek,long>(now.AddDays(-4).DayOfWeek, weekPageVisit.LongCount(_entity => _entity.CreatedAt.Day == now.Day - 4)),
+                    new KeyValuePair<System.DayOfWeek,long>(now.AddDays(-5).DayOfWeek, weekPageVisit.LongCount(_entity => _entity.CreatedAt.Day == now.Day - 5)),
+                    new KeyValuePair<System.DayOfWeek,long>(now.AddDays(-6).DayOfWeek, weekPageVisit.LongCount(_entity => _entity.CreatedAt.Day == now.Day - 6))
+                ]
             };
 
             return View(model);

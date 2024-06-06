@@ -1,9 +1,9 @@
 ﻿namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
 {
-    public class RichTextBlockInputViewModel : Framework.Guama.Core.Persistence.Presentation.Models.Contract.IEntityInputModel<PremierAutomotiveExport.Persistence.Domain.Entities.RichTextBlock, PremierAutomotiveExport.Persistence.Domain.Enumerations.RichTextBlockKind>
+    public class RichTextBlockInputViewModel : Framework.Guama.Core.Persistence.Presentation.Models.Contract.IEntityInputModel<PremierAutomotiveExport.Persistence.Domain.Entities.RichTextBlock, PremierAutomotiveExport.Persistence.Domain.Enumerations.RichTextBlockId>
     {
         [System.ComponentModel.DataAnnotations.Display(Name = "Id")]
-        public PremierAutomotiveExport.Persistence.Domain.Enumerations.RichTextBlockKind Id { get; set; }
+        public PremierAutomotiveExport.Persistence.Domain.Enumerations.RichTextBlockId Id { get; set; }
 
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.Display(Name = "Content")]

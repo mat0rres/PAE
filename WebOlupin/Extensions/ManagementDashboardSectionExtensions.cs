@@ -12,7 +12,9 @@
 
             if (target.Controller == "richtextblocks") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-align-justify");
 
-            if (target.Controller == "showcaseitems") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-image");
+            if (target.Controller == "pageheaders") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-image");
+
+            if (target.Controller == "showcaseitems") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-file-image");
 
             if (target.Controller == "brandpromotions") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-flag");
 
@@ -27,6 +29,8 @@
             if (target.Controller == "categories") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-tags");
 
             if (target.Controller == "brands") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-certificate");
+
+            if (target.Controller == "representatives") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-id-badge");
 
             return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-cog");
         }

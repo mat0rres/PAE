@@ -2,7 +2,7 @@
 
 namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend
 {
-    public class CategoryIndexViewModel
+    public class CategoryIndexViewModel : Contract.AbstractFrontendPageViewModel
     {
         public CategoryDisplayViewModel Category {  get; set; }
 

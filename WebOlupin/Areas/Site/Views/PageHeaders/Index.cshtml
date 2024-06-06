@@ -1,0 +1,179 @@
+﻿@model MOROPO.Framework.Guama.Core.Presentation.Web.Frontend.Models.View.PaginationViewModel<MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.PageHeader, MOROPO.PremierAutomotiveExport.Persistence.Domain.Enumerations.PageId, MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.PageHeaderDisplayViewModel>
+
+@{
+    const string HEADER = "Page Header's Management";
+
+    ViewData["TITLE"] = ViewData["HEADER"] = HEADER;
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<i class=\"fas fa-fw fa-tachometer-alt\"></i> " + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = Url.Action("Index", "Dashboard", new { Area = "management" })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = HEADER
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+<hr class="mt-0 mb-4" />
+
+<a class="btn btn-primary float-right" href="@Url.Action("create")"><span class="fas fa-fw fa-plus"></span> Create</a>
+
+<div class="clearfix mb-3"></div>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="m-0 font-weight-bold text-primary">Page Header's list</h5>
+    </div>
+    <div class="card-body">
+        @if (Model.HasNext || Model.HasPrevious)
+        {
+            var paginationStart = (Model.Page - 1) * Model.Limit + 1;
+            var paginationEnd = paginationStart - 1 + Model.List.Count;
+
+            <div class="row">
+                <div class="col mb-2">
+                    <span style="font-weight: 600;">Mostrando página @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total de páginas</span>: @Model.MaxPageCount
+                </div>
+                <div class="col-auto mb-2">
+                    <ul class="pagination">
+                        @if (Model.HasPrevious)
+                        {
+                            <li class="page-item"><a class="page-link" href="@Url.Action(Model.Action, new Microsoft.AspNetCore.Routing.RouteValueDictionary(Model.RouteValues) {{"sheet", Model.Page - 1}})">&laquo;</a></li>
+                        }
+                        else
+                        {
+                            <li class="disabled page-item"><a class="page-link" href="#">&laquo;</a></li>
+                        }
+
+                        @if (Model.MaxPageCount > 5)
+                        {
+                            if (Model.Page > 3)
+                            {
+                                if (Model.MaxPageCount - Model.Page < 3)
+                                {
+                                    for (var i = Model.MaxPageCount - 4; i <= Model.MaxPageCount; i++)
+                                    {
+                                        if (i == Model.Page)
+                                        {
+                                            <li class="active page-item"><a class="page-link" href="#">@i <span class="sr-only">(current)</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item"><a class="page-link" href="@Url.Action(Model.Action, new Microsoft.AspNetCore.Routing.RouteValueDictionary(Model.RouteValues) {{"sheet", i}})">@i</a></li>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (var i = Model.Page - 2; i <= Model.Page + 2; i++)
+                                    {
+                                        if (i == Model.Page)
+                                        {
+                                            <li class="active page-item"><a class="page-link" href="#">@i <span class="sr-only">(current)</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item"><a class="page-link" href="@Url.Action(Model.Action, new Microsoft.AspNetCore.Routing.RouteValueDictionary(Model.RouteValues) {{"sheet", i}})">@i</a></li>
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for (var i = 1; i <= 5; i++)
+                                {
+                                    if (i == Model.Page)
+                                    {
+                                        <li class="active page-item"><a class="page-link" href="#">@i <span class="sr-only">(current)</span></a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="page-item"><a class="page-link" href="@Url.Action(Model.Action, new Microsoft.AspNetCore.Routing.RouteValueDictionary(Model.RouteValues) {{"sheet", i}})">@i</a></li>
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (var i = 1; i <= Model.MaxPageCount; i++)
+                            {
+                                if (i == Model.Page)
+                                {
+                                    <li class="active page-item"><a class="page-link" href="#">@i <span class="sr-only">(current)</span></a></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a class="page-link" href="@Url.Action(Model.Action, new Microsoft.AspNetCore.Routing.RouteValueDictionary(Model.RouteValues) {{"sheet", i}})">@i</a></li>
+                                }
+                            }
+                        }
+
+                        @if (Model.HasNext)
+                        {
+                            <li class="page-item"><a class="page-link" href="@Url.Action(Model.Action, new Microsoft.AspNetCore.Routing.RouteValueDictionary(Model.RouteValues) {{"sheet", Model.Page + 1}})">&raquo;</a></li>
+                        }
+                        else
+                        {
+                            <li class="disabled page-item"><a class="page-link" href="#">&raquo;</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    
+        <div class="row">
+            @if (Model.List.Count <= 0)
+            {
+                <p class="mb-0 text-muted">No items to show.</p>
+            }
+            else
+            {
+                @foreach (var item in Model.List)
+                {
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-img-top">
+                                <img class="img-fluid" title="@item.Id" src="/media/images/@item.Image.Id.@item.Image.Extension" />
+                            </div>
+                            <div class="card-footer">
+                                <h3 class="mb-0 float-left">@item.Id.ToString()</h3>
+                                <div class="float-right">
+                                    <a asp-action="edit" asp-controller="pageheaders" asp-area="site" asp-route-key="@item.Id" class="btn btn-secondary"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modify</span></a>
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Remove</span></button>
+                                    <div class="modal fade" id="delete-@item.Id" tabindex="-1" role="dialog" aria-labelledby="delete-@item.Id-lable" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            @using (Html.BeginForm("delete", "pageheaders", new { Area = "site" }, FormMethod.Post, true, new { @class = "modal-content" }))
+                                            {
+                                                @Html.Hidden("Id", item.Id)
+
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Remove Page Header</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p class="mb-0">Are you shure to remove selected page header?</p>
+                                                </div>
+                                                <div class="modal-footer" style="margin-top: 0;">
+                                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

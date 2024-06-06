@@ -1,6 +1,6 @@
 ﻿namespace MOROPO.PremierAutomotiveExport.Persistence.Domain.Enumerations
 {
-    public enum RichTextBlockKind
+    public enum RichTextBlockId
     {
         Contact,
         About

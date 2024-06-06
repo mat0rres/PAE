@@ -2,7 +2,7 @@
 
 namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend
 {
-    public class HomeIndexViewModel
+    public class HomeIndexViewModel : Contract.AbstractFrontendPageViewModel
     {
         public BrandPromotionDisplayViewModel[] BrandPromotions { get; set; }
 

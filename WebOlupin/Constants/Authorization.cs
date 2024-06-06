@@ -124,5 +124,16 @@
         public const string CustomAttributeRemoverPermission = "custom-attribute-remover-permission";
 
         #endregion
+
+        #region PageHeader
+
+        public const string PageHeaderManagementPermissionGroup = "page-header-management-permission-group";
+
+        public const string PageHeaderViewerPermission = "page-header-viewer-permission";
+        public const string PageHeaderCreatorPermission = "page-header-creator-permission";
+        public const string PageHeaderEditorPermission = "page-header-editor-permission";
+        public const string PageHeaderRemoverPermission = "page-header-remover-permission";
+
+        #endregion
     }
 }

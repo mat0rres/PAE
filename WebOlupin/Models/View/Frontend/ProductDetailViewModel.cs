@@ -1,6 +1,6 @@
 ﻿namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend
 {
-    public class ProductDetailViewModel
+    public class ProductDetailViewModel : Contract.AbstractFrontendPageViewModel
     {
         public ProductDisplayViewModel Product {  get; set; }
 

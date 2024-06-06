@@ -1,5 +1,6 @@
 ﻿using MOROPO.Framework.Guama.Core.Persistence.Repositories;
 using MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities;
+using MOROPO.PremierAutomotiveExport.Persistence.Domain.Enumerations;
 using MOROPO.PremierAutomotiveExport.WebOlupin.Models.View;
 using MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend;
 using System.Linq;
@@ -12,23 +13,47 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
         private readonly IEntityRepository<Category, int> categoryRepository;
         private readonly IEntityRepository<Brand, System.Guid> brandRepository;
         private readonly IEntityRepository<Product, System.Guid> productRepository;
+        private readonly IEntityRepository<PageHeader, PageId> pageHeaderRepository;
+        private readonly IEntityRepository<PageVisit, long> pageVisitRepository;
 
-        public CategoryController(IEntityRepository<Product, System.Guid> productRepository, IEntityRepository<Brand, System.Guid> brandRepository, IEntityRepository<Category, int> categoryRepository)
+        public CategoryController(IEntityRepository<PageVisit, long> pageVisitRepository, IEntityRepository<PageHeader, PageId> pageHeaderRepository, IEntityRepository<Product, System.Guid> productRepository, IEntityRepository<Brand, System.Guid> brandRepository, IEntityRepository<Category, int> categoryRepository)
         {
             this.categoryRepository = categoryRepository;
             this.brandRepository = brandRepository;
             this.productRepository = productRepository;
+            this.pageHeaderRepository = pageHeaderRepository;
+            this.pageVisitRepository = pageVisitRepository;
         }
 
         [Microsoft.AspNetCore.Mvc.Route("{key}")]
         public Microsoft.AspNetCore.Mvc.IActionResult Index(int key)
         {
+            pageVisitRepository.Add(new PageVisit
+            {
+                PageId = PageId.Category,
+                Context = Request.Path,
+                Carrier = Request.Headers.UserAgent,
+                NetworkIdentifier = Request.Headers.Host
+            }, "system");
+
             try
             {
+                PageHeaderDisplayViewModel header = null;
+
+                var headerEntity = pageHeaderRepository.FindOneBy(_entity => _entity.Id == PageId.Category);
+
+                if (headerEntity != null)
+                {
+                    header = new PageHeaderDisplayViewModel();
+
+                    header.Import(headerEntity);
+                }
+
                 var entity = categoryRepository.Get(key);
 
                 var model = new CategoryIndexViewModel
                 {
+                    Header = header,
                     Category = new CategoryDisplayViewModel()
                 };
 

@@ -11,9 +11,9 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Site
     [Microsoft.AspNetCore.Authorization.Authorize]
     [RequirePermissions(Framework.Guama.Core.Security.Presentation.Constants.Permissions.ShellManager)]
     [Area("site")]
-    public class RichTextBlocksController : Framework.Guama.Core.Presentation.Web.Backend.Controllers.AbstractEntityManagementController<RichTextBlock, RichTextBlockKind, RichTextBlockInputViewModel, RichTextBlockDisplayViewModel>
+    public class RichTextBlocksController : Framework.Guama.Core.Presentation.Web.Backend.Controllers.AbstractEntityManagementController<RichTextBlock, RichTextBlockId, RichTextBlockInputViewModel, RichTextBlockDisplayViewModel>
     {
-        public RichTextBlocksController(Framework.Guama.Core.Persistence.Repositories.IEntityRepository<RichTextBlock, RichTextBlockKind> repository, Microsoft.Extensions.Localization.IStringLocalizer<RichTextBlocksController> localizer, ILogger<RichTextBlocksController> logger) : base(repository, localizer, logger)
+        public RichTextBlocksController(Framework.Guama.Core.Persistence.Repositories.IEntityRepository<RichTextBlock, RichTextBlockId> repository, Microsoft.Extensions.Localization.IStringLocalizer<RichTextBlocksController> localizer, ILogger<RichTextBlocksController> logger) : base(repository, localizer, logger)
         {
         }
 
@@ -34,7 +34,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Site
         }
 
         [RequirePermissions(Constants.Authorization.RichTextBlockViewerPermission)]
-        public override IActionResult Edit(RichTextBlockKind key)
+        public override IActionResult Edit(RichTextBlockId key)
         {
             return base.Edit(key);
         }
@@ -45,7 +45,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Site
             return base.Edit(modelInput);
         }
 
-        public override IActionResult Delete(RichTextBlockKind key)
+        public override IActionResult Delete(RichTextBlockId key)
         {
             return NotFound();
         }

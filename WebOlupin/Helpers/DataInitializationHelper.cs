@@ -11,14 +11,14 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Helpers
         {
             var richTextBlockDbSet = dbContext.Set<RichTextBlock>();
 
-            if (!richTextBlockDbSet.Any(entity => entity.Id == RichTextBlockKind.About))
+            if (!richTextBlockDbSet.Any(entity => entity.Id == RichTextBlockId.About))
             {
-                richTextBlockDbSet.Add(new RichTextBlock { Id = RichTextBlockKind.About, Content = "Gubergren no accumsan illum consetetur hendrerit gubergren consequat voluptua facilisis invidunt ut justo diam duis soluta enim nonumy duis amet" });
+                richTextBlockDbSet.Add(new RichTextBlock { Id = RichTextBlockId.About, Content = "Gubergren no accumsan illum consetetur hendrerit gubergren consequat voluptua facilisis invidunt ut justo diam duis soluta enim nonumy duis amet" });
             }
 
-            if (!richTextBlockDbSet.Any(entity => entity.Id == RichTextBlockKind.Contact))
+            if (!richTextBlockDbSet.Any(entity => entity.Id == RichTextBlockId.Contact))
             {
-                richTextBlockDbSet.Add(new RichTextBlock { Id = RichTextBlockKind.Contact, Content = "Gubergren no accumsan illum consetetur hendrerit gubergren consequat voluptua facilisis invidunt ut justo diam duis soluta enim nonumy duis amet" });
+                richTextBlockDbSet.Add(new RichTextBlock { Id = RichTextBlockId.Contact, Content = "Gubergren no accumsan illum consetetur hendrerit gubergren consequat voluptua facilisis invidunt ut justo diam duis soluta enim nonumy duis amet" });
             }
 
             var permissionDbSet = dbContext.Set<Framework.Guama.Core.Security.Common.Persistence.Entities.Permission>();
@@ -255,6 +255,27 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Helpers
             if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.CustomAttributeRemoverPermission)))
             {
                 permissionDbSet.Add(Constants.Authorization.CustomAttributeRemoverPermission.ToPermissionEntity(Constants.Authorization.CustomAttributeManagementPermissionGroup));
+            }
+
+            #endregion
+
+            #region PageHeader
+
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.PageHeaderViewerPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.PageHeaderViewerPermission.ToPermissionEntity(Constants.Authorization.PageHeaderManagementPermissionGroup));
+            }
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.PageHeaderCreatorPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.PageHeaderCreatorPermission.ToPermissionEntity(Constants.Authorization.PageHeaderManagementPermissionGroup));
+            }
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.PageHeaderEditorPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.PageHeaderEditorPermission.ToPermissionEntity(Constants.Authorization.PageHeaderManagementPermissionGroup));
+            }
+            if (!permissionDbSet.Any(item => item.Code.Equals(Constants.Authorization.PageHeaderRemoverPermission)))
+            {
+                permissionDbSet.Add(Constants.Authorization.PageHeaderRemoverPermission.ToPermissionEntity(Constants.Authorization.PageHeaderManagementPermissionGroup));
             }
 
             #endregion

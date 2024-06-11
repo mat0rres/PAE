@@ -51,25 +51,23 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
 
                 var entity = categoryRepository.Get(key);
 
+                var products = productRepository.FindBy(_entity => _entity.Enabled && _entity.CategoryId == entity.Id).ToArray().GroupBy(_entity => _entity.Brand);
+
                 var model = new CategoryIndexViewModel
                 {
                     Header = header,
                     Category = new CategoryDisplayViewModel()
                 };
 
-                var favoriteBrands = brandRepository.FindBy(_entity => _entity.IsFavorite).ToArray();
+                var favoritesByBrand = products.Where(_grouping => _grouping.Key.IsFavorite).ToArray();
 
-                foreach (var item in favoriteBrands)
+                foreach (var grouping in favoritesByBrand)
                 {
-                    var favoriteBrandProducts = productRepository.FindBy(_entity => _entity.BrandId == item.Id && _entity.CategoryId == entity.Id).ToArray();
-
-                    if (favoriteBrandProducts.Length <= 0) continue;
-
                     var _model = new BrandDisplayViewModel();
 
-                    _model.Import(item);
+                    _model.Import(grouping.Key);
 
-                    model.Favorites.Add(new System.Collections.Generic.KeyValuePair<BrandDisplayViewModel, ProductDisplayViewModel[]>(_model, favoriteBrandProducts.Select(__entity =>
+                    model.Favorites.Add(new System.Collections.Generic.KeyValuePair<BrandDisplayViewModel, ProductDisplayViewModel[]>(_model, grouping.Select(__entity =>
                     {
                         var __model = new ProductDisplayViewModel();
 
@@ -79,19 +77,15 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
                     }).ToArray()));
                 }
 
-                var otherBrands = brandRepository.FindBy(_entity => !_entity.IsFavorite).ToArray();
+                var othersByBrands = products.Where(_grouping => !_grouping.Key.IsFavorite).ToArray();
 
-                foreach (var item in otherBrands)
+                foreach (var grouping in othersByBrands)
                 {
-                    var otherBrandProducts = productRepository.FindBy(_entity => _entity.BrandId == item.Id && _entity.CategoryId == entity.Id).ToArray();
-
-                    if (otherBrandProducts.Length <= 0) continue;
-
                     var _model = new BrandDisplayViewModel();
 
-                    _model.Import(item);
+                    _model.Import(grouping.Key);
 
-                    model.Regulars.Add(new System.Collections.Generic.KeyValuePair<BrandDisplayViewModel, ProductDisplayViewModel[]>(_model, otherBrandProducts.Select(__entity =>
+                    model.Regulars.Add(new System.Collections.Generic.KeyValuePair<BrandDisplayViewModel, ProductDisplayViewModel[]>(_model, grouping.Select(__entity =>
                     {
                         var __model = new ProductDisplayViewModel();
 

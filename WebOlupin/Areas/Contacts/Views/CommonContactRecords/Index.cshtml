@@ -133,7 +133,7 @@
                         <th class="fit">&ensp;</th>
                         <th>Name</th>
                         <th>Subject</th>
-                        <th class="fit" style="width: 172px;">At</th>
+                        <th class="fit" style="width: 176px;">At</th>
                         <th class="fit">Options</th>
                     </tr>        
                 </thead>
@@ -153,9 +153,36 @@
                                         <i class="fas fa-fw fa-envelope-open" title="Readed"></i>
                                     }
                                 </td>
-                                <td style="vertical-align: middle;" title="Name">@item.Name</td>
-                                <td style="vertical-align: middle;" title="Subject">@item.Subject</td>
-                                <td class="fit" style="vertical-align: middle; width: 172px;" title="At">@item.CreatedAt</td>
+                                <td style="vertical-align: middle;" title="Name">
+                                    @if (item.ReadAt == null)
+                                    {
+                                        <b>@item.Name</b>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.Name</span>
+                                    }
+                                </td>
+                                <td style="vertical-align: middle;" title="Subject">
+                                    @if (item.ReadAt == null)
+                                    {
+                                        <b>@item.Subject</b>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.Subject</span>
+                                    }
+                                </td>
+                                <td class="fit" style="vertical-align: middle; width: 176px;" title="At">
+                                    @if (item.ReadAt == null)
+                                    {
+                                        <b>@item.CreatedAt</b>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.CreatedAt</span>
+                                    }
+                                </td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
                                         <a role="button" asp-action="detail" asp-route-key="@item.Id" class="btn btn-light" title="Detail"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Detail</span></a>

@@ -54,6 +54,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Contacts
         }
 
         [RequirePermissions(Constants.Authorization.CommonContactRecordViewerPermission)]
+        [Route("[action]/{key}")]
         public IActionResult Detail(long key)
         {
             var entity = Repository.Get(key);

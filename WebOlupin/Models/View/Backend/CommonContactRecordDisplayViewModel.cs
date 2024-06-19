@@ -1,4 +1,4 @@
-﻿namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View
+﻿namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
 {
     public class CommonContactRecordDisplayViewModel : Framework.Guama.Core.Persistence.Presentation.Models.Contract.IEntityDisplayModel<PremierAutomotiveExport.Persistence.Domain.Entities.CommonContactRecord, long>
     {

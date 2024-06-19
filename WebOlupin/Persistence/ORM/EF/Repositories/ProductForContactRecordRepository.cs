@@ -13,7 +13,9 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Repositori
 
         protected override IQueryable<ProductForContactRecord> GetQueryableDbSet()
         {
-            return base.GetQueryableDbSet().Include(entity => entity.Product);
+            return base.GetQueryableDbSet()
+                .Include(entity => entity.Product).ThenInclude(entity => entity.Brand).ThenInclude(entity => entity.Identity)
+                .Include(entity => entity.Color);
         }
 
         public override Func<ProductForContactRecord, object> GetPagingOrderSelector()

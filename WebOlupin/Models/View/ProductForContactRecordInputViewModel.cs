@@ -43,6 +43,22 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View
 
         public System.Guid ProductId { get; set; }
 
+        [Display(Name = "Marca")]
+        public string ProductBrandName { get; set; }
+
+        [Display(Name = "Modelo")]
+        public string ProductModel { get; set; }
+
+        public ImageDisplayViewModel ProductFeatureImage { get; set; }
+
+        [Display(Name = "Color")]
+        public System.Guid ColorId { get; set; }
+
+        public Microsoft.AspNetCore.Mvc.Rendering.SelectListItem[] AvailableColorSelectListItems { get; set; }
+
+        [Display(Name = "Cantidad")]
+        public int Quantity { get; set; }
+
         public ProductForContactRecord Export()
         {
             return new ProductForContactRecord
@@ -55,7 +71,9 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View
                 PostalAddress = PostalAddress,
                 City = City,
                 Message = Message,
-                ProductId = ProductId
+                ProductId = ProductId,
+                ColorId = ColorId,
+                Quantity = Quantity
             };
         }
 

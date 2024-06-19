@@ -1467,6 +1467,10 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnType("text")
                         .HasColumnName("city");
 
+                    b.Property<Guid>("ColorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("colorid");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("createdat");
@@ -1503,12 +1507,19 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("productid");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
                     b.Property<DateTime?>("ReadAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("readat");
 
                     b.HasKey("Id")
                         .HasName("pk_productforcontactrecords");
+
+                    b.HasIndex("ColorId")
+                        .HasDatabaseName("ix_productforcontactrecords_colorid");
 
                     b.HasIndex("ProductId")
                         .HasDatabaseName("ix_productforcontactrecords_productid");
@@ -2260,12 +2271,21 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
 
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductForContactRecord", b =>
                 {
+                    b.HasOne("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductColor", "Color")
+                        .WithMany()
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_productforcontactrecords_productcolors_colorid");
+
                     b.HasOne("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_productforcontactrecords_products_productid");
+
+                    b.Navigation("Color");
 
                     b.Navigation("Product");
                 });

@@ -1,0 +1,117 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.ProductForContactRecordDisplayViewModel
+
+@{
+    const string TITLE = "Details Product Request Contact Record";
+    const string HEADER = "Product Request Contact Record's management";
+
+    ViewData["TITLE"] = TITLE;
+    ViewData["HEADER"] = HEADER;
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<i class=\"fas fa-fw fa-tachometer-alt\"></i> " + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = Url.Action("Index", "Dashboard", new { Area = "management" })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = HEADER,
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = TITLE
+        }
+    };
+
+    Layout = "_BackendLayout";
+}
+
+@section styles {
+    <link rel="stylesheet" type="text/css" href="~/vendor/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" />
+}
+
+<hr class="mt-0 mb-4" />
+
+<div class="card mb-4">
+    <div class="card-header"><h5 class="mb-0 font-weight-bold text-primary">@TITLE</h5></div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                @Html.Label("Created At")
+                @Html.TextBoxFor(model => model.CreatedAt, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="col-md-6 mb-3">
+                @Html.Label("Read At")
+                @Html.TextBoxFor(model => model.ReadAt, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                @Html.Label("Name")
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="col-md-6 mb-3">
+                @Html.Label("Last Name")
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                @Html.Label("Email Address")
+                @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="col-md-4 mb-3">
+                @Html.Label("Phone Number")
+                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="col-md-4 mb-3">
+                @Html.Label("Identity Number")
+                @Html.TextBoxFor(model => model.CI, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                @Html.Label("City")
+                @Html.TextBoxFor(model => model.City, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="col-md-8 mb-3">
+                @Html.Label("Postal Address")
+                @Html.TextAreaFor(model => model.PostalAddress, 2, 1, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                @Html.Label("Brand")
+                @Html.TextBoxFor(model => model.Product.Brand.Name, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="col-md-4 mb-3">
+                @Html.Label("Model")
+                @Html.TextBoxFor(model => model.Product.Model, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+            <div class="col-md-2 mb-3">
+                @Html.Label("Color")
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.ProductColor.Label, new { @class = "form-control", @readonly = "readonly" })
+                    <span class="input-group-append">
+                        <span class="input-group-text colorpicker-input-addon"><i style="background: @Model.ProductColor.Color;"></i></span>
+                    </span>
+                </div>
+                
+            </div>
+            <div class="col-md-2 mb-3">
+                @Html.Label("Quantity")
+                @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="mb-3">
+            @Html.Label("Specifications")
+            @Html.TextAreaFor(model => model.Message, 4, 1, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-secondary" href="@Url.Action("index")">Back to list</a>
+    </div>
+</div>

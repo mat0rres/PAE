@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MOROPO.Framework.Guama.Core.Persistence.Repositories;
 using MOROPO.Framework.Guama.Core.Presentation.Web.Security.Attributes;
 using MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities;
+using MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend;
 using MOROPO.PremierAutomotiveExport.WebOlupin.Models.View;
 
 namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Contacts
@@ -55,7 +56,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Contacts
 
         [RequirePermissions(Constants.Authorization.CommonContactRecordViewerPermission)]
         [Route("[action]/{key}")]
-        public IActionResult Detail(long key)
+        public IActionResult Details(long key)
         {
             var entity = Repository.Get(key);
 

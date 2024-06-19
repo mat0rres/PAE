@@ -9,5 +9,11 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         public long[] VisitsBySection {  get; set; }
 
         public KeyValuePair<System.DayOfWeek, long>[] WeekUserActivity { get; set; }
+
+        public int UnreadProductForContactRecordCount { get; set; }
+        public int WeekProductForContactRecordCount { get; set; }
+
+        public int UnreadCommonContactRecordCount { get; set; }
+        public int WeekCommonContactRecordCount { get; set; }
     }
 }

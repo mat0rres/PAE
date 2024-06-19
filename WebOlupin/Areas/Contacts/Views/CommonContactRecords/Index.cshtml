@@ -1,6 +1,6 @@
 ﻿@using MOROPO.PremierAutomotiveExport.WebOlupin.Extensions;
 
-@model MOROPO.Framework.Guama.Core.Presentation.Web.Frontend.Models.View.PaginationViewModel<MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.CommonContactRecord, long, MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.CommonContactRecordDisplayViewModel>
+@model MOROPO.Framework.Guama.Core.Presentation.Web.Frontend.Models.View.PaginationViewModel<MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.CommonContactRecord, long, MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.CommonContactRecordDisplayViewModel>
 
 @{
     const string HEADER = "Common Contact Record's management";
@@ -185,7 +185,7 @@
                                 </td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
-                                        <a role="button" asp-action="detail" asp-route-key="@item.Id" class="btn btn-light" title="Detail"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Detail</span></a>
+                                        <a role="button" asp-action="details" asp-route-key="@item.Id" class="btn btn-light" title="Detail"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Details</span></a>
                                         <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Remove</span></button>
                                     </div>                                        
                                     <div class="modal fade" id="delete-@item.Id" tabindex="-1" role="dialog" aria-labelledby="delete-@item.Id-lable" aria-hidden="true">

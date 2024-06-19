@@ -6,10 +6,10 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
     {
         public ManagementDashboardViewModel()
         {
-            UsersList = new List<string>();
-            TracesbyUsers = new List<long>();
-            WeekStatisticsColumns = new List<string>();
-            WeekTracesStatisticsValues = new List<int>();
+            UsersList = [];
+            TracesbyUsers = [];
+            WeekStatisticsColumns = [];
+            WeekTracesStatisticsValues = [];
         }
 
         public Dictionary<string, ICollection<Framework.Guama.Core.Presentation.Web.Backend.Models.View.ManagementDashboardSectionViewModel>> Sections { get; set; }

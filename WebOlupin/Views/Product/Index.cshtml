@@ -115,16 +115,15 @@ else
             }
         </div>
     </div>
-
-    <hr class="mt-4 mb-5" />
-
+</div>
+<div class="jumbotron m-sm-5 py-sm-5">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 col-sm-12">
             <h4 class="display-4">Interesado?</h4>
             <p class="lead">Llene este formulation para que nuestro equipo de ventas se ponga en contacto y lo asista</p>
         </div>
-        <div class="col-md-8">
-            <partial name="_CreateProductForContactRecordPartial" model="new MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.ProductForContactRecordInputViewModel { ProductId = Model.Product.Id }" />
+        <div class="col-md-8 col-sm-12">
+            <partial name="_CreateProductForContactRecordPartial" model="new MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.ProductForContactRecordInputViewModel { ProductId = Model.Product.Id, ProductBrandName = Model.Product.Brand.Name, ProductModel = Model.Product.Model, ProductFeatureImage = Model.Product.FeatureImage, AvailableColorSelectListItems = Model.Colors.Select(_item => new SelectListItem { Value = _item.Id.ToString(), Text = _item.Label }).ToArray() }" />
         </div>
     </div>
 </div>

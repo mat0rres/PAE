@@ -1,5 +1,14 @@
 ﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.ProductForContactRecordInputViewModel
 
+@{
+    var quantitySelectListItems = new List<SelectListItem>();
+
+    for (int i = 1; i <= 10; i++)
+    {
+        quantitySelectListItems.Add(new SelectListItem { Value = i.ToString(), Text = i.ToString() });
+    }
+}
+
 <form method="post" asp-action="contact" asp-controller="product" asp-antiforgery="true">
     @Html.HiddenFor(model => model.ProductId)
     
@@ -14,33 +23,61 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
             @Html.LabelFor(model => model.EmailAddress)
             @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control" })
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
             @Html.LabelFor(model => model.PhoneNumber)
             @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
             @Html.LabelFor(model => model.CI)
             @Html.TextBoxFor(model => model.CI, new { @class = "form-control" })
         </div>
-        <div class="col-md-6 mb-3">
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
             @Html.LabelFor(model => model.City)
             @Html.TextBoxFor(model => model.City, new { @class = "form-control" })
         </div>
+        <div class="col-md-8 mb-3">
+            @Html.LabelFor(model => model.PostalAddress)
+            @Html.TextAreaFor(model => model.PostalAddress, 2, 1, new { @class = "form-control" })
+        </div>
     </div>
-    <div class="mb-3">
-        @Html.LabelFor(model => model.PostalAddress)
-        @Html.TextAreaFor(model => model.PostalAddress, 4, 1, new { @class = "form-control" })
+    <hr class="mt-1 mb-4" />
+    <div class="row">
+        <div class="col-md-8">            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    @Html.LabelFor(model => model.ProductBrandName)
+                    @Html.TextBox("_brand", Model.ProductBrandName, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+                <div class="col-md-6 mb-3">
+                    @Html.LabelFor(model => model.ProductModel)
+                    @Html.TextBox("_model", Model.ProductModel, new { @class = "form-control", @readonly = "readonly" })
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    @Html.LabelFor(model => model.ColorId)
+                    @Html.DropDownListFor(model => model.ColorId, Model.AvailableColorSelectListItems, new { @class = "form-control" })
+                </div>
+                <div class="col-md-6 mb-3">
+                    @Html.LabelFor(model => model.Quantity)
+                    @Html.DropDownListFor(model => model.Quantity, quantitySelectListItems, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Message, "Especificaciones (opcional)")
+                @Html.TextAreaFor(model => model.Message, 4, 1, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <img class="img-fluid img-thumbnail p-4 mb-3" title="@Model.ProductModel" src="/media/images/@Model.ProductFeatureImage.Id.@Model.ProductFeatureImage.Extension" />
+        </div>
     </div>
-    <div class="mb-3">
-        @Html.LabelFor(model => model.Message, "Especificaciones (opcional)")
-        @Html.TextAreaFor(model => model.Message, 6, 1, new { @class = "form-control" })
-    </div>
-
-    <input type="submit" class="btn btn-success" value="Enviar" />
+    <hr class="mt-1 mb-4" />
+    <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-paper-plane mr-1"></i>Enviar</button>
 </form>

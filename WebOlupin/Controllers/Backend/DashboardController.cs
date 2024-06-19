@@ -18,11 +18,15 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend
     {
         private readonly IEnumerable<Framework.Guama.Core.Presentation.Web.Backend.Providers.Facade.IManagementDashboardSectionProviderFacade> managementDashboardSectionProviders;
         private readonly IEntityRepository<PageVisit, long> pageVisitRepository;
+        private readonly IEntityRepository<ProductForContactRecord, long> productForContactRecordRepository;
+        private readonly IEntityRepository<CommonContactRecord, long> commonContactRecordRepository;
 
-        public DashboardController(IEntityRepository<PageVisit, long> pageVisitRepository, IEnumerable<Framework.Guama.Core.Presentation.Web.Backend.Providers.Facade.IManagementDashboardSectionProviderFacade> managementDashboardSectionProviders, Microsoft.Extensions.Localization.IStringLocalizer<DashboardController> localizer, ILogger<DashboardController> logger) : base(localizer, logger)
+        public DashboardController(IEntityRepository<CommonContactRecord, long> commonContactRecordRepository, IEntityRepository<ProductForContactRecord, long> productForContactRecordRepository, IEntityRepository<PageVisit, long> pageVisitRepository, IEnumerable<Framework.Guama.Core.Presentation.Web.Backend.Providers.Facade.IManagementDashboardSectionProviderFacade> managementDashboardSectionProviders, Microsoft.Extensions.Localization.IStringLocalizer<DashboardController> localizer, ILogger<DashboardController> logger) : base(localizer, logger)
         {
             this.managementDashboardSectionProviders = managementDashboardSectionProviders;
             this.pageVisitRepository = pageVisitRepository;
+            this.productForContactRecordRepository = productForContactRecordRepository;
+            this.commonContactRecordRepository = commonContactRecordRepository;
         }
 
         public IActionResult Index()
@@ -53,7 +57,11 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend
                     new KeyValuePair<System.DayOfWeek,long>(now.AddDays(-4).DayOfWeek, weekPageVisit.LongCount(_entity => _entity.CreatedAt.Day == now.Day - 4)),
                     new KeyValuePair<System.DayOfWeek,long>(now.AddDays(-5).DayOfWeek, weekPageVisit.LongCount(_entity => _entity.CreatedAt.Day == now.Day - 5)),
                     new KeyValuePair<System.DayOfWeek,long>(now.AddDays(-6).DayOfWeek, weekPageVisit.LongCount(_entity => _entity.CreatedAt.Day == now.Day - 6))
-                ]
+                ],
+                UnreadProductForContactRecordCount = productForContactRecordRepository.Count(_entity => _entity.ReadAt == null),
+                WeekProductForContactRecordCount = productForContactRecordRepository.Count(_entity => _entity.CreatedAt > now.AddDays(-7)),
+                UnreadCommonContactRecordCount = commonContactRecordRepository.Count(_entity => _entity.ReadAt == null),
+                WeekCommonContactRecordCount = commonContactRecordRepository.Count(_entity => _entity.CreatedAt > now.AddDays(-7))
             };
 
             return View(model);

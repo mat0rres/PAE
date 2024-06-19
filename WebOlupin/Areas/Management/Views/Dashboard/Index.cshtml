@@ -80,6 +80,61 @@
 }
 
 <div class="row">
+    <div class="col-md-6">
+        <div class="card border-left-primary shadow-lg mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-auto">
+                        <i class="fas fa-shopping-cart text-primary fa-10x"></i>
+                    </div>
+                    <div class="col">
+                        <h3 class="card-title text-primary">Product Request Contact</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 class="float-md-left mb-md-0 font-weight-bold" style="color: black;">Unread:</h5>
+                                <h2 class="display-2 mb-0 float-md-right">@Model.UnreadProductForContactRecordCount</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 class="float-md-left mb-0 font-weight-bold" style="color: black;">This week:</h5>
+                                <h2 class="display-2 mb-0 float-md-right">@Model.WeekProductForContactRecordCount</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-left-info shadow-lg mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-auto">
+                        <i class="fas fa-envelope text-info fa-10x"></i>
+                    </div>
+                    <div class="col">
+                        <h3 class="card-title text-info">General Propouse Contact</h3>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 class="float-md-left mb-md-0 font-weight-bold" style="color: black;">Unread:</h5>
+                                <h2 class="display-2 mb-0 float-md-right">@Model.UnreadCommonContactRecordCount</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 class="float-md-left mb-md-0 font-weight-bold" style="color: black;">This week:</h5>
+                                <h2 class="display-2 mb-0 float-md-right">@Model.WeekCommonContactRecordCount</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-8">
         <div class="card shadow-lg mb-4">
             <div class="card-header">

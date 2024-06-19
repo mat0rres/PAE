@@ -49,15 +49,22 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "contentblocks",
+                name: "commoncontactrecords",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false),
-                    content = table.Column<string>(type: "text", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    subject = table.Column<string>(type: "text", nullable: false),
+                    createdat = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    readat = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    emailaddress = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    phonenumber = table.Column<string>(type: "text", nullable: true),
+                    message = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_contentblocks", x => x.id);
+                    table.PrimaryKey("pk_commoncontactrecords", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,6 +108,23 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "pagevisits",
+                columns: table => new
+                {
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    pageid = table.Column<int>(type: "integer", nullable: false),
+                    createdat = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    carrier = table.Column<string>(type: "text", nullable: false),
+                    context = table.Column<string>(type: "text", nullable: true),
+                    networkidentifier = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_pagevisits", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "permissions",
                 schema: "guamaframework_core_security_common",
                 columns: table => new
@@ -132,6 +156,18 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "richtextblocks",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false),
+                    content = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_richtextblocks", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "roles",
                 schema: "guamaframework_core_security_common",
                 columns: table => new
@@ -143,23 +179,6 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_roles", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "sectionviews",
-                columns: table => new
-                {
-                    id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    createdat = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    carrier = table.Column<string>(type: "text", nullable: false),
-                    sectionkind = table.Column<int>(type: "integer", nullable: false),
-                    context = table.Column<string>(type: "text", nullable: true),
-                    networkidentifier = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_sectionviews", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -402,6 +421,25 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "pageheaders",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false),
+                    imageid = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_pageheaders", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_pageheaders_images_imageid",
+                        column: x => x.imageid,
+                        principalSchema: "guamaframework_media",
+                        principalTable: "images",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "personidentities",
                 schema: "guamaframework_identity",
                 columns: table => new
@@ -433,11 +471,13 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    enabled = table.Column<bool>(type: "boolean", nullable: false),
                     createdat = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     title = table.Column<string>(type: "text", nullable: false),
-                    summary = table.Column<string>(type: "text", nullable: false),
+                    label = table.Column<string>(type: "text", nullable: true),
+                    context = table.Column<string>(type: "text", nullable: true),
                     content = table.Column<string>(type: "text", nullable: false),
-                    featureimageid = table.Column<Guid>(type: "uuid", nullable: false)
+                    featureimageid = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -447,8 +487,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         column: x => x.featureimageid,
                         principalSchema: "guamaframework_media",
                         principalTable: "images",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -456,9 +495,11 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
+                    enabled = table.Column<bool>(type: "boolean", nullable: false),
                     name = table.Column<string>(type: "text", nullable: false),
                     description = table.Column<string>(type: "text", nullable: false),
-                    featureimageid = table.Column<Guid>(type: "uuid", nullable: false)
+                    featureimageid = table.Column<Guid>(type: "uuid", nullable: false),
+                    priority = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -518,7 +559,9 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     identityid = table.Column<Guid>(type: "uuid", nullable: false),
-                    isfavorite = table.Column<bool>(type: "boolean", nullable: false)
+                    isfavorite = table.Column<bool>(type: "boolean", nullable: false),
+                    promotionalslogan = table.Column<string>(type: "text", nullable: true),
+                    description = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -777,6 +820,28 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "representatives",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    identityid = table.Column<Guid>(type: "uuid", nullable: false),
+                    priority = table.Column<int>(type: "integer", nullable: false),
+                    position = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_representatives", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_representatives_personidentities_identityid",
+                        column: x => x.identityid,
+                        principalSchema: "guamaframework_identity",
+                        principalTable: "personidentities",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "users",
                 schema: "guamaframework_security_personal",
                 columns: table => new
@@ -854,21 +919,31 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "brandsupportpackages",
+                name: "brandsupportoffers",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    brandid = table.Column<Guid>(type: "uuid", nullable: false)
+                    enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    brandid = table.Column<Guid>(type: "uuid", nullable: false),
+                    featureimageid = table.Column<Guid>(type: "uuid", nullable: true),
+                    title = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_brandsupportpackages", x => x.id);
+                    table.PrimaryKey("pk_brandsupportoffers", x => x.id);
                     table.ForeignKey(
-                        name: "fk_brandsupportpackages_brands_brandid",
+                        name: "fk_brandsupportoffers_brands_brandid",
                         column: x => x.brandid,
                         principalTable: "brands",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_brandsupportoffers_images_featureimageid",
+                        column: x => x.featureimageid,
+                        principalSchema: "guamaframework_media",
+                        principalTable: "images",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -876,9 +951,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    name = table.Column<string>(type: "text", nullable: false),
                     enabled = table.Column<bool>(type: "boolean", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: true),
                     categoryid = table.Column<int>(type: "integer", nullable: false),
                     featureimageid = table.Column<Guid>(type: "uuid", nullable: false),
                     videoid = table.Column<Guid>(type: "uuid", nullable: true),
@@ -981,29 +1055,21 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "brandsupportitems",
+                name: "productcolors",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    packageid = table.Column<Guid>(type: "uuid", nullable: false),
-                    featureimageid = table.Column<Guid>(type: "uuid", nullable: false),
-                    title = table.Column<string>(type: "text", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: false)
+                    label = table.Column<string>(type: "text", nullable: false),
+                    color = table.Column<string>(type: "text", nullable: false),
+                    productid = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_brandsupportitems", x => x.id);
+                    table.PrimaryKey("pk_productcolors", x => x.id);
                     table.ForeignKey(
-                        name: "fk_brandsupportitems_brandsupportpackages_packageid",
-                        column: x => x.packageid,
-                        principalTable: "brandsupportpackages",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_brandsupportitems_images_featureimageid",
-                        column: x => x.featureimageid,
-                        principalSchema: "guamaframework_media",
-                        principalTable: "images",
+                        name: "fk_productcolors_products_productid",
+                        column: x => x.productid,
+                        principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1103,6 +1169,43 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "productforcontactrecords",
+                columns: table => new
+                {
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    lastname = table.Column<string>(type: "text", nullable: false),
+                    ci = table.Column<string>(type: "text", nullable: false),
+                    city = table.Column<string>(type: "text", nullable: false),
+                    postaladdress = table.Column<string>(type: "text", nullable: false),
+                    productid = table.Column<Guid>(type: "uuid", nullable: false),
+                    colorid = table.Column<Guid>(type: "uuid", nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false),
+                    createdat = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    readat = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    emailaddress = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    phonenumber = table.Column<string>(type: "text", nullable: true),
+                    message = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_productforcontactrecords", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_productforcontactrecords_productcolors_colorid",
+                        column: x => x.colorid,
+                        principalTable: "productcolors",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_productforcontactrecords_products_productid",
+                        column: x => x.productid,
+                        principalTable: "products",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "organizationpostalcontactitembridges",
                 schema: "guamaframework_identity",
                 columns: table => new
@@ -1169,22 +1272,18 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
             migrationBuilder.CreateIndex(
                 name: "ix_brands_identityid",
                 table: "brands",
-                column: "identityid");
+                column: "identityid",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "ix_brandsupportitems_featureimageid",
-                table: "brandsupportitems",
-                column: "featureimageid");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_brandsupportitems_packageid",
-                table: "brandsupportitems",
-                column: "packageid");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_brandsupportpackages_brandid",
-                table: "brandsupportpackages",
+                name: "ix_brandsupportoffers_brandid",
+                table: "brandsupportoffers",
                 column: "brandid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_brandsupportoffers_featureimageid",
+                table: "brandsupportoffers",
+                column: "featureimageid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_categories_parentid",
@@ -1310,6 +1409,11 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 column: "sternid");
 
             migrationBuilder.CreateIndex(
+                name: "ix_pageheaders_imageid",
+                table: "pageheaders",
+                column: "imageid");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_personemailcontactitembridges_sternid",
                 schema: "guamaframework_identity",
                 table: "personemailcontactitembridges",
@@ -1357,6 +1461,11 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 column: "featureimageid");
 
             migrationBuilder.CreateIndex(
+                name: "ix_productcolors_productid",
+                table: "productcolors",
+                column: "productid");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_productcustomattributebridges_sternid",
                 table: "productcustomattributebridges",
                 column: "sternid");
@@ -1364,6 +1473,16 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
             migrationBuilder.CreateIndex(
                 name: "ix_productfeatures_productid",
                 table: "productfeatures",
+                column: "productid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_productforcontactrecords_colorid",
+                table: "productforcontactrecords",
+                column: "colorid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_productforcontactrecords_productid",
+                table: "productforcontactrecords",
                 column: "productid");
 
             migrationBuilder.CreateIndex(
@@ -1396,6 +1515,12 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 schema: "guamaframework_location",
                 table: "regions",
                 column: "countryid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_representatives_identityid",
+                table: "representatives",
+                column: "identityid",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_rolepermissionbridges_sternid",
@@ -1446,10 +1571,10 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 name: "brandpromotions");
 
             migrationBuilder.DropTable(
-                name: "brandsupportitems");
+                name: "brandsupportoffers");
 
             migrationBuilder.DropTable(
-                name: "contentblocks");
+                name: "commoncontactrecords");
 
             migrationBuilder.DropTable(
                 name: "documents",
@@ -1478,6 +1603,12 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
             migrationBuilder.DropTable(
                 name: "organizationwebsitecontactitembridges",
                 schema: "guamaframework_identity");
+
+            migrationBuilder.DropTable(
+                name: "pageheaders");
+
+            migrationBuilder.DropTable(
+                name: "pagevisits");
 
             migrationBuilder.DropTable(
                 name: "personemailcontactitembridges",
@@ -1509,14 +1640,20 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 name: "productfeatures");
 
             migrationBuilder.DropTable(
+                name: "productforcontactrecords");
+
+            migrationBuilder.DropTable(
                 name: "productimagebridges");
+
+            migrationBuilder.DropTable(
+                name: "representatives");
+
+            migrationBuilder.DropTable(
+                name: "richtextblocks");
 
             migrationBuilder.DropTable(
                 name: "rolepermissionbridges",
                 schema: "guamaframework_core_security_common");
-
-            migrationBuilder.DropTable(
-                name: "sectionviews");
 
             migrationBuilder.DropTable(
                 name: "services");
@@ -1530,9 +1667,6 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
             migrationBuilder.DropTable(
                 name: "userrolebridges",
                 schema: "guamaframework_security_personal");
-
-            migrationBuilder.DropTable(
-                name: "brandsupportpackages");
 
             migrationBuilder.DropTable(
                 name: "emailcontactitems",
@@ -1558,7 +1692,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 name: "customattributes");
 
             migrationBuilder.DropTable(
-                name: "products");
+                name: "productcolors");
 
             migrationBuilder.DropTable(
                 name: "permissions",
@@ -1577,14 +1711,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 schema: "guamaframework_location");
 
             migrationBuilder.DropTable(
-                name: "brands");
-
-            migrationBuilder.DropTable(
-                name: "categories");
-
-            migrationBuilder.DropTable(
-                name: "videos",
-                schema: "guamaframework_media");
+                name: "products");
 
             migrationBuilder.DropTable(
                 name: "personidentities",
@@ -1595,11 +1722,25 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 schema: "guamaframework_location");
 
             migrationBuilder.DropTable(
+                name: "brands");
+
+            migrationBuilder.DropTable(
+                name: "categories");
+
+            migrationBuilder.DropTable(
+                name: "videos",
+                schema: "guamaframework_media");
+
+            migrationBuilder.DropTable(
+                name: "municipalities",
+                schema: "guamaframework_location");
+
+            migrationBuilder.DropTable(
                 name: "organizationidentities",
                 schema: "guamaframework_identity");
 
             migrationBuilder.DropTable(
-                name: "municipalities",
+                name: "states",
                 schema: "guamaframework_location");
 
             migrationBuilder.DropTable(
@@ -1607,16 +1748,12 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                 schema: "guamaframework_media");
 
             migrationBuilder.DropTable(
-                name: "states",
+                name: "regions",
                 schema: "guamaframework_location");
 
             migrationBuilder.DropTable(
                 name: "thumbnails",
                 schema: "guamaframework_media");
-
-            migrationBuilder.DropTable(
-                name: "regions",
-                schema: "guamaframework_location");
 
             migrationBuilder.DropTable(
                 name: "countries",

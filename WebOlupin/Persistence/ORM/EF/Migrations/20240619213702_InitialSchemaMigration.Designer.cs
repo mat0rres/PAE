@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240621232621_ExtendColorAndMessageRecord2SchemaMigration")]
-    partial class ExtendColorAndMessageRecord2SchemaMigration
+    [Migration("20240619213702_InitialSchemaMigration")]
+    partial class InitialSchemaMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1470,9 +1470,9 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnType("text")
                         .HasColumnName("city");
 
-                    b.Property<string>("Color")
-                        .HasColumnType("text")
-                        .HasColumnName("color");
+                    b.Property<Guid>("ColorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("colorid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
@@ -1506,9 +1506,9 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnType("text")
                         .HasColumnName("postaladdress");
 
-                    b.Property<Guid>("ProductColorId")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uuid")
-                        .HasColumnName("productcolorid");
+                        .HasColumnName("productid");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
@@ -1521,8 +1521,11 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                     b.HasKey("Id")
                         .HasName("pk_productforcontactrecords");
 
-                    b.HasIndex("ProductColorId")
-                        .HasDatabaseName("ix_productforcontactrecords_productcolorid");
+                    b.HasIndex("ColorId")
+                        .HasDatabaseName("ix_productforcontactrecords_colorid");
+
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_productforcontactrecords_productid");
 
                     b.ToTable("productforcontactrecords");
                 });
@@ -2271,14 +2274,23 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
 
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductForContactRecord", b =>
                 {
-                    b.HasOne("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductColor", "ProductColor")
+                    b.HasOne("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductColor", "Color")
                         .WithMany()
-                        .HasForeignKey("ProductColorId")
+                        .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_productforcontactrecords_productcolors_productcolorid");
+                        .HasConstraintName("fk_productforcontactrecords_productcolors_colorid");
 
-                    b.Navigation("ProductColor");
+                    b.HasOne("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_productforcontactrecords_products_productid");
+
+                    b.Navigation("Color");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductImageBridge", b =>

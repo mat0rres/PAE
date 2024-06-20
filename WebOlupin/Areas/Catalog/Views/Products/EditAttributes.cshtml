@@ -75,6 +75,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("EditImages", @Model.Product.Id)">Images</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("EditColors", @Model.Product.Id)">Colors</a>
+            </li>
         </ul>
     </div>
     <div class="card-body pb-2">
@@ -137,8 +140,40 @@
                                 <td style="vertical-align: middle;" title="Value">@item.Value</td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
-                                        <a role="button" href="@Url.Action("editattribute", new { key = item.CustomAttributeId })" class="btn btn-light" title="Modify"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Edit</span></a>
+                                        <button class="btn btn-light" data-toggle="modal" data-target="#edit-@item.CustomAttributeId"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Edit</span></button>
                                         <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.CustomAttributeId"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Remove</span></button>
+                                    </div>
+
+                                    <div class="modal fade" id="edit-@item.CustomAttributeId" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="edit-@item.CustomAttributeId-title">Modify Attribute´s Specification</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                @using (Html.BeginForm("editattribute", "products", new { key = Model.Product.Id }, FormMethod.Post, true, null))
+                                                {
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="customAttributeId" value="@item.CustomAttributeId" />
+
+                                                        <div class="mb-3">
+                                                            @Html.Label("customAttributeId", "Attribute")
+                                                            @Html.TextBox("customAttributeName", item.CustomAttributeName, new { @class = "form-control" })
+                                                        </div>
+                                                        <div>
+                                                            @Html.Label("value", "Value")
+                                                            @Html.TextBox("value", item.Value, new { @class = "form-control" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">Apply</button>
+                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal fade" id="delete-@item.CustomAttributeId" tabindex="-1" role="dialog" aria-labelledby="delete-@item.CustomAttributeId-lable" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -151,7 +186,7 @@
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p class="mb-0">Are you shure do you want to remove selected product custom attribute?</p>
+                                                    <p class="mb-0">Are you shure do you want to remove selected product´s attribute?</p>
                                                 </div>
                                                 <div class="modal-footer" style="margin-top: 0;">
                                                     <button type="submit" class="btn btn-danger">Remove</button>

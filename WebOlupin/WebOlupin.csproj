@@ -8,6 +8,8 @@
 		<RootNamespace>MOROPO.PremierAutomotiveExport.WebOlupin</RootNamespace>
 	</PropertyGroup>
 
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'Consola (Development)' " />
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'Consola (Staging)' " />
 	<ItemGroup>
 		<Compile Remove="dpkeys\**" />
 		<Compile Remove="logs\**" />

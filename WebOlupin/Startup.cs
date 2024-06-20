@@ -7,9 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MOROPO.Framework.Guama.Core.Persistence.Repositories;
+using MOROPO.Framework.Guama.Core.Security.Common.Persistence.Extensions;
 using MOROPO.Framework.Guama.Core.Security.Common.Presentation.Web.Frontend.Extensions;
 using MOROPO.Framework.Guama.Media.Presentation.Web.Common.Extensions;
-using MOROPO.Framework.Guama.Security.Personal.Persistence.ORM.EF.Extensions;
+using MOROPO.Framework.Guama.Security.Personal.Persistence.Entities;
 using MOROPO.Framework.Guama.Security.Personal.Presentation.Web.Backend.Extensions;
 using MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities;
 using MOROPO.PremierAutomotiveExport.Persistence.Domain.Enumerations;
@@ -59,6 +60,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin
             services.AddScoped<IEntityRepository<Representative, System.Guid>, RepresentativeRepository>();
             services.AddScoped<IEntityRepository<CustomAttribute, System.Guid>, CustomAttributeRepository>();
             services.AddScoped<IEntityRepository<PageHeader, PageId>, PageHeaderRepository>();
+            services.AddScoped<IEntityRepository<ProductColor, System.Guid>, ProductColorRepository>();
 
             services.AddSingleton<Framework.Guama.Core.Persistence.ORM.EF.Providers.Facade.IDbSchemaConfigurationProviderFacade, Persistence.ORM.EF.DbSchemaConfigurationProvider>();
 
@@ -159,11 +161,26 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin
                 {
                     var defaultUserId = "admin";
 
-                    var k3y = new System.Guid(0x4c9294dd, 0x1e74, 0x45b2, 0xa8, 0x45, 0xaf, 0x6, 0xe5, 0x2a, 0xf6, 0x19);
+                    var defaultUser = new User
+                    {
+                        Id = defaultUserId,
+                        Password = "p@ssw0rd".ToHashedPassword(),
+                        Enabled = true,
+                        HasFullAccess = true,
+                        PasswordChangeRequired = true,
+                        Identity = new Framework.Guama.Identity.Persistence.Entities.PersonIdentity
+                        {
+                            Name = defaultUserId,
+                            Sex = Framework.Guama.Identity.Persistence.Enumerations.Sex.Unknown,
+                            CivilStatus = Framework.Guama.Identity.Persistence.Enumerations.CivilStatus.Unknow
+                        }
+                    };
 
-                    var protectedPassword = (dbContext as Persistence.ORM.EF.ApplicationDbContext).CreateSecureUser(k3y, defaultUserId, "system");
+                    defaultUser.Signature = Framework.Guama.Security.Personal.Persistence.ORM.EF.Helpers.Integrity.UserIntegrityHelper.GetSignature(defaultUser);
 
-                    Log.Logger.Information(string.Format(">>>>>> Protected Password : \"{0}\" => \"{1}\"", defaultUserId, protectedPassword));
+                    dbContext.Set<User>().Add(defaultUser);
+
+                    (dbContext as Framework.Guama.Core.Persistence.ORM.EF.Context.Contract.AbstractTraceableDbContext).SaveChanges("system");
                 }
             }
             else

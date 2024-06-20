@@ -25,14 +25,16 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Catalog
         private readonly IEntityRepository<Image, System.Guid> imageRepository;
         private readonly IImageFileManagerFacade imageFileManager;
         private readonly IEntityRepository<CustomAttribute, System.Guid> customAttributeRepository;
+        private readonly IEntityRepository<ProductColor, System.Guid> productColorRepository;
 
-        public ProductsController(IEntityRepository<CustomAttribute, System.Guid> customAttributeRepository, IImageFileManagerFacade imageFileManager, IEntityRepository<Image, System.Guid> imageRepository, IEntityRepository<Brand, System.Guid> brandRepository, IEntityRepository<Category, int> categoryRepository, IEntityRepository<Product, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<ProductsController> localizer, ILogger<ProductsController> logger) : base(repository, localizer, logger)
+        public ProductsController(IEntityRepository<ProductColor, System.Guid> productColorRepository, IEntityRepository<CustomAttribute, System.Guid> customAttributeRepository, IImageFileManagerFacade imageFileManager, IEntityRepository<Image, System.Guid> imageRepository, IEntityRepository<Brand, System.Guid> brandRepository, IEntityRepository<Category, int> categoryRepository, IEntityRepository<Product, System.Guid> repository, Microsoft.Extensions.Localization.IStringLocalizer<ProductsController> localizer, ILogger<ProductsController> logger) : base(repository, localizer, logger)
         {
             this.categoryRepository = categoryRepository;
             this.brandRepository = brandRepository;
             this.imageRepository = imageRepository;
             this.imageFileManager = imageFileManager;
             this.customAttributeRepository = customAttributeRepository;
+            this.productColorRepository = productColorRepository;
         }
 
         [RequirePermissions(Constants.Authorization.ProductViewerPermission)]
@@ -308,9 +310,10 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Catalog
             return GetDefaultActionResult();
         }
 
+
+        [HttpPost]
         [Route("edit/{key}/attributes/add")]
         [RequirePermissions(Constants.Authorization.ProductEditorPermission)]
-        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddAttribute(System.Guid key, System.Guid? customAttributeId, string value)
         {
@@ -378,7 +381,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Catalog
 
                 SetDefaultNotification(NotificationType.Success, GetEditionSuccessMessage());
 
-                return RedirectToAction("EditCustomAttributes", new { key });
+                return RedirectToAction("EditAttributes", new { key });
             }
             catch (System.Exception e)
             {
@@ -703,6 +706,157 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Catalog
                 SetDefaultNotification(NotificationType.Warning, GetOnDeletionDependecyConstrainErrorMessage());
 
                 return RedirectToAction("editimages", new { key });
+            }
+            catch (System.Exception e)
+            {
+                logger.LogError(e.InnerException, e.Message);
+            }
+
+            SetDefaultNotification(NotificationType.Danger, GetNotFoundMessage());
+
+            return GetSuccessDeleteActionResult();
+        }
+
+        #endregion
+
+        #region Custom Attributes
+
+        [Route("edit/{key}/colors")]
+        [RequirePermissions(Constants.Authorization.ProductEditorPermission)]
+        public IActionResult EditColors(System.Guid key)
+        {
+            try
+            {
+                var entity = Repository.Get(key);
+
+                var model = new ProductColorsManagementViewModel
+                {
+                    Product = new ProductDisplayViewModel(),
+                    Items = productColorRepository.FindBy(_entity => _entity.ProductId == entity.Id).ToArray().Select(_entity => new ProductColorDisplayViewModel
+                    {
+                        Id = _entity.Id,
+                        Color = _entity.Color
+                    }).ToArray()
+                };
+
+                model.Product.Import(entity);
+
+                return View(model);
+            }
+            catch (System.Exception e)
+            {
+                logger.LogError(e.InnerException, e.Message);
+            }
+
+            SetDefaultNotification(NotificationType.Danger, GetNotFoundMessage());
+
+            return GetDefaultActionResult();
+        }
+
+        [Route("edit/{key}/colors/add")]
+        [RequirePermissions(Constants.Authorization.ProductEditorPermission)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddColor(System.Guid key, string color)
+        {
+            try
+            {
+                var entity = Repository.Get(key);
+
+                if (string.IsNullOrEmpty(color))
+                {
+                    ModelState.AddModelError("color", string.Format(localizer["RequiredValidationErrorMessage"], localizer["Color"]));
+                }
+
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        productColorRepository.Add(new ProductColor
+                        {
+                            Color = color,
+                            ProductId = entity.Id
+                        }, User.Identity.Name);
+
+                        SetDefaultNotification(NotificationType.Success, GetCreationSuccessMessage());
+
+                        return RedirectToAction("EditColors", new { key });
+                    }
+                    catch (Framework.Guama.Core.Presentation.Web.Frontend.InvalidModelException e)
+                    {
+                        ModelState.AddModelError(e.ModelKey, e.ErrorMessage);
+                    }
+                }
+
+                SetDefaultNotification(NotificationType.Danger, GetInvalidMessage());
+
+                return RedirectToAction("EditColors", new { key });
+            }
+            catch (System.Exception e)
+            {
+                logger.LogError(e.InnerException, e.Message);
+            }
+
+            SetDefaultNotification(NotificationType.Danger, GetNotFoundMessage());
+
+            return GetDefaultActionResult();
+        }
+
+        [HttpPost]
+        [Route("edit/{key}/colors/edit")]
+        [ValidateAntiForgeryToken]
+        [RequirePermissions(Constants.Authorization.ProductEditorPermission)]
+        public IActionResult EditColor(System.Guid key, System.Guid colorId, string color)
+        {
+            try
+            {
+                var entity = Repository.Get(key);
+
+                var colorEntity = productColorRepository.Get(colorId);
+
+                colorEntity.Color = color;
+
+                productColorRepository.Update(colorEntity, User.Identity.Name);
+
+                SetDefaultNotification(NotificationType.Success, GetEditionSuccessMessage());
+
+                return RedirectToAction("EditColors", new { key });
+            }
+            catch (System.Exception e)
+            {
+                logger.LogError(e.InnerException, e.Message);
+            }
+
+            SetDefaultNotification(NotificationType.Danger, GetNotFoundMessage());
+
+            return GetSuccessDeleteActionResult();
+        }
+
+        [HttpPost]
+        [Route("edit/{key}/colors/delete")]
+        [ValidateAntiForgeryToken]
+        [RequirePermissions(Constants.Authorization.ProductEditorPermission)]
+        public IActionResult DeleteColor(System.Guid key, System.Guid colorId)
+        {
+            try
+            {
+                var entity = Repository.Get(key);
+
+                var colorEntity = productColorRepository.Get(colorId);
+
+                productColorRepository.Delete(colorEntity, User.Identity.Name);
+
+                SetDefaultNotification(NotificationType.Success, GetDeletionSuccessMessage());
+
+                return RedirectToAction("EditColors", new { key });
+            }
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException e)
+            {
+                logger.LogError(e.InnerException, e.Message);
+
+                SetDefaultNotification(NotificationType.Warning, GetOnDeletionDependecyConstrainErrorMessage());
+
+                return RedirectToAction("EditColors", new { key });
             }
             catch (System.Exception e)
             {

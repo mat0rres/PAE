@@ -1,8 +1,8 @@
 ﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.ProductInputViewModel
 
 @{
-    const string TITLE = "Modificar Producto";
-    const string HEADER = "Administración de Productos";
+    const string TITLE = "Modify Product";
+    const string HEADER = "Product's management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -61,8 +61,6 @@
     </script>
 }
 
-<hr class="mt-0 mb-4" />
-
 @using (Html.BeginForm("edit", "products", new { Area = "catalog", key = string.Empty }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
@@ -85,6 +83,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("EditImages", @Model.Id)">Images</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("EditColors", @Model.Id)">Colors</a>
                 </li>
             </ul>
         </div>

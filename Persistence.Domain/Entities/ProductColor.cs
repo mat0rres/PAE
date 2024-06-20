@@ -5,6 +5,10 @@
         [System.ComponentModel.DataAnnotations.Key]
         public System.Guid Id { get; set; } = System.Guid.NewGuid();
 
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Label { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Required]
         public string Color { get; set; }
 
         [System.ComponentModel.DataAnnotations.Schema.ForeignKey(nameof(ProductId))]

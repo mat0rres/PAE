@@ -28,56 +28,49 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
 
             var siteContentsSection = new List<ManagementDashboardSectionViewModel>
             {
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Page Headers",
                     Controller = "pageheaders",
                     Action= "index",
                     Area = "site",
                     Role = Constants.Authorization.PageHeaderViewerPermission
                 },
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Text Blocks",
                     Controller = "richtextblocks",
                     Action= "index",
                     Area = "site",
                     Role = Constants.Authorization.RichTextBlockViewerPermission
                 },
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Instantáneas",
                     Controller = "showcaseitems",
                     Action = "index",
                     Area = "site",
                     Role = Constants.Authorization.ShowcaseItemViewerPermission
                 },
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Promotions",
                     Controller = "brandpromotions",
                     Action = "index",
                     Area = "site",
                     Role = Constants.Authorization.BrandPromotionViewerPermission
                 },
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Support Offers",
                     Controller = "brandsupportoffers",
                     Action = "index",
                     Area = "site",
                     Role = Constants.Authorization.BrandSupportOfferViewerPermission
                 },
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "News",
                     Controller = "posts",
                     Action = "index",
                     Area = "site",
                     Role = Constants.Authorization.PostViewerPermission
                 },
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Representatives",
                     Controller = "representatives",
                     Action = "index",
@@ -88,40 +81,35 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
 
             var catalogSections = new List<ManagementDashboardSectionViewModel>
             {
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Services",
                     Controller = "services",
                     Action= "index",
                     Area = "catalog",
                     Role = Constants.Authorization.ServiceViewerPermission
                 },
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Products",
                     Controller = "products",
                     Action= "index",
                     Area = "catalog",
                     Role = Constants.Authorization.ProductViewerPermission
                 },
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Brands",
                     Controller = "brands",
                     Action= "index",
                     Area = "catalog",
                     Role = Constants.Authorization.BrandViewerPermission
                 },
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Categories",
                     Controller = "categories",
                     Action= "index",
                     Area = "catalog",
                     Role = Constants.Authorization.CategoryViewerPermission
                 },
-                new ManagementDashboardSectionViewModel
-                {
+                new() {
                     Title = "Custom Attributes",
                     Controller = "customattributes",
                     Action= "index",
@@ -130,11 +118,32 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                 }
             };
 
+            var contactSections = new List<ManagementDashboardSectionViewModel>
+            {
+                new()
+                {
+                    Title = "Product Request",
+                    Controller = "productforcontactrecords",
+                    Action= "index",
+                    Area = "contacts",
+                    Role = Constants.Authorization.ProductForContactRecordViewerPermission
+                },
+                new()
+                {
+                    Title = "General Propouse",
+                    Controller = "commoncontactrecords",
+                    Action= "index",
+                    Area = "contacts",
+                    Role = Constants.Authorization.CommonContactRecordViewerPermission
+                }
+            };
+
             return new Dictionary<string, ICollection<ManagementDashboardSectionViewModel>>
             {
                 { "Security", securitySections },
                 { "Site Contents", siteContentsSection },
-                { "PAE Catalog", catalogSections }
+                { "PAE Catalog", catalogSections },
+                { "Contact", contactSections }
             };
         }
     }

@@ -79,9 +79,12 @@
                     @using (Html.BeginForm("addcolor", "products", new { key = Model.Product.Id }, FormMethod.Post, true, null))
                     {
                         <div class="modal-body">
+                            @Html.Label("label", "Label")
+                            @Html.TextBox("label", null, new { @class = "form-control mb-3" })
+
                             @Html.Label("color", "color")
                             <div class="input-group colorpicker-element">
-                                @Html.TextBox("color", new { @class = "form-control", @readonly = "readonly" })
+                                @Html.TextBox("color", null, new { @class = "form-control", @readonly = "readonly" })
                                 <span class="input-group-append">
                                     <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                 </span>
@@ -102,6 +105,7 @@
                     <tr>
                         <th style="width: 56px;">&ensp;</th>
                         <th>Color</th>
+                        <th>Label</th>
                         <th class="fit">Opciones</th>
                     </tr>
                 </thead>
@@ -113,6 +117,7 @@
                             <tr>
                                 <td style="width: 56px; background-color: @item.Color;">&ensp;</td>
                                 <td style="vertical-align: middle;" title="Color">@item.Color</td>
+                                <td style="vertical-align: middle;" title="Label">@item.Label</td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
                                         <button class="btn btn-light" data-toggle="modal" data-target="#edit-@item.Id"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Edit</span></button>
@@ -129,6 +134,9 @@
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    @Html.Label("label", "Label")
+                                                    @Html.TextBox("label", item.Label, new { @class = "form-control mb-3" })
+
                                                     @Html.Label("color", "color")
                                                     <div class="input-group colorpicker-element">
                                                         @Html.TextBox("color", item.Color, new { @class = "form-control", @readonly = "readonly" })

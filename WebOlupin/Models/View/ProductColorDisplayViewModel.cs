@@ -4,11 +4,14 @@
 	{
 		public System.Guid Id { get; set; }
 
+        public string Label { get; set; }
+
 		public string Color { get; set; }
 
         public void Import(PremierAutomotiveExport.Persistence.Domain.Entities.ProductColor entity)
         {
             Id = entity.Id;
+            Label = entity.Label;
             Color = entity.Color;
         }
     }

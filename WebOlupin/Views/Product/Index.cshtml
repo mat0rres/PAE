@@ -26,6 +26,41 @@ else
 
     <div class="clearfix"></div>
 
+    @{
+        var notificationEntries = TempData.Where(x => x.Key.EndsWith("-notification")).ToArray();
+
+        foreach (var extraNotificationEntry in notificationEntries)
+        {
+            var notification = JsonConvert.DeserializeObject<NotificationViewModel>(extraNotificationEntry.Value.ToString());
+
+            <div class="alert alert-dismissible fade show alert-@Html.Raw(notification.Type.ToString().ToLower()) mb-5">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @if (notification.Title != null)
+                {
+                    <h4>@GlobalViewLocalizationHelper.Localize(notification.Title, ViewLocalizer)</h4>
+                }
+
+                @if (notification.Message != null)
+                {
+                    @Html.Raw(GlobalViewLocalizationHelper.Localize(notification.Message, ViewLocalizer))
+                    ;
+                }
+
+                @if (notification.Messages != null)
+                {
+                    <ul>
+                        @foreach (var item in notification.Messages)
+                        {
+                            <li>@GlobalViewLocalizationHelper.Localize(item, ViewLocalizer)</li>
+                        }
+                    </ul>
+                }
+            </div>
+        }
+    }
+
     <div class="row">
         <div class="col-md-4">
             <img class="img-fluid" title="@Model.Product.Model" src="/media/images/@Model.Product.FeatureImage.Id.@Model.Product.FeatureImage.Extension" />
@@ -55,6 +90,21 @@ else
             {
                 <p>@Html.Raw(Model.Product.Description)</p>
             }
+
+            @if (Model.Colors.Length > 0)
+            {
+                <h5 class="mb-3">Colores disponibles:</h5>
+
+                <div class="row">
+                    @foreach (var item in Model.Colors)
+                    {
+                        <div class="col-md-4 col-sm-6 text-center">
+                            <div class="img-thumbnail d-inline-block shadow-sm" style="width: 48px; height: 48px; background-color: @item.Color;"></div>
+                            <p class="mb-3">@item.Label</p>
+                        </div>
+                    }
+                </div>
+            }
         </div>
         <div class="col-md-3">
             <img class="img-fluid mb-2" title="@Model.Product.Brand.Name" src="/media/images/@Model.Product.Brand.Image.Id.@Model.Product.Brand.Image.Extension" />
@@ -63,6 +113,18 @@ else
             {
                 <img class="img-fluid img-thumbnail mt-3" title="@Model.Product.Model" src="/media/images/@item.Id.@item.Extension" />
             }
+        </div>
+    </div>
+
+    <hr class="mt-4 mb-5" />
+
+    <div class="row">
+        <div class="col-md-4">
+            <h4 class="display-4">Interesado?</h4>
+            <p class="lead">Llene este formulation para que nuestro equipo de ventas se ponga en contacto y lo asista</p>
+        </div>
+        <div class="col-md-8">
+            <partial name="_CreateProductForContactRecordPartial" model="new MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.ProductForContactRecordInputViewModel { ProductId = Model.Product.Id }" />
         </div>
     </div>
 </div>

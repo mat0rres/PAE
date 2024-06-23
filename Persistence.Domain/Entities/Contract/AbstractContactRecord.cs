@@ -6,6 +6,10 @@
         [System.ComponentModel.DataAnnotations.Key]
         public long Id { get; set; }
 
+        public System.DateTime CreatedAt { get; set; } = System.DateTime.Now;
+
+        public System.DateTime? ReadAt { get; set; }
+
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.EmailAddress]
         public string EmailAddress { get; set; }

@@ -719,7 +719,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Catalog
 
         #endregion
 
-        #region Custom Attributes
+        #region Colors
 
         [Route("edit/{key}/colors")]
         [RequirePermissions(Constants.Authorization.ProductEditorPermission)]
@@ -735,6 +735,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Catalog
                     Items = productColorRepository.FindBy(_entity => _entity.ProductId == entity.Id).ToArray().Select(_entity => new ProductColorDisplayViewModel
                     {
                         Id = _entity.Id,
+                        Label = _entity.Label,
                         Color = _entity.Color
                     }).ToArray()
                 };
@@ -757,11 +758,16 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Catalog
         [RequirePermissions(Constants.Authorization.ProductEditorPermission)]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddColor(System.Guid key, string color)
+        public IActionResult AddColor(System.Guid key, string label, string color)
         {
             try
             {
                 var entity = Repository.Get(key);
+
+                if (string.IsNullOrEmpty(color))
+                {
+                    ModelState.AddModelError("label", string.Format(localizer["RequiredValidationErrorMessage"], localizer["Label"]));
+                }
 
                 if (string.IsNullOrEmpty(color))
                 {
@@ -774,6 +780,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Catalog
                     {
                         productColorRepository.Add(new ProductColor
                         {
+                            Label = label,
                             Color = color,
                             ProductId = entity.Id
                         }, User.Identity.Name);
@@ -806,7 +813,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Catalog
         [Route("edit/{key}/colors/edit")]
         [ValidateAntiForgeryToken]
         [RequirePermissions(Constants.Authorization.ProductEditorPermission)]
-        public IActionResult EditColor(System.Guid key, System.Guid colorId, string color)
+        public IActionResult EditColor(System.Guid key, string label, System.Guid colorId, string color)
         {
             try
             {
@@ -814,6 +821,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Catalog
 
                 var colorEntity = productColorRepository.Get(colorId);
 
+                colorEntity.Label = label;
                 colorEntity.Color = color;
 
                 productColorRepository.Update(colorEntity, User.Identity.Name);

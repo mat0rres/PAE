@@ -11,5 +11,7 @@
         public ProductFeatureDisplayViewModel[] Features { get; set; }
 
         public ImageDisplayViewModel[] ExtraImages { get; set; }
+
+        public ProductColorDisplayViewModel[] Colors { get; set; }
     }
 }

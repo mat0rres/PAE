@@ -6,13 +6,15 @@
         {
             get
             {
-                return new System.Collections.Generic.List<Framework.Guama.Core.Persistence.ORM.EF.Configurators.IEntityTypeConfigurator>
-                {
+                return
+                [
                     new Configurators.ProductCustomAttributeBridgeEntityTypeConfigurator(),
                     new Configurators.ProductImageBridgeEntityTypeConfigurator(),
                     new Configurators.BrandEntityTypeConfigurator(),
-                    new Configurators.RepresentativeEntityTypeConfigurator()
-                };
+                    new Configurators.RepresentativeEntityTypeConfigurator(),
+                    new Configurators.CommonContactRecordEntityTypeConfigurator(),
+                    new Configurators.ProductForContactRecordEntityTypeConfigurator()
+                ];
             }
         }
 

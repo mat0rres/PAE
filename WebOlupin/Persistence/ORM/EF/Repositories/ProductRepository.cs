@@ -18,7 +18,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Repositori
                 .Include(entity => entity.Video)
                 .Include(entity => entity.ExtraImageBridges).ThenInclude(bridge => bridge.Stern)
                 .Include(entity => entity.CustomAttributeBridges).ThenInclude(bridge => bridge.Stern)
-                .Include(entity => entity.Features);
+                .Include(entity => entity.Features)
+                .Include(entity => entity.Colors);
         }
     }
 }

@@ -135,5 +135,27 @@
         public const string PageHeaderRemoverPermission = "page-header-remover-permission";
 
         #endregion
+
+        #region CommonContactRecord
+
+        public const string CommonContactRecordManagementPermissionGroup = "common-contact-record-management-permission-group";
+
+        public const string CommonContactRecordViewerPermission = "common-contact-record-viewer-permission";
+        public const string CommonContactRecordCreatorPermission = "common-contact-record-creator-permission";
+        public const string CommonContactRecordEditorPermission = "common-contact-record-editor-permission";
+        public const string CommonContactRecordRemoverPermission = "common-contact-record-remover-permission";
+
+        #endregion
+
+        #region ProductForContactRecord
+
+        public const string ProductForContactRecordManagementPermissionGroup = "product-for-contact-record-management-permission-group";
+
+        public const string ProductForContactRecordViewerPermission = "product-for-contact-record-viewer-permission";
+        public const string ProductForContactRecordCreatorPermission = "product-for-contact-record-creator-permission";
+        public const string ProductForContactRecordEditorPermission = "product-for-contact-record-editor-permission";
+        public const string ProductForContactRecordRemoverPermission = "product-for-contact-record-remover-permission";
+
+        #endregion
     }
 }

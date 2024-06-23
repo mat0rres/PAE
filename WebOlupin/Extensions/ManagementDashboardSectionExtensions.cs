@@ -32,6 +32,10 @@
 
             if (target.Controller == "representatives") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-id-badge");
 
+            if (target.Controller == "productforcontactrecords") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-shopping-cart");
+
+            if (target.Controller == "commoncontactrecords") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-envelope");
+
             return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-cog");
         }
     }

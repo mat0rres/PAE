@@ -1147,6 +1147,52 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                     b.ToTable("categories");
                 });
 
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.CommonContactRecord", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("createdat");
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("emailaddress");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("text")
+                        .HasColumnName("message");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text")
+                        .HasColumnName("phonenumber");
+
+                    b.Property<DateTime?>("ReadAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("readat");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("subject");
+
+                    b.HasKey("Id")
+                        .HasName("pk_commoncontactrecords");
+
+                    b.ToTable("commoncontactrecords");
+                });
+
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.CustomAttribute", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1330,8 +1376,14 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("Color")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("color");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("label");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid")
@@ -1394,6 +1446,74 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .HasDatabaseName("ix_productfeatures_productid");
 
                     b.ToTable("productfeatures");
+                });
+
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductForContactRecord", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CI")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("ci");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("city");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("createdat");
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("emailaddress");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("lastname");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("text")
+                        .HasColumnName("message");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text")
+                        .HasColumnName("phonenumber");
+
+                    b.Property<string>("PostalAddress")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("postaladdress");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("productid");
+
+                    b.Property<DateTime?>("ReadAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("readat");
+
+                    b.HasKey("Id")
+                        .HasName("pk_productforcontactrecords");
+
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_productforcontactrecords_productid");
+
+                    b.ToTable("productforcontactrecords");
                 });
 
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductImageBridge", b =>
@@ -2134,6 +2254,18 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_productfeatures_products_productid");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ProductForContactRecord", b =>
+                {
+                    b.HasOne("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_productforcontactrecords_products_productid");
 
                     b.Navigation("Product");
                 });

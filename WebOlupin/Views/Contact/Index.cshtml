@@ -19,34 +19,48 @@ else
     <div class="text-center">
         <h1 class="display-4 my-5">Contactar</h1>
     </div>
+
+    @{
+        var notificationEntries = TempData.Where(x => x.Key.EndsWith("-notification")).ToArray();
+
+        foreach (var extraNotificationEntry in notificationEntries)
+        {
+            var notification = JsonConvert.DeserializeObject<NotificationViewModel>(extraNotificationEntry.Value.ToString());
+
+            <div class="alert alert-dismissible fade show alert-@Html.Raw(notification.Type.ToString().ToLower()) mb-5">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                @if (notification.Title != null)
+                {
+                    <h4>@GlobalViewLocalizationHelper.Localize(notification.Title, ViewLocalizer)</h4>
+                }
+
+                @if (notification.Message != null)
+                {
+                    @Html.Raw(GlobalViewLocalizationHelper.Localize(notification.Message, ViewLocalizer))
+                    ;
+                }
+
+                @if (notification.Messages != null)
+                {
+                    <ul>
+                        @foreach (var item in notification.Messages)
+                        {
+                            <li>@GlobalViewLocalizationHelper.Localize(item, ViewLocalizer)</li>
+                        }
+                    </ul>
+                }
+            </div>
+        }
+    }
+
     <div class="row">
         <div class="col-md-5">
             @Html.Raw(Model.RichTextBlock.Content)
         </div>
         <div class="col-md-7">
-            <form asp-action="send" asp-controller="contact" asp-antiforgery="true" method="post">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="Name">Nombre</label>
-                            <input name="Name" type="text" class="form-control" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="Email">Correo Electrónico</label>
-                            <input name="Email" type="text" class="form-control" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="Phone">Teléfono</label>
-                            <input name="Phone" type="text" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="Message">Mensaje</label>
-                        <textarea name="Message" rows="8" class="form-control"></textarea>
-                    </div>
-                </div>
-                <button class="btn btn-primary" type="submit"><i class="fas fa-comment fa-fw"></i> Enviar mensaje</button>
-            </form>
+            <partial name="_CreateCommonContactRecordPartial" model="new MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.CommonContactRecordInputViewModel()" />
         </div>
     </div>
 </div>

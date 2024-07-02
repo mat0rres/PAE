@@ -24,7 +24,13 @@ else
     {
         <div class="jumbotron bg-white">
             <div class="text-center mb-5">
-                <img style="max-width: 400px;" src="/media/images/@Model.Brand.Image.Id.@Model.Brand.Image.Extension" title="@Model.Brand.Name" />
+                <div class="row no-gutters">
+                    <div class="col-lg-3 col-md-2 d-none d-sm-block"></div>
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <img class="img-fluid" src="/media/images/@Model.Brand.Image.Id.@Model.Brand.Image.Extension" title="@Model.Brand.Name" />
+                    </div>
+                    <div class="col-lg-3 col-md-2 d-none d-sm-block"></div>
+                </div>
                 @if (!string.IsNullOrEmpty(Model.Brand.PromotionalSlogan))
                 {
                     <h1 class="my-4">@Model.Brand.PromotionalSlogan</h1>
@@ -51,6 +57,10 @@ else
                         </div>
                     }
                 </div>
+                <div class="jumbotron text-center mt-5">
+                    <h2 class="mb-4">Interesado en adquirir uno de los productos de la marca @Model.Brand.Name?</h2>
+                    <p class="mb-0">Para iniciar el proceso, seleccione el modelo de su preferencia y complete el formulario en la siguiente página.</p>
+                </div>
             }
         </div>
     }
@@ -58,7 +68,13 @@ else
     {
         <div class="row">
             <div class="col-sm-3">
-                <img class="img-fluid" src="/media/images/@Model.Brand.Image.Id.@Model.Brand.Image.Extension" title="@Model.Brand.Name" />
+                <div class="row no-gutters">
+                    <div class="col-lg-3 col-md-2 d-none d-sm-block"></div>
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <img class="img-fluid" src="/media/images/@Model.Brand.Image.Id.@Model.Brand.Image.Extension" title="@Model.Brand.Name" />
+                    </div>
+                    <div class="col-lg-3 col-md-2 d-none d-sm-block"></div>
+                </div>
             </div>
             <div class="col-sm-9">
                 @if (Model.Products.Length <= 0)

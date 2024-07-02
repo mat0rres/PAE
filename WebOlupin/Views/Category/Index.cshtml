@@ -38,7 +38,13 @@ else
 
             <div class="jumbotron bg-white">
                 <div class="text-center mb-5">
-                    <img style="max-width: 400px;" src="/media/images/@item.Key.Image.Id.@item.Key.Image.Extension" title="@item.Key.Name" />
+                    <div class="row no-gutters">
+                        <div class="col-lg-3 col-md-2 d-none d-sm-block"></div>
+                        <div class="col-lg-6 col-md-8 col-sm-12">
+                            <img class="img-fluid" src="/media/images/@item.Key.Image.Id.@item.Key.Image.Extension" title="@item.Key.Name" />
+                        </div>
+                        <div class="col-lg-3 col-md-2 d-none d-sm-block"></div>
+                    </div>                    
                     @if (!string.IsNullOrEmpty(item.Key.PromotionalSlogan))
                     {
                         <h1 class="my-4">@item.Key.PromotionalSlogan</h1>
@@ -58,6 +64,10 @@ else
                             </a>
                         </div>
                     }
+                </div>
+                <div class="jumbotron text-center mt-5">
+                    <h2 class="mb-4">Interesado en adquirir uno de los productos de la marca @item.Key.Name?</h2>
+                    <p class="mb-0">Para iniciar el proceso, seleccione el modelo de su preferencia y complete el formulario en la siguiente página.</p>
                 </div>
             </div>
         }

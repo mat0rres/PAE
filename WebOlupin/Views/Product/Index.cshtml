@@ -6,6 +6,15 @@
     Layout = "_FrontendLayout";
 }
 
+@section styles {
+    <style type="text/css">
+        .alert-success {
+            background-color: #00a30b;
+            color: white;
+        }    
+    </style>
+}
+
 @if (Model.Header != null)
 {
     <div class="ahead-picture" style="background-image: url('/media/images/@Model.Header.Image.Id.@Model.Header.Image.Extension')"></div>
@@ -93,12 +102,12 @@ else
 
             @if (Model.Colors.Length > 0)
             {
-                <h5 class="mb-3">Colores disponibles:</h5>
+                <h5 class="mb-4">Colores disponibles:</h5>
 
                 <div class="row">
                     @foreach (var item in Model.Colors)
                     {
-                        <div class="col-md-4 col-sm-6 text-center">
+                        <div class="col-6 col-sm-4 col-lg-3 text-center">
                             <div class="img-thumbnail d-inline-block shadow-sm" style="width: 48px; height: 48px; background-color: @item.Color;"></div>
                             <p class="mb-3">@item.Label</p>
                         </div>
@@ -118,11 +127,11 @@ else
 </div>
 <div class="jumbotron m-sm-5 py-sm-5">
     <div class="row">
-        <div class="col-md-4 col-sm-12">
+        <div class="col-lg-4 col-md-12">
             <h4 class="display-4">Interesado?</h4>
             <p class="lead">Llene este formulation para que nuestro equipo de ventas se ponga en contacto y lo asista</p>
         </div>
-        <div class="col-md-8 col-sm-12">
+        <div class="col-lg-8 col-md-12">
             <partial name="_CreateProductForContactRecordPartial" model="new MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.ProductForContactRecordInputViewModel { ProductId = Model.Product.Id, ProductBrandName = Model.Product.Brand.Name, ProductModel = Model.Product.Model, ProductFeatureImage = Model.Product.FeatureImage, AvailableColorSelectListItems = Model.Colors.Select(_item => new SelectListItem { Value = _item.Id.ToString(), Text = _item.Label }).ToArray() }" />
         </div>
     </div>

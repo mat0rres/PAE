@@ -3,52 +3,16 @@
 }
 
 @section styles {
-    <style type="text/css">
-        .ahead-picture {
-            height: 315px;
-            width: 100%;
-            background-repeat: no-repeat;
-            background-color: lightgray;
-            background-size: cover;
-            background-position: center;
-        }
+    <link href="/css/frontend.css" rel="stylesheet" type="text/css" />
 
-        .nav-item {
-            text-transform: uppercase;
-        }
-
-        a {
-            color: #00a30b;
-        }
-
-        a:hover {
-            color: darkslategrey;
-        }
-
-        .nav-pills a.nav-link.active {
-            background-color: #00a30b;
-        }
-
-        .nav-pills a.nav-link:hover {
-            background-color: lightgrey;
-        }
-    </style>
+    @RenderSection("styles", false)
 }
 
-<div class="py-4 fixed-top bg-white">
-    <div class="container ">
-        <div class="text-center">
-            <img class="m-3" style="width: 278px;" title="Premier Automotive Export" src="/img/PAE-logo_d400.png" />
-        </div>
-        <!-- Begin Navigation Bar -->
-        @await Component.InvokeAsync("FrontendNavigationBar")
-        <!-- End Navigation Bar -->
-    </div>
-</div>
+@await Component.InvokeAsync("FrontendNavigationBar")
 
-<div class="mb-4" style="margin-top: 216px;">
+<section id="content-section" class="mb-4">
     @RenderBody()
-</div>
+</section>
 <a href="/doc/PremierAutomotiveExport_Capability Statement.pdf">
     <div style="background-color: forestgreen;">
         <div class="container" style="margin-top: 80px;">

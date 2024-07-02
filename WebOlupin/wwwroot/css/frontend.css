@@ -1,0 +1,49 @@
+﻿#content-section {
+    margin-top: 92px;
+}
+
+@media (min-width: 768px) {
+    #content-section {
+        margin-top: 216px;
+    }
+}
+
+@media (min-width: 768px) {
+    #content-section {
+        margin-top: 216px;
+    }
+}
+
+.ahead-picture {
+    height: 315px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-color: lightgray;
+    background-size: cover;
+    background-position: center;
+}
+
+.nav-item {
+    text-transform: uppercase;
+}
+
+a {
+    color: #00a30b;
+}
+
+    a:hover {
+        color: darkslategrey;
+    }
+
+.nav-pills a.nav-link.active {
+    background-color: #00a30b;
+}
+
+.nav-pills a.nav-link:hover {
+    background-color: lightgrey;
+}
+
+.navbar-nav a.nav-link.active {
+    color: #00a30b !important;
+    font-weight: bold;
+}

@@ -19,7 +19,13 @@ else
         foreach (var item in Model.BrandPromotions)
         {
             <div class="jumbotron text-center bg-white">
-                <img style="max-width: 400px;" src="/media/images/@item.Brand.Image.Id.@item.Brand.Image.Extension" title="@item.Brand.Name" />
+                <div class="row no-gutters">
+                    <div class="col-lg-3 col-md-2 d-none d-sm-block"></div>
+                    <div class="col-lg-6 col-md-8 col-sm-12">
+                        <img class="img-fluid" src="/media/images/@item.Brand.Image.Id.@item.Brand.Image.Extension" title="@item.Brand.Name" />
+                    </div>
+                    <div class="col-lg-3 col-md-2 d-none d-sm-block"></div>
+                </div>
                 <h1 class="my-4">@item.Title</h1>
                 <img class="img-fluid" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" title="@item.Brand.Name" />
                 <a class="btn btn-success btn-lg mt-4" asp-action="index" asp-controller="brand" asp-route-key="@item.Brand.Id">Conocer más</a>

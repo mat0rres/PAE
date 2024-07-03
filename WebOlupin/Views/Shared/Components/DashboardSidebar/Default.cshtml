@@ -48,7 +48,7 @@
 
         @foreach (var item in group.Value)
         {
-            if (User.IsAuthorized(item.Role))
+            if (User.IsAuthorized(item.Role, Context))
             {
                 if (Context.Request.Path.Value.StartsWith("/management/" + item.Area + "/" + item.Controller))
                 {

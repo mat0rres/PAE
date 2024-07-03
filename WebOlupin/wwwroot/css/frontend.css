@@ -8,12 +8,6 @@
     }
 }
 
-@media (min-width: 768px) {
-    #content-section {
-        margin-top: 216px;
-    }
-}
-
 .ahead-picture {
     height: 315px;
     width: 100%;

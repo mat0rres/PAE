@@ -1,8 +1,8 @@
 ﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.CustomAttributeInputViewModel
 
 @{
-    const string TITLE = "Agregar Atributo Personalizado";
-    const string HEADER = "Administración de Atributos Personalizados";
+    const string TITLE = "Add Custom Attribute";
+    const string HEADER = "Custom Attribute Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -45,8 +45,8 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Agregar</button>
-            <a class="btn btn-secondary" href="@Url.Action("index")">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Cancel</a>
         </div>
     </div>
 }

@@ -1,8 +1,8 @@
 ﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.PageHeaderInputViewModel
 
 @{
-    const string TITLE = "Create Page Header";
-    const string HEADER = "Page Header's management";
+    const string TITLE = "Add Page Header";
+    const string HEADER = "Page Header Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -90,8 +90,8 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Agregar</button>
-            <a class="btn btn-secondary" href="@Url.Action("index")">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Cancel</a>
         </div>
     </div>
 }

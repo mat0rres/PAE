@@ -1,8 +1,8 @@
 ﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.ServiceInputViewModel
 
 @{
-    const string TITLE = "Modificar Service";
-    const string HEADER = "Administración de Services";
+    const string TITLE = "Modify Service";
+    const string HEADER = "Service Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -117,7 +117,7 @@
                         <div class="col-sm-6 mb-3">
                             <div class="checkbox">
                                 <label>
-                                    @Html.EditorFor(model => model.Enabled) Habilitado?
+                                    @Html.EditorFor(model => model.Enabled) Enabled?
                                     @Html.ValidationMessageFor(model => model.Enabled)
                                 </label>
                             </div>
@@ -137,8 +137,8 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Modificar</button>
-            <a class="btn btn-secondary" href="@Url.Action("index")">Regresar al listado</a>
+            <button type="submit" class="btn btn-primary">Modify</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Back to list</a>
         </div>
     </div>
 }

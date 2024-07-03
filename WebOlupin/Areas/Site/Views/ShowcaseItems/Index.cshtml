@@ -1,7 +1,7 @@
 ﻿@model MOROPO.Framework.Guama.Core.Presentation.Web.Frontend.Models.View.PaginationViewModel<MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.ShowcaseItem, System.Guid, MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.ShowcaseItemDisplayViewModel>
 
 @{
-    const string HEADER = "Administración de Instantáneas";
+    const string HEADER = "Snapshot Management";
 
     ViewData["TITLE"] = ViewData["HEADER"] = HEADER;
 
@@ -23,7 +23,7 @@
 
 <hr class="mt-0 mb-4" />
 
-<a class="btn btn-primary float-right" href="#" data-toggle="modal" data-target="#add-image"><span class="fas fa-fw fa-plus"></span> Agregar</a>
+<a class="btn btn-primary float-right" href="#" data-toggle="modal" data-target="#add-image"><span class="fas fa-fw fa-plus"></span> Add</a>
 
 <div class="clearfix mb-3"></div>
 
@@ -31,7 +31,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="add-image-title">Agregar Instantánea</h5>
+                <h5 class="modal-title" id="add-image-title">Add Snapshot</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -42,8 +42,8 @@
                     <input type="file" class="form-control" id="ImageFile" name="ImageFile" />
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Agregar</button>
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                 </div>
             }
         </div>
@@ -52,7 +52,7 @@
 
 @if (Model.List.Count <= 0)
 {
-    <p class="text-muted mb-4">Sin elementos que mostrar</p>
+    <p class="text-muted mb-4">No items to show</p>
 }
 else
 {
@@ -74,15 +74,15 @@ else
                                 @Html.Hidden("Id", item.Id)
 
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="delete-image-@item.Id-lable">Eliminar Instantánea</h4>
+                                    <h4 class="modal-title" id="delete-image-@item.Id-lable">Delete Snapshot</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <p class="mb-0">Esta seguro que desea eliminar la instantánea seleccionada?</p>
+                                    <p class="mb-0">Are you sure you want to delete the selected snapshot?</p>
                                 </div>
                                 <div class="modal-footer" style="margin-top: 0;">
-                                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                                 </div>
                             }
                         </div>

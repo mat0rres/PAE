@@ -1,8 +1,8 @@
 ﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.BrandInputViewModel
 
 @{
-    const string TITLE = "Agregar Marca";
-    const string HEADER = "Administración de Marcas";
+    const string TITLE = "Add Brand";
+    const string HEADER = "Brands Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -92,7 +92,7 @@
                         <div class="col-sm-6 mb-3">
                             <div class="checkbox">
                                 <label>
-                                    @Html.EditorFor(model => model.IsFavorite) Es Favorito?
+                                    @Html.EditorFor(model => model.IsFavorite) Is Favorite?
                                     @Html.ValidationMessageFor(model => model.IsFavorite)
                                 </label>
                             </div>
@@ -112,8 +112,8 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Agregar</button>
-            <a class="btn btn-secondary" href="@Url.Action("index")">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Cancel</a>
         </div>
     </div>
 }

@@ -1,7 +1,7 @@
 ﻿@model MOROPO.Framework.Guama.Core.Presentation.Web.Frontend.Models.View.PaginationViewModel<MOROPO.Framework.Guama.Core.Security.Common.Persistence.Entities.Role, System.Guid, MOROPO.Framework.Guama.Core.Security.Common.Presentation.Web.Backend.Models.View.RoleDisplayViewModel>
 
 @{
-    const string HEADER = "Administración de Roles";
+    const string HEADER = "Role Management";
 
     ViewData["TITLE"] = ViewData["HEADER"] = HEADER;
 
@@ -23,13 +23,13 @@
 
 <hr class="mt-0 mb-4" />
 
-<div><a class="btn btn-primary float-right" href="@Url.Action("create")"><span class="mdi mdi-plus"></span> Agregar</a></div>
+<div><a class="btn btn-primary float-right" href="@Url.Action("create")"><span class="mdi mdi-plus"></span> Add</a></div>
 
 <div class="clearfix mb-3"></div>
 
 <div class="card">
     <div class="card-header">
-        <h5 class="m-0 font-weight-bold text-primary">Listado de roles</h5>
+        <h5 class="m-0 font-weight-bold text-primary">List of roles</h5>
     </div>
     <div class="card-body">
         @if (Model.HasNext || Model.HasPrevious)
@@ -39,7 +39,7 @@
 
             <div class="row">
                 <div class="col mb-2">
-                    <span style="font-weight: 600;">Mostrando página @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total de páginas</span>: @Model.MaxPageCount
+                    <span style="font-weight: 600;">Showing page @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total pages</span>: @Model.MaxPageCount
                 </div>
                 <div class="col-auto mb-2">
                     <ul class="pagination">
@@ -132,8 +132,8 @@
             <table class="table table-bordered table-striped m-0">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th class="fit">Opciones</th>
+                        <th>Name</th>
+                        <th class="fit">Options</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -142,27 +142,27 @@
                         foreach (var item in Model.List)
                         {
                             <tr>
-                                <td style="vertical-align: middle;" title="Nombre">@item.Name</td>
+                                <td style="vertical-align: middle;" title="Name">@item.Name</td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-light" data-toggle="modal" data-target="#descrip-@item.Id"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Detalles</span></button>
-                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-light" title="Editar"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modificar</span></a>
-                                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Eliminar</span></button>
+                                        <button class="btn btn-light" data-toggle="modal" data-target="#descrip-@item.Id"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Details</span></button>
+                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-light" title="Editar"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modify</span></a>
+                                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Delete</span></button>
                                     </div>
                                     <div class="modal fade" id="descrip-@item.Id" tabindex="-1" role="dialog" aria-labelledby="descrip-@item.Id-label" aria-hidden="true">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title font-weight-bold text-primary" id="descrip-@item.Id-label">Detalles</h5>
+                                                    <h5 class="modal-title font-weight-bold text-primary" id="descrip-@item.Id-label">Details</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <dl class="mb-0">
-                                                        <dt>Nombre</dt>
+                                                        <dt>Name</dt>
                                                         <dd>@item.Name</dd>
-                                                        <dt>Descripción</dt>
+                                                        <dt>Description</dt>
                                                         @if (!string.IsNullOrEmpty(item.Description))
                                                         {
                                                             <dd class="mb-0">@item.Description</dd>
@@ -184,15 +184,15 @@
                                                     @Html.Hidden("Id", item.Id)
 
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Eliminar rol</h5>
+                                                        <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Delete Role</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p class="mb-0">Esta seguro que desea eliminar el rol seleccionado?</p>
+                                                        <p class="mb-0">Are you sure you want to delete the selected role?</p>
                                                     </div>
                                                     <div class="modal-footer" style="margin-top: 0;">
-                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                                                     </div>
                                                 }
                                             </div>
@@ -205,7 +205,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="6"><p style="margin: 0 5px;" class="text-muted">Sin elementos que mostrar</p></td>
+                            <td colspan="6"><p style="margin: 0 5px;" class="text-muted">No items to show</p></td>
                         </tr>
                     }
                 </tbody>

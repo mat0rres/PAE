@@ -1,8 +1,8 @@
 ﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.CategoryInputViewModel
 
 @{
-    const string TITLE = "Modificar Categoría";
-    const string HEADER = "Administración de Categorías";
+    const string TITLE = "Modify Category";
+    const string HEADER = "Category Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -56,7 +56,7 @@
                 <div class="col-sm-6 mb-3">
                     <div class="checkbox">
                         <label>
-                            @Html.EditorFor(model => model.Enabled) Habilitada?
+                            @Html.EditorFor(model => model.Enabled) Enabled?
                             @Html.ValidationMessageFor(model => model.Enabled)
                         </label>
                     </div>
@@ -64,7 +64,7 @@
                 <div class="col-sm-6 mb-3">
                     <div class="checkbox">
                         <label>
-                            @Html.EditorFor(model => model.IsOnNavigation) Mostrar en Navegación?
+                            @Html.EditorFor(model => model.IsOnNavigation) Show in Navigation?
                             @Html.ValidationMessageFor(model => model.IsOnNavigation)
                         </label>
                     </div>

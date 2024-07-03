@@ -1,8 +1,8 @@
 ﻿@model MOROPO.Framework.Guama.Security.Personal.Presentation.Web.Backend.Models.View.UserInputViewModel
 
 @{
-    const string TITLE = "Modificar Usuario";
-    const string HEADER = "Administración de Usuarios";
+    const string TITLE = "Modify User";
+    const string HEADER = "Users Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -119,7 +119,7 @@
                 <div class="col-sm-4 mb-3">
                     <div class="checkbox">
                         <label>
-                            @Html.EditorFor(model => model.Enabled) Habilitado
+                            @Html.EditorFor(model => model.Enabled) Enabled
                         </label>
                         @Html.ValidationMessageFor(model => model.Enabled, null, new { @class = "text-danger", style = "display: inline-block;" })
                     </div>
@@ -127,7 +127,7 @@
                 <div class="col mb-3">
                     <div class="checkbox">
                         <label>
-                            @Html.EditorFor(model => model.PasswordChangeRequired) Debe cambiar la contraseña?
+                            @Html.EditorFor(model => model.PasswordChangeRequired) Password must be changed?
                         </label>
                         @Html.ValidationMessageFor(model => model.PasswordChangeRequired, null, new { @class = "text-danger", style = "display: inline-block;" })
                     </div>
@@ -135,7 +135,7 @@
                 <div class="col-sm-4 mb-3">
                     <div class="checkbox">
                         <label>
-                            @Html.EditorFor(model => model.HasFullAccess) Es super usuario?
+                            @Html.EditorFor(model => model.HasFullAccess) Full Access?
                         </label>
                         @Html.ValidationMessageFor(model => model.HasFullAccess, null, new { @class = "text-danger", style = "display: inline-block;" })
                     </div>
@@ -157,13 +157,13 @@
                 }
                 else
                 {
-                    <div class="text-muted">Sin elementos que mostrar.</div>
+                    <div class="text-muted">No items to show</div>
                 }
             </fieldset>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Modificar</button>
-            <a class="btn btn-secondary" href="@Url.Action("index")">Regresar al listado</a>
+            <button type="submit" class="btn btn-primary">Modify</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Return to list</a>
         </div>
     </div>
 }

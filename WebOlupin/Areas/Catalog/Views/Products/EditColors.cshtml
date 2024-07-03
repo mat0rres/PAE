@@ -2,7 +2,7 @@
 
 @{
     const string TITLE = "Modify Product (Colors)";
-    const string HEADER = "Product's management";
+    const string HEADER = "Product Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -45,7 +45,7 @@
         <h5 class="font-weight-bold text-primary">Modify Product</h5>
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("edit", @Model.Product.Id)">Generals</a>
+                <a class="nav-link" href="@Url.Action("edit", @Model.Product.Id)">General</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("EditAttributes", @Model.Product.Id)">Attributes</a>
@@ -120,8 +120,8 @@
                                 <td style="vertical-align: middle;" title="Label">@item.Label</td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-light" data-toggle="modal" data-target="#edit-@item.Id"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Edit</span></button>
-                                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Remove</span></button>
+                                        <button class="btn btn-light" data-toggle="modal" data-target="#edit-@item.Id"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modify</span></button>
+                                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Delete</span></button>
                                     </div>
                                     <div class="modal fade" id="edit-@item.Id" tabindex="-1" role="dialog" aria-labelledby="edit-@item.Id-lable" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -130,7 +130,7 @@
                                                 @Html.Hidden("colorId", item.Id)
 
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Modificar color</h5>
+                                                    <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Modify Color</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                 </div>
                                                 <div class="modal-body">
@@ -146,7 +146,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer" style="margin-top: 0;">
-                                                    <button type="submit" class="btn btn-primary">Apply</button>
+                                                    <button type="submit" class="btn btn-primary">Modify</button>
                                                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             }
@@ -159,14 +159,14 @@
                                                 @Html.Hidden("colorId", item.Id)
 
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Remove color</h5>
+                                                    <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Delete Color</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p class="mb-0">Are you shure do you want to remove selected product´s color?</p>
+                                                    <p class="mb-0">Are you shure do you want to delete selected product color?</p>
                                                 </div>
                                                 <div class="modal-footer" style="margin-top: 0;">
-                                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
                                                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             }

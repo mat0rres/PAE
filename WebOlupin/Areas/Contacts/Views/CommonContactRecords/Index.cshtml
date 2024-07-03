@@ -3,7 +3,7 @@
 @model MOROPO.Framework.Guama.Core.Presentation.Web.Frontend.Models.View.PaginationViewModel<MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.CommonContactRecord, long, MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.CommonContactRecordDisplayViewModel>
 
 @{
-    const string HEADER = "Common Contact Record's management";
+    const string HEADER = "Common Contact Record Management";
 
     ViewData["TITLE"] = ViewData["HEADER"] = HEADER;
 
@@ -27,7 +27,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h5 class="m-0 font-weight-bold text-primary">Common Contact Record's list</h5>
+        <h5 class="m-0 font-weight-bold text-primary">Common contact record list</h5>
     </div>
     <div class="card-body">
         @if (Model.HasNext || Model.HasPrevious)
@@ -37,7 +37,7 @@
 
             <div class="row">
                 <div class="col mb-2">
-                    <span style="font-weight: 600;">Mostrando página @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total de páginas</span>: @Model.MaxPageCount
+                    <span style="font-weight: 600;">Showing page @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total pages</span>: @Model.MaxPageCount
                 </div>
                 <div class="col-auto mb-2">
                     <ul class="pagination">
@@ -186,7 +186,7 @@
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
                                         <a role="button" asp-action="details" asp-route-key="@item.Id" class="btn btn-light" title="Detail"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Details</span></a>
-                                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Remove</span></button>
+                                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Delete</span></button>
                                     </div>                                        
                                     <div class="modal fade" id="delete-@item.Id" tabindex="-1" role="dialog" aria-labelledby="delete-@item.Id-lable" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -195,14 +195,14 @@
                                                 @Html.Hidden("Id", item.Id)
 
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Remove common contact record</h5>
+                                                    <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Delete common contact record</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p class="mb-0">Are you shure to remove selected common contact record?</p>
+                                                    <p class="mb-0">Are you shure to delete selected common contact record?</p>
                                                 </div>
                                                 <div class="modal-footer" style="margin-top: 0;">
-                                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
                                                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             }

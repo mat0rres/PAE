@@ -2,7 +2,7 @@
 
 @{
     const string TITLE = "Modify Product (Images)";
-    const string HEADER = "Product's management";
+    const string HEADER = "Product Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -33,7 +33,7 @@
         <h5 class="font-weight-bold text-primary">Modify Product</h5>
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("edit", @Model.Product.Id)">Generals</a>
+                <a class="nav-link" href="@Url.Action("edit", @Model.Product.Id)">General</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("EditAttributes", @Model.Product.Id)">Attributes</a>
@@ -103,14 +103,14 @@
                                     @Html.Hidden("imageId", item.Id)
 
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="delete-image-@item.Id-lable">Remove Imagen</h4>
+                                        <h4 class="modal-title" id="delete-image-@item.Id-lable">Delete Imagen</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <p class="mb-0">Are you shure to remove selected image?</p>
+                                        <p class="mb-0">Are you shure to delete selected image?</p>
                                     </div>
                                     <div class="modal-footer" style="margin-top: 0;">
-                                        <button type="submit" class="btn btn-danger">Remove</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
                                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                                     </div>
                                 }

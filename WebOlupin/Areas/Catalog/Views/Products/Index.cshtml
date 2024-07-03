@@ -1,7 +1,7 @@
 ﻿@model MOROPO.Framework.Guama.Core.Presentation.Web.Frontend.Models.View.PaginationViewModel<MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Product, System.Guid, MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.ProductDisplayViewModel>
 
 @{
-    const string HEADER = "Product's management";
+    const string HEADER = "Product Management";
 
     ViewData["TITLE"] = ViewData["HEADER"] = HEADER;
 
@@ -23,13 +23,13 @@
 
 <hr class="mt-0 mb-4" />
 
-<a class="btn btn-primary float-right" href="@Url.Action("create")"><span class="fas fa-fw fa-plus"></span> Agregar</a>
+<a class="btn btn-primary float-right" href="@Url.Action("create")"><span class="fas fa-fw fa-plus"></span> Add</a>
 
 <div class="clearfix mb-3"></div>
 
 <div class="card">
     <div class="card-header">
-        <h5 class="m-0 font-weight-bold text-primary">Listado de productos</h5>
+        <h5 class="m-0 font-weight-bold text-primary">Product List</h5>
     </div>
     <div class="card-body">
         @if (Model.HasNext || Model.HasPrevious)
@@ -39,7 +39,7 @@
 
             <div class="row">
                 <div class="col mb-2">
-                    <span style="font-weight: 600;">Mostrando página @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total de páginas</span>: @Model.MaxPageCount
+                    <span style="font-weight: 600;">Showing page @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total pages</span>: @Model.MaxPageCount
                 </div>
                 <div class="col-auto mb-2">
                     <ul class="pagination">
@@ -132,10 +132,10 @@
             <table class="table table-bordered table-striped m-0">
                 <thead>
                     <tr>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th class="fit">Habilitado?</th>
-                        <th class="fit">Opciones</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th class="fit">Enabled?</th>
+                        <th class="fit">Options</th>
                     </tr>        
                 </thead>
                 <tbody>
@@ -144,10 +144,10 @@
                         foreach (var item in Model.List)
                         {
                             <tr>
-                                <td style="vertical-align: middle;" title="Marca">@item.Brand.Name</td>
-                                <td style="vertical-align: middle;" title="Modelo">@item.Model</td>
+                                <td style="vertical-align: middle;" title="Brand">@item.Brand.Name</td>
+                                <td style="vertical-align: middle;" title="Model">@item.Model</td>
 
-                                <td style="vertical-align: middle; text-align: center;" title="Habilitado?">
+                                <td style="vertical-align: middle; text-align: center;" title="Enabled?">
                                     @using (Html.BeginForm(item.Enabled ? "disable" : "enable", "products", new { Area = "catalog" }, FormMethod.Post, true, null))
                                     {
                                         <input type="hidden" name="key" value="@Html.Raw(item.Id)" />
@@ -166,15 +166,15 @@
                                 </td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-light" data-toggle="modal" data-target="#descrip-@item.Id"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Detalles</span></button>
-                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-light" title="Editar"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modificar</span></a>
-                                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Eliminar</span></button>
+                                        <button class="btn btn-light" data-toggle="modal" data-target="#descrip-@item.Id"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Details</span></button>
+                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-light" title="Editar"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modify</span></a>
+                                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Delete</span></button>
                                     </div>
                                     <div class="modal fade " id="descrip-@item.Id" tabindex="-1" role="dialog" aria-labelledby="descrip-@item.Id-label" aria-hidden="true">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title font-weight-bold text-primary" id="descrip-@item.Id-label">Detalles</h5>
+                                                    <h5 class="modal-title font-weight-bold text-primary" id="descrip-@item.Id-label">Details</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -185,24 +185,24 @@
                                                     </div>
                                                     <div class="row">
                                                         <dl class="col-md-6 mb-0">
-                                                            <dt>Marca</dt>
+                                                            <dt>Brand</dt>
                                                             <dd>@item.Brand.Name</dd>
                                                         </dl>
                                                         <dl class="col-md-6 mb-0">
-                                                            <dt>Modelo</dt>
+                                                            <dt>Model</dt>
                                                             <dd>@item.Model</dd>
                                                         </dl>
                                                         <dl class="col-md-6 mb-0">
-                                                            <dt>Categoría</dt>
+                                                            <dt>Category</dt>
                                                             <dd>@item.Category.Name</dd>
                                                         </dl>
                                                         <dl class="col-md-6 mb-0">
-                                                            <dt>Habilitado?</dt>
-                                                            <dd>@if (item.Enabled) { <span>Si</span> } else { <span>No</span> }</dd>
+                                                            <dt>Enabled?</dt>
+                                                            <dd>@if (item.Enabled) { <span>Yes</span> } else { <span>No</span> }</dd>
                                                         </dl>
                                                     </div>
                                                     <dl class="mb-0">
-                                                        <dt>Descripción</dt>
+                                                        <dt>Description</dt>
                                                         <dd class="mb-0">@Html.Raw(item.Description)</dd>
                                                     </dl>
                                                 </div>
@@ -217,15 +217,15 @@
                                                     @Html.Hidden("Id", item.Id)
 
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Eliminar producto</h5>
+                                                        <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Delete Product</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p class="mb-0">Esta seguro que desea eliminar el producto seleccionado?</p>
+                                                        <p class="mb-0">Are you sure you want to delete the selected product?</p>
                                                     </div>
                                                     <div class="modal-footer" style="margin-top: 0;">
-                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                                                     </div>
                                                 }
                                             </div>
@@ -238,7 +238,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="4"><p style="margin: 0 5px;" class="text-muted">Sin elementos que mostrar</p></td>
+                            <td colspan="4"><p style="margin: 0 5px;" class="text-muted">No items to show</p></td>
                         </tr>
                     }
                 </tbody>

@@ -1,8 +1,8 @@
 ﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.BrandSupportOfferInputViewModel
 
 @{
-    const string TITLE = "Modificar Oferta de Soporte";
-    const string HEADER = "Administración de Ofertas de Soporte";
+    const string TITLE = "Modify Support Offer";
+    const string HEADER = "Support Offer Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -122,7 +122,7 @@
                         <div class="col-md-6 mb-3">
                             <div class="checkbox">
                                 <label>
-                                    @Html.EditorFor(model => model.Enabled) Habilitada?
+                                    @Html.EditorFor(model => model.Enabled) Enabled?
                                     @Html.ValidationMessageFor(model => model.Enabled)
                                 </label>
                             </div>
@@ -138,8 +138,8 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Modificar</button>
-            <a class="btn btn-secondary" href="@Url.Action("index")">Regresar al listado</a>
+            <button type="submit" class="btn btn-primary">Modify</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Return to list</a>
         </div>
     </div>
 }

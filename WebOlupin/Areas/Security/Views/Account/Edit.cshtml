@@ -1,7 +1,7 @@
 ﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.UserProfileViewModel
 
 @{
-    const string HEADING = "Modificar Perfil de Usuario";
+    const string HEADING = "Modify User Profile";
 
     ViewData["Heading"] = HEADING;
 
@@ -126,6 +126,6 @@
         @Html.ValidationMessageFor(model => model.About, null, new { @class = "text-danger" })
     </div>
     <hr />
-    <button type="submit" class="btn btn-primary">Modificar</button>
-    <a class="btn btn-light" href="@Url.Action("index")">Cancelar</a>
+    <button type="submit" class="btn btn-primary">Modify</button>
+    <a class="btn btn-light" href="@Url.Action("index")">Cancel</a>
 </form>

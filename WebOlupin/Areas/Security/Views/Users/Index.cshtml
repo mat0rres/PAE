@@ -1,7 +1,7 @@
 ﻿@model MOROPO.Framework.Guama.Core.Presentation.Web.Frontend.Models.View.PaginationViewModel<MOROPO.Framework.Guama.Security.Personal.Persistence.Entities.User, string, MOROPO.Framework.Guama.Security.Personal.Presentation.Web.Backend.Models.View.UserDisplayViewModel>
 
 @{
-    const string HEADER = "Administración de Usuarios";
+    const string HEADER = "Users Management";
 
     ViewData["TITLE"] = ViewData["HEADER"] = HEADER;
 
@@ -38,12 +38,12 @@
     <div class="col-sm-4">
         @await Html.PartialAsync("_UsersFilterPartial", Model.Filter)
     </div>
-    <div class="col-sm-8"><a class="btn btn-primary float-right" href="@Url.Action("create")"><span class="fas fa-fw fa-plus"></span> Agregar</a></div>
+    <div class="col-sm-8"><a class="btn btn-primary float-right" href="@Url.Action("create")"><span class="fas fa-fw fa-plus"></span> Add</a></div>
 </div>
 
 <div class="card">
     <div class="card-header">
-        <h5 class="m-0 font-weight-bold text-primary">Listado de usuarios</h5>
+        <h5 class="m-0 font-weight-bold text-primary">User List</h5>
     </div>
     <div class="card-body">
         @if (Model.HasNext || Model.HasPrevious)
@@ -53,7 +53,7 @@
 
             <div class="row">
                 <div class="col mb-2">
-                    <span style="font-weight: 600;">Mostrando página @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total de páginas</span>: @Model.MaxPageCount
+                    <span style="font-weight: 600;">Showing page @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total pages</span>: @Model.MaxPageCount
                 </div>
                 <div class="col-auto mb-2">
                     <ul class="pagination">
@@ -147,11 +147,11 @@
                 <thead>
                     <tr>
                         <th width="36"><i class="fas fa-fw fa-user-shield" title="Integridad"></i></th>
-                        <th>Nombre de Usuario</th>
-                        <th style="width: 1px; word-wrap: unset;">Habilitado?</th>
-                        <th style="width: 130px; text-align: center;">Acceso Total?</th>
-                        <th>Creado</th>
-                        <th class="fit">Opciones</th>
+                        <th>Username</th>
+                        <th style="width: 1px; word-wrap: unset;">Enabled?</th>
+                        <th style="width: 130px; text-align: center;">Full Access?</th>
+                        <th>Created</th>
+                        <th class="fit">Options</th>
                     </tr>        
                 </thead>
                 <tbody>
@@ -170,8 +170,8 @@
                                         <i class="text-warning fas fa-fw fa-exclamation-triangle"></i>
                                     }
                                 </td>
-                                <td style="vertical-align: middle;" title="Nombre de Usuario">@item.Id</td>
-                                <td style="vertical-align: middle; text-align: center;" title="Habilitado?">
+                                <td style="vertical-align: middle;" title="Username">@item.Id</td>
+                                <td style="vertical-align: middle; text-align: center;" title="Enabled?">
                                     @if (item.Id != User.Identity.Name)
                                     {
                                         @using (Html.BeginForm(item.Enabled ? "disable" : "enable", "users", new { Area = "security" }, FormMethod.Post, true, null))
@@ -202,7 +202,7 @@
                                         }
                                     }
                                 </td>
-                                <td style="vertical-align: middle; text-align: center;" title="Acceso Total?">
+                                <td style="vertical-align: middle; text-align: center;" title="Full Access?">
                                     @if (item.HasFullAccess)
                                     { 
                                         <i class="fas fa-fw fa-check-square"></i> 
@@ -212,58 +212,58 @@
                                         <i class="fas fa-fw fa-minus-square"></i>
                                     }
                                 </td>
-                                <td style="vertical-align: middle;" title="Creado">@item.Created</td>
+                                <td style="vertical-align: middle;" title="Created">@item.Created</td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-light" data-toggle="modal" data-target="#descrip-@item.Id"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Detalles</span></button>
-                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-light" title="Editar"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modificar</span></a>
+                                        <button class="btn btn-light" data-toggle="modal" data-target="#descrip-@item.Id"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Details</span></button>
+                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-light" title="Editar"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modify</span></a>
                                         <div class="btn-group btn-group-sm">
                                             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" title="Extras"></button>
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 @if (item.Id != User.Identity.Name)
                                                 {
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#change-password-@item.Id">Cambiar Contrase&ntilde;a</a>
+                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#change-password-@item.Id">Change Password</a>
                                                 }
                                                 else
                                                 {
-                                                    <a class="dropdown-item disabled" href="#">Cambiar Contrase&ntilde;a</a>
+                                                    <a class="dropdown-item disabled" href="#">Change Password</a>
                                                 }
                                             </div>
                                         </div>
                                         @if (item.Id != User.Identity.Name)
                                         {
-                                            <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Eliminar</span></button>
+                                            <button class="btn btn-danger" data-toggle="modal" data-target="#delete-@item.Id"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Delete</span></button>
                                         }
                                         else
                                         {
-                                            <button class="btn btn-danger disabled"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Eliminar</span></button>
+                                            <button class="btn btn-danger disabled"><i class="d-inline fas fa-trash fa-fw"></i><span class="ml-1">Delete</span></button>
                                         }
                                     </div>
                                     <div class="modal fade " id="descrip-@item.Id" tabindex="-1" role="dialog" aria-labelledby="descrip-@item.Id-label" aria-hidden="true">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title font-weight-bold text-primary" id="descrip-@item.Id-label">Detalles</h5>
+                                                    <h5 class="modal-title font-weight-bold text-primary" id="descrip-@item.Id-label">Details</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <dl>
-                                                        <dt>Usuario</dt>
+                                                        <dt>Username</dt>
                                                         <dd>@item.Id</dd>
                                                     </dl>
                                                     <div class="row">
                                                         <dl class="col-sm-6">
-                                                            <dt>Habilitado?</dt>
+                                                            <dt>Enabled?</dt>
                                                             <dd>@if (item.Enabled) { <span>Si</span> } else { <span>No</span> }</dd>
                                                         </dl>
                                                         <dl class="col-sm-6">
-                                                            <dt>Acceso Total?</dt>
+                                                            <dt>Full Access?</dt>
                                                             <dd>@if (item.HasFullAccess) { <span>Si</span> } else { <span>No</span> }</dd>
                                                         </dl>
                                                         <dl class="col-sm-6">
-                                                            <dt>Registrado</dt>
+                                                            <dt>Created</dt>
                                                             <dd>@item.Created</dd>
                                                         </dl>
                                                     </div>
@@ -279,7 +279,7 @@
                                                                     <dd>
                                                                     @if (string.IsNullOrEmpty(it3m.Description))
                                                                     {
-                                                                        <span class="text-muted">Descripción no especificada</span>
+                                                                        <span class="text-muted">Description not specified</span>
                                                                     }
                                                                     else
                                                                     {
@@ -311,15 +311,15 @@
                                                         @Html.Hidden("Id", item.Id)
 
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Eliminar usuario</h5>
+                                                            <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Delete user</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p class="mb-0">Esta seguro que desea eliminar el usuario seleccionado?</p>
+                                                            <p class="mb-0">Are you sure you want to delete the selected user?</p>
                                                         </div>
                                                         <div class="modal-footer" style="margin-top: 0;">
-                                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                                                         </div>
                                                     }
                                                 </div>
@@ -333,7 +333,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="6"><p style="margin: 0 5px;" class="text-muted">Sin elementos que mostrar</p></td>
+                            <td colspan="6"><p style="margin: 0 5px;" class="text-muted">No items to show</p></td>
                         </tr>
                     }
                 </tbody>

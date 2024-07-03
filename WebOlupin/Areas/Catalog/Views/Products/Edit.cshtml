@@ -2,7 +2,7 @@
 
 @{
     const string TITLE = "Modify Product";
-    const string HEADER = "Product's management";
+    const string HEADER = "Product Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -73,7 +73,7 @@
             <h5 class="font-weight-bold text-primary">@TITLE</h5>
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Generals</a>
+                    <a class="nav-link active" href="#">General</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("EditAttributes", @Model.Id)">Attributes</a>
@@ -122,7 +122,7 @@
                         <div class="col-md-6 mb-3">
                             <div class="checkbox">
                                 <label>
-                                    @Html.EditorFor(model => model.Enabled) Habilitado?
+                                    @Html.EditorFor(model => model.Enabled) Enabled?
                                     @Html.ValidationMessageFor(model => model.Enabled)
                                 </label>
                             </div>
@@ -137,8 +137,8 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Modificar</button>
-            <a class="btn btn-secondary" href="@Url.Action("index")">Regresar al listado</a>
+            <button type="submit" class="btn btn-primary">Modify</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Return to list</a>
         </div>
     </div>
 }

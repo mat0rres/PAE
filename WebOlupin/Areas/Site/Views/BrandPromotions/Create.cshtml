@@ -1,8 +1,8 @@
 ﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.BrandPromotionInputViewModel
 
 @{
-    const string TITLE = "Agregar Promoción de Marca";
-    const string HEADER = "Administración de Promociones de Marca";
+    const string TITLE = "Add Brand Promotion";
+    const string HEADER = "Brand Promotions Management";
 
     ViewData["TITLE"] = TITLE;
     ViewData["HEADER"] = HEADER;
@@ -120,8 +120,8 @@
         </div>
 
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Agregar</button>
-            <a class="btn btn-secondary" href="@Url.Action("index")">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Cancel</a>
         </div>
     </div>
 }

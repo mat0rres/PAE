@@ -1,7 +1,7 @@
 ﻿@model MOROPO.Framework.Guama.Core.Presentation.Web.Frontend.Models.View.PaginationViewModel<MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.RichTextBlock, MOROPO.PremierAutomotiveExport.Persistence.Domain.Enumerations.RichTextBlockId, MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.RichTextBlockDisplayViewModel>
 
 @{
-    const string HEADER = "Administración de Bloques de Texto";
+    const string HEADER = "Text Block Management";
 
     ViewData["TITLE"] = ViewData["HEADER"] = HEADER;
 
@@ -35,7 +35,7 @@
 
             <div class="row">
                 <div class="col mb-2">
-                    <span style="font-weight: 600;">Mostrando página @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total de páginas</span>: @Model.MaxPageCount
+                    <span style="font-weight: 600;">Showing page @Model.Page</span>: del @paginationStart al @paginationEnd, <span style="font-weight: 600;">Total pages</span>: @Model.MaxPageCount
                 </div>
                 <div class="col-auto mb-2">
                     <ul class="pagination">
@@ -128,8 +128,8 @@
             <table class="table table-bordered table-striped m-0">
                 <thead>
                     <tr>
-                        <th>Identificador</th>
-                        <th class="fit">Opciones</th>
+                        <th>Identifier</th>
+                        <th class="fit">Options</th>
                     </tr>        
                 </thead>
                 <tbody>
@@ -141,23 +141,23 @@
                                 <td style="vertical-align: middle;" title="Nombre">@GlobalViewLocalizationHelper.Localize(item.Id.ToString())</td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-light" data-toggle="modal" data-target="#descrip-@item.Id"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Detalles</span></button>
-                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-light" title="Editar"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modificar</span></a>
+                                        <button class="btn btn-light" data-toggle="modal" data-target="#descrip-@item.Id"><i class="d-inline fas fa-eye fa-fw"></i><span class="ml-1">Details</span></button>
+                                        <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-light" title="Editar"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modify</span></a>
                                     </div>
                                     <div class="modal fade " id="descrip-@item.Id" tabindex="-1" role="dialog" aria-labelledby="descrip-@item.Id-label" aria-hidden="true">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title font-weight-bold text-primary" id="descrip-@item.Id-label">Detalles</h5>
+                                                    <h5 class="modal-title font-weight-bold text-primary" id="descrip-@item.Id-label">Details</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <dl class="mb-0">
-                                                        <dt>Identificador</dt>
+                                                        <dt>Identifier</dt>
                                                         <dd>@GlobalViewLocalizationHelper.Localize(item.Id.ToString())</dd>
-                                                        <dt>Contenido</dt>
+                                                        <dt>Content</dt>
                                                         <dd class="mb-0">@Html.Raw(item.Content)
                                                     </dl>
                                                 </div>
@@ -171,7 +171,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="2"><p style="margin: 0 5px;" class="text-muted">Sin elementos que mostrar</p></td>
+                            <td colspan="2"><p style="margin: 0 5px;" class="text-muted">No items to show</p></td>
                         </tr>
                     }
                 </tbody>

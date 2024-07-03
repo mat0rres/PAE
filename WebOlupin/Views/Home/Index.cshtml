@@ -68,8 +68,8 @@ else
             @foreach (var item in Model.Brands)
             {
                 <div class="col-lg-2 col-md-3 col-sm-4 d-table">
-                    <a class="d-table-cell vertical-align-center" asp-action="index" asp-controller="brand" asp-route-key="@item.Id">
-                        <img class="img-fluid vertical-align-center" src="/media/images/@item.Image.Id.@item.Image.Extension" title="@item.Name" />
+                    <a class="d-table-cell" style="vertical-align: middle;" asp-action="index" asp-controller="brand" asp-route-key="@item.Id">
+                        <img class="img-fluid" src="/media/images/@item.Image.Id.@item.Image.Extension" title="@item.Name" />
                     </a>
                 </div>
             }

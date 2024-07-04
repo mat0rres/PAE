@@ -1,7 +1,8 @@
-﻿@using MOROPO.Framework.Guama.Core.Security.Common.Presentation.Web.Frontend.Extensions
+﻿@using MOROPO.Framework.Guama.Core.Presentation.Web.Backend.Models.View
+@using MOROPO.Framework.Guama.Core.Security.Common.Presentation.Web.Frontend.Extensions
 @using MOROPO.PremierAutomotiveExport.WebOlupin.Extensions;
 
-@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.ManagementDashboardViewModel
+@model Dictionary<string, ICollection<ManagementDashboardSectionViewModel>>
 
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -38,7 +39,7 @@
         </li>
     }
 
-    @foreach (var group in Model.Sections)
+    @foreach (var group in Model)
     {
         <!-- Divider -->
         <hr class="sidebar-divider">

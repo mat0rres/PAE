@@ -15,10 +15,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Components
 
         public IViewComponentResult Invoke()
         {
-            return View(new Models.View.Backend.ManagementDashboardViewModel
-            {
-                Sections = managementDashboardSectionProviders.ToManagementDashboardSectionGroups()
-            });
+            return View(managementDashboardSectionProviders.ToManagementDashboardSectionGroups());
         }
     }
 }

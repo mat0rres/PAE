@@ -7,6 +7,8 @@
     ViewData["TITLE"] = ViewData["HEADER"] = GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer);
 
     Layout = "_BackendLayout";
+
+    var monthNames = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dic" };
 }
 
 @section styles {
@@ -48,6 +50,56 @@
 
         userActivityLastDaysChart.render();
 
+        var userActivityLastMonthOptions = {
+            series: [{
+                name: 'Views',
+                data: @Newtonsoft.Json.JsonConvert.SerializeObject(Model.MonthUserActivity.Select(_item => _item.Value).ToArray())
+            }],
+            chart: {
+                height: 350,
+                type: 'area'
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                type: 'int',
+                categories: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.MonthUserActivity.Select(_item => _item.Key).ToArray()))
+            }
+        };
+
+        var userActivityLastMonthChart = new ApexCharts(document.querySelector("#user-activity-last-month-chart"), userActivityLastMonthOptions);
+
+        userActivityLastMonthChart.render();
+
+        var userActivityLastSemesterOptions = {
+            series: [{
+                name: 'Views',
+                data: @Newtonsoft.Json.JsonConvert.SerializeObject(Model.SemesterUserActivity.Select(_item => _item.Value).ToArray())
+            }],
+            chart: {
+                height: 350,
+                type: 'area'
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                type: 'int',
+                categories: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.SemesterUserActivity.Select(_item => monthNames[_item.Key]).ToArray()))
+            }
+        };
+
+        var userActivityLastSemesterChart = new ApexCharts(document.querySelector("#user-activity-last-semester-chart"), userActivityLastSemesterOptions);
+
+        userActivityLastSemesterChart.render();
+
         var userActivityBySectionOptions = {
             series: @Newtonsoft.Json.JsonConvert.SerializeObject(Model.VisitsBySection),
             labels: ['About', 'News', 'Services', 'Products', 'Category', 'Brand', 'Contact'],
@@ -60,6 +112,7 @@
             fill: {
                 opacity: 0.8
             },
+            colors: ['#008ffb', '#00e396', '#feb019', '#ff4560', '#775dd0', '#35b98f', '#f5a058'],
             responsive: [{
                 breakpoint: 480,
                 options: {
@@ -76,6 +129,27 @@
         var userActivityBySectionChart = new ApexCharts(document.querySelector("#user-activity-by-section-chart"), userActivityBySectionOptions);
 
         userActivityBySectionChart.render();
+
+        const tabs = document.querySelector("#user-activity-tab");
+
+        tabs.addEventListener('click', (e) => {
+            let btn = e.target;
+
+            const tabPaneId = btn.dataset.target;
+
+            switch (tabPaneId) {
+                case '#user-activity-last-month-chart':
+                    userActivityLastMonthChart.resetSeries();
+
+                    break;
+
+                case '#user-activity-last-semester-chart':
+                    userActivityLastSemesterChart.resetSeries();
+
+                    break;
+            }
+
+        });
     </script>
 }
 
@@ -139,29 +213,39 @@
         <div class="card shadow-lg mb-4">
             <div class="card-header">
                 <h5 class="font-weight-bold text-primary">User Activity</h5>
-                <ul class="nav nav-tabs card-header-tabs">
+                <ul id="user-activity-tab" class="nav nav-tabs card-header-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Last days</a>
+                        <button class="nav-link active" id="user-activity-last-days-chart-tab" data-toggle="tab" data-target="#user-activity-last-days-tab-pane" type="button" role="tab" aria-controls="user-activity-last-days-tab-pane" aria-selected="true">Last days</button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Last Month</a>
+                        <button class="nav-link" id="user-activity-last-month-chart-tab" data-toggle="tab" data-target="#user-activity-last-month-tab-pane" type="button" role="tab" aria-controls="user-activity-last-month-tab-pane" aria-selected="true">Last Month</button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Semester</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">This Year</a>
+                        <button class="nav-link" id="user-activity-last-semester-chart-tab" data-toggle="tab" data-target="#user-activity-last-semester-tab-pane" type="button" role="tab" aria-controls="user-activity-last-semester-tab-pane" aria-selected="true">Las 6 months</button>
                     </li>
                 </ul>
             </div>
             <div class="card-body">
-                <div id="user-activity-last-days-chart" style="min-height: 400px;"></div>
+                <div class="tab-content">
+                    <div id="user-activity-last-days-tab-pane" class="tab-pane fade show active" role="tabpanel" aria-labelledby="user-activity-last-days-chart-tab">
+                        <div id="user-activity-last-days-chart" style="min-height: 350px;"></div>
+                    </div>
+                    <div id="user-activity-last-month-tab-pane" class="tab-pane fade" role="tabpanel" aria-labelledby="user-activity-last-month-chart-tab">
+                        <div id="user-activity-last-month-chart" style="min-height: 350px;"></div>
+                    </div>
+                    <div id="user-activity-last-semester-tab-pane" class="tab-pane fade" role="tabpanel" aria-labelledby="user-activity-last-semester-chart-tab">
+                        <div id="user-activity-last-semester-chart" style="min-height: 350px;"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card shadow-lg mb-4">
-            <div class="card-header"><h5 class="font-weight-bold text-primary mb-0">Visits by section</h5></div>
+            <div class="card-header">
+                <h5 class="font-weight-bold text-primary mb-0">Visits by section</h5>
+                <small>Las 6 months</small>
+            </div>
             <div class="card-body">
                 <div id="user-activity-by-section-chart" style="min-height: 400px;"></div>
             </div>

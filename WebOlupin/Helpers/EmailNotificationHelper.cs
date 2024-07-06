@@ -18,7 +18,15 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Helpers
             using var notificationEmailMessage = BuildBaseNotificationEmailMessage(commercials);
             
             notificationEmailMessage.Subject = "A new purchase intention contact has been received";
-            notificationEmailMessage.Body = string.Format("<a href=\"{0}://{1}/management/contacts/productforcontactrecords/details/{2}\">Details</a>", request.Scheme, request.Host, contactRecord.Id);
+
+            if (configuration["EmailNotification:SiteBaseUrl"] == null)
+            {
+                notificationEmailMessage.Body = string.Format("<a href=\"{0}://{1}/management/contacts/productforcontactrecords/details/{2}\">Details</a>", request.Scheme, request.Host, contactRecord.Id);
+            }
+            else
+            {
+                notificationEmailMessage.Body = string.Format("<a href=\"{0}/management/contacts/productforcontactrecords/details/{1}\">Details</a>", configuration["EmailNotification:SiteBaseUrl"], contactRecord.Id);
+            }
 
             using var smtpClient = BuildSmtpClient();
             
@@ -30,7 +38,15 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Helpers
             using var notificationEmailMessage = BuildBaseNotificationEmailMessage(commercials);
             
             notificationEmailMessage.Subject = "A new general purpose contact has been received";
-            notificationEmailMessage.Body = string.Format("<a href=\"{0}://{1}/management/contacts/commoncontactrecords/details/{2}\">Details</a>", request.Scheme, request.Host, contactRecord.Id);
+
+            if (configuration["EmailNotification:SiteBaseUrl"] == null)
+            {
+                notificationEmailMessage.Body = string.Format("<a href=\"{0}://{1}/management/contacts/commoncontactrecords/details/{2}\">Details</a>", request.Scheme, request.Host, contactRecord.Id);
+            }
+            else
+            {
+                notificationEmailMessage.Body = string.Format("<a href=\"{0}/management/contacts/commoncontactrecords/details/{1}\">Details</a>", configuration["EmailNotification:SiteBaseUrl"], contactRecord.Id);
+            }
 
             using var smtpClient = BuildSmtpClient();
             

@@ -157,5 +157,16 @@
         public const string ProductForContactRecordRemoverPermission = "product-for-contact-record-remover-permission";
 
         #endregion
+
+        #region Commercial
+
+        public const string CommercialManagementPermissionGroup = "commercial-management-permission-group";
+
+        public const string CommercialViewerPermission = "commercial-viewer-permission";
+        public const string CommercialCreatorPermission = "commercial-creator-permission";
+        public const string CommercialEditorPermission = "commercial-editor-permission";
+        public const string CommercialRemoverPermission = "commercial-remover-permission";
+
+        #endregion
     }
 }

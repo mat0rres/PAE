@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
-using MOROPO.PremierAutomotiveExport.WebOlupin;
 
 namespace MOROPO.PremierAutomotiveExport.WebOlupin.Helpers
 {

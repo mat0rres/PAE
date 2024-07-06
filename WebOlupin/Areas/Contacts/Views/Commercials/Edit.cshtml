@@ -1,0 +1,89 @@
+﻿@model MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend.CommercialInputViewModel
+
+@{
+    const string TITLE = "Modify Commercial";
+    const string HEADER = "Commercials Management";
+
+    ViewData["TITLE"] = TITLE;
+    ViewData["HEADER"] = HEADER;
+
+    ViewData[BreadcrumbViewModel.BREADCRUMBS_MAP_KEY] = new List<BreadcrumbViewModel>
+    {
+        new BreadcrumbViewModel
+        {
+            Caption = "<i class=\"fas fa-fw fa-tachometer-alt\"></i> " + GlobalViewLocalizationHelper.Localize("Dashboard", ViewLocalizer),
+            Url = Url.Action("Index", "Dashboard", new { Area = "management" })
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = HEADER,
+            Url = Url.Action("index")
+        },
+        new BreadcrumbViewModel
+        {
+            Caption = TITLE
+        }
+    };
+
+    Layout = "_BackendLayout";
+
+    var prioritySelectListItems = new List<SelectListItem>();
+
+    for (int i = 1; i <= 10; i++)
+    {
+        prioritySelectListItems.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+    }
+}
+
+<hr class="mt-0 mb-4" />
+
+@using (Html.BeginForm("edit", "commercials", new { Area = "site", key = string.Empty }, FormMethod.Post, true, null))
+{
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="card mb-4">
+        <div class="card-header"><h5 class="mb-0 font-weight-bold text-primary">@TITLE</h5></div>
+
+        <div class="card-body">
+            <div class="mb-3">
+                @Html.LabelFor(model => model.FullName, new { @class = "control-label" })
+                @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "text-danger" })
+            </div>
+            <div class="row row-cols-md-6">
+                <div class="col mb-3">
+                    @Html.LabelFor(model => model.EmailAddress, new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EmailAddress, null, new { @class = "text-danger" })
+                </div>
+                <div class="col">
+                    <h5>Receiving notifications via contact form</h5>
+                    <div class="row row-cols-sm-6">
+                        <div class="col mb-3">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.EditorFor(model => model.NotifyProductForContact) Interest in a product
+                                    @Html.ValidationMessageFor(model => model.NotifyProductForContact)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col mb-3">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.EditorFor(model => model.NotifyCommonContact) General purpose
+                                    @Html.ValidationMessageFor(model => model.NotifyCommonContact)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Modify</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Return to list</a>
+        </div>
+    </div>
+}

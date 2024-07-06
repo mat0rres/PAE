@@ -5,6 +5,7 @@ using MOROPO.Framework.Guama.Core.Presentation.Web.Security.Attributes;
 using MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities;
 using MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend;
 using MOROPO.PremierAutomotiveExport.WebOlupin.Models.View;
+using System.Linq;
 
 namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Contacts
 {
@@ -49,9 +50,9 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Contacts
         }
 
         [RequirePermissions(Constants.Authorization.ProductForContactRecordRemoverPermission)]
-        public override IActionResult Delete(ProductForContactRecordDisplayViewModel displayModel)
+        public override IActionResult Delete(ProductForContactRecordDisplayViewModel model)
         {
-            return base.Delete(displayModel);
+            return base.Delete(model);
         }
 
         [RequirePermissions(Constants.Authorization.ProductForContactRecordViewerPermission)]

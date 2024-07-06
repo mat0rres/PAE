@@ -36,6 +36,8 @@
 
             if (target.Controller == "commoncontactrecords") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-envelope");
 
+            if (target.Controller == "commercials") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-address-card");
+
             return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-cog");
         }
     }

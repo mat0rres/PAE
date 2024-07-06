@@ -63,10 +63,12 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin
             services.AddScoped<IEntityRepository<ProductColor, System.Guid>, ProductColorRepository>();
             services.AddScoped<IEntityRepository<ProductForContactRecord, long>, ProductForContactRecordRepository>();
             services.AddScoped<IEntityRepository<CommonContactRecord, long>, CommonContactRecordRepository>();
+            services.AddScoped<IEntityRepository<Commercial, System.Guid>, CommercialRepository>();
 
             services.AddSingleton<Framework.Guama.Core.Persistence.ORM.EF.Providers.Facade.IDbSchemaConfigurationProviderFacade, Persistence.ORM.EF.DbSchemaConfigurationProvider>();
 
             services.AddSingleton<Framework.Guama.Core.Persistence.ORM.EF.Helpers.Facade.IDataInitializationHelper, DataInitializationHelper>();
+            services.AddSingleton<EmailNotificationHelper>();
 
             services.AddAuthentication(config =>
             {

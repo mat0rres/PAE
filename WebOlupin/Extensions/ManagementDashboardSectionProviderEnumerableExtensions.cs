@@ -135,6 +135,13 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                     Action= "index",
                     Area = "contacts",
                     Role = Constants.Authorization.CommonContactRecordViewerPermission
+                },
+                new() {
+                    Title = "Commercials",
+                    Controller = "commercials",
+                    Action = "index",
+                    Area = "contacts",
+                    Role = Constants.Authorization.CommercialViewerPermission
                 }
             };
 

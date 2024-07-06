@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MOROPO.Framework.Guama.Core.Persistence.Repositories;
 using MOROPO.Framework.Guama.Core.Presentation.Models.View;
 using MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities;
@@ -9,19 +10,23 @@ using System.Linq;
 namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
 {
     [Route("[controller]")]
-    public class ProductController : Controller
+    public class ProductController : Framework.Guama.Core.Presentation.Web.Common.Controllers.BaseWebController
     {
         private readonly IEntityRepository<Product, System.Guid> productRepository;
         private readonly IEntityRepository<PageHeader, PageId> pageHeaderRepository;
         private readonly IEntityRepository<PageVisit, long> pageVisitRepository;
         private readonly IEntityRepository<ProductForContactRecord, long> productForContactRecordRepository;
+        private readonly IEntityRepository<Commercial, System.Guid> commercialRepository;
+        private readonly Helpers.EmailNotificationHelper emailNotificationHelper;
 
-        public ProductController(IEntityRepository<ProductForContactRecord, long> productForContactRecordRepository, IEntityRepository<PageVisit, long> pageVisitRepository, IEntityRepository<PageHeader, PageId> pageHeaderRepository, IEntityRepository<Product, System.Guid> productRepository)
+        public ProductController(Helpers.EmailNotificationHelper emailNotificationHelper, IEntityRepository<Commercial, System.Guid> commercialRepository, IEntityRepository<ProductForContactRecord, long> productForContactRecordRepository, IEntityRepository<PageVisit, long> pageVisitRepository, IEntityRepository<PageHeader, PageId> pageHeaderRepository, IEntityRepository<Product, System.Guid> productRepository, Microsoft.Extensions.Localization.IStringLocalizer<ContactController> localizer, ILogger<ContactController> logger) : base(localizer, logger)
         {
             this.productRepository = productRepository;
             this.pageHeaderRepository = pageHeaderRepository;
             this.pageVisitRepository = pageVisitRepository;
             this.productForContactRecordRepository = productForContactRecordRepository;
+            this.commercialRepository = commercialRepository;
+            this.emailNotificationHelper = emailNotificationHelper;
         }
 
         [Route("{key}")]
@@ -98,6 +103,20 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
                 var entity = model.Export();
 
                 productForContactRecordRepository.Add(entity, User.Identity.Name ?? "guest");
+
+                var commercials = commercialRepository.FindBy(_entity => _entity.NotifyProductForContact).ToArray();
+
+                if (commercials.Length > 0)
+                {
+                    try
+                    {
+                        emailNotificationHelper.NotifyByEmailForProcuctForContactToCommercials(Request, entity, commercials);
+                    }
+                    catch (System.Exception exeption)
+                    {
+                        logger.LogError(exeption, "Error sending notification email message.");
+                    }
+                }
 
                 SetDefaultNotification(NotificationType.Success, "Intención de compra registrada con éxito", "Nuestro equipo de ventas le contactará lo antes posible para asistirlo en el propósito de adquirir este producto.");
 

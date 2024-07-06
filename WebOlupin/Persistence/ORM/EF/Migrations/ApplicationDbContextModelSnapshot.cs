@@ -1147,6 +1147,37 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF.Migrations
                     b.ToTable("categories");
                 });
 
+            modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.Commercial", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("emailaddress");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("fullname");
+
+                    b.Property<bool>("NotifyCommonContact")
+                        .HasColumnType("boolean")
+                        .HasColumnName("notifycommoncontact");
+
+                    b.Property<bool>("NotifyProductForContact")
+                        .HasColumnType("boolean")
+                        .HasColumnName("notifyproductforcontact");
+
+                    b.HasKey("Id")
+                        .HasName("pk_commercials");
+
+                    b.ToTable("commercials");
+                });
+
             modelBuilder.Entity("MOROPO.PremierAutomotiveExport.Persistence.Domain.Entities.CommonContactRecord", b =>
                 {
                     b.Property<long>("Id")

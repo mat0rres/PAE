@@ -6,10 +6,13 @@
 
         public string Name { get; set; }
 
+        public int Priority { get; set; }
+
         public void Import(PremierAutomotiveExport.Persistence.Domain.Entities.CustomAttribute entity)
         {
             Id = entity.Id;
             Name = entity.Name;
+            Priority = entity.Priority;
         }
     }
 }

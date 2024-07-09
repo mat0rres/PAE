@@ -8,6 +8,8 @@
 
         public string Description { get; set; }
 
+        public int Priority { get; set; }
+
         public CategoryDisplayViewModel Category { get; set; }
 
         public ImageDisplayViewModel FeatureImage { get; set; }
@@ -23,6 +25,7 @@
             Id = entity.Id;
             Enabled = entity.Enabled;
             Description = entity.Description;
+            Priority = entity.Priority;
             FeatureImage = new ImageDisplayViewModel();
             Brand = new BrandDisplayViewModel();
             Model = entity.Model;

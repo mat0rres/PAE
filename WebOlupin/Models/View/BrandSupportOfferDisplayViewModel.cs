@@ -6,6 +6,8 @@
 
         public bool Enabled { get; set; }
 
+        public int Priority { get; set; }
+
         public BrandDisplayViewModel Brand { get; set; }
 
         public ImageDisplayViewModel FeatureImage { get; set; }
@@ -18,6 +20,7 @@
         {
             Id = entity.Id;
             Enabled = entity.Enabled;
+            Priority = entity.Priority;
             Title = entity.Title;
             Description = entity.Description;
             Brand = new BrandDisplayViewModel();

@@ -135,6 +135,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th class="fit">Priority</th>
                         <th class="fit">Options</th>
                     </tr>        
                 </thead>
@@ -145,6 +146,7 @@
                         {
                             <tr>
                                 <td style="vertical-align: middle;" title="Name">@item.Name</td>
+                                <td class="fit" style="vertical-align: middle;" title="Priority">@item.Priority</td>
                                 <td class="fit" style="vertical-align: middle;">
                                     <div class="btn-group btn-group-sm">
                                         <a role="button" href="@Url.Action("edit", new { key = item.Id })" class="btn btn-light" title="Editar"><i class="d-inline fas fa-edit fa-fw"></i><span class="ml-1">Modify</span></a>
@@ -177,7 +179,7 @@
                     else
                     {
                         <tr>
-                            <td colspan="2"><p style="margin: 0 5px;" class="text-muted">No items to show</p></td>
+                            <td colspan="3"><p style="margin: 0 5px;" class="text-muted">No items to show</p></td>
                         </tr>
                     }
                 </tbody>

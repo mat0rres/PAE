@@ -11,6 +11,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
 
         public bool Enabled { get; set; } = true;
 
+        public int Priority { get; set; }
+
         [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [Display(Name = "Brand")]
         public System.Guid BrandId { get; set; }
@@ -46,6 +48,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         {
             Id = entity.Id;
             Enabled = entity.Enabled;
+            Priority = entity.Priority;
             BrandId = entity.BrandId;
             Title = entity.Title;
             Description = entity.Description;
@@ -56,6 +59,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         public void Mergue(BrandSupportOffer entity)
         {
             entity.Enabled = Enabled;
+            entity.Priority = Priority;
             entity.BrandId = BrandId;
             entity.Title = Title;
             entity.Description = Description;

@@ -201,6 +201,8 @@
                                                                 <span>@GlobalViewLocalizationHelper.Localize("No")</span>
                                                             }
                                                         </dd>
+                                                        <dt>Priority</dt>
+                                                        <dd>@item.Priority</dd>
                                                         <dt>@GlobalViewLocalizationHelper.Localize("Description")</dt>
                                                         <dd>@Html.Raw(item.Description)</dd>
                                                     </dl>
@@ -216,8 +218,8 @@
                                                     @Html.Hidden("Id", item.Id)
 
                                                     <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                         <h5 class="modal-title font-weight-bold text-primary" id="delete-@item.Id-lable">Delete support offer</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <p class="mb-0">Are you sure you want to delete the selected support offer?</p>

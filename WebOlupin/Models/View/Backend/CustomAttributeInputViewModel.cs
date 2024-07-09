@@ -11,6 +11,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         [Display(Name = "Name")]
         public string Name { get; set; }
 
+        public int Priority { get; set; }
+
         public CustomAttribute Export()
         {
             var entity = new CustomAttribute();
@@ -24,11 +26,13 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         {
             Id = entity.Id;
             Name = entity.Name;
+            Priority = entity.Priority;
         }
 
         public void Mergue(CustomAttribute entity)
         {
             entity.Name = Name;
+            entity.Priority = Priority;
         }
     }
 }

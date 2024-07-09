@@ -64,6 +64,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin
             services.AddScoped<IEntityRepository<ProductForContactRecord, long>, ProductForContactRecordRepository>();
             services.AddScoped<IEntityRepository<CommonContactRecord, long>, CommonContactRecordRepository>();
             services.AddScoped<IEntityRepository<Commercial, System.Guid>, CommercialRepository>();
+            services.AddScoped<IEntityRepository<Campaign, System.Guid>, CampaignRepository>();
 
             services.AddSingleton<Framework.Guama.Core.Persistence.ORM.EF.Providers.Facade.IDbSchemaConfigurationProviderFacade, Persistence.ORM.EF.DbSchemaConfigurationProvider>();
 

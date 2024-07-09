@@ -43,11 +43,11 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Extensions
                     Role = Constants.Authorization.RichTextBlockViewerPermission
                 },
                 new() {
-                    Title = "Instantáneas",
-                    Controller = "showcaseitems",
+                    Title = "Campaigns",
+                    Controller = "campaigns",
                     Action = "index",
                     Area = "site",
-                    Role = Constants.Authorization.ShowcaseItemViewerPermission
+                    Role = Constants.Authorization.CampaignViewerPermission
                 },
                 new() {
                     Title = "Promotions",

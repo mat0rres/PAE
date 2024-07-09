@@ -168,5 +168,16 @@
         public const string CommercialRemoverPermission = "commercial-remover-permission";
 
         #endregion
+
+        #region Campaign
+
+        public const string CampaignManagementPermissionGroup = "campaign-management-permission-group";
+
+        public const string CampaignViewerPermission = "campaign-viewer-permission";
+        public const string CampaignCreatorPermission = "campaign-creator-permission";
+        public const string CampaignEditorPermission = "campaign-editor-permission";
+        public const string CampaignRemoverPermission = "campaign-remover-permission";
+
+        #endregion
     }
 }

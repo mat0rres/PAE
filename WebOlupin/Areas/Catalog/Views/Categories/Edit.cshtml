@@ -26,6 +26,13 @@
     };
 
     Layout = "_BackendLayout";
+
+    var prioritySelectListItems = new List<SelectListItem>();
+
+    for (int i = 1; i <= 10; i++)
+    {
+        prioritySelectListItems.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+    }
 }
 
 <hr class="mt-0 mb-4" />
@@ -69,11 +76,16 @@
                         </label>
                     </div>
                 </div>
+                <div class="col-sm-6 mb-3">
+                    @Html.LabelFor(model => model.Priority, new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.Priority, prioritySelectListItems, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Priority, null, new { @class = "text-danger" })
+                </div>
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Modificar</button>
-            <a class="btn btn-secondary" href="@Url.Action("index")">Regresar al listado</a>
+            <button type="submit" class="btn btn-primary">Modify</button>
+            <a class="btn btn-secondary" href="@Url.Action("index")">Back to list</a>
         </div>
     </div>
 }

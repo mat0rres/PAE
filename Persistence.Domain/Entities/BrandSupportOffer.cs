@@ -5,7 +5,9 @@
         [System.ComponentModel.DataAnnotations.Key]
         public System.Guid Id { get; set; } = System.Guid.NewGuid();
 
-        public bool Enabled { get; set; }
+        public bool Enabled { get; set; } = true;
+
+        public int Priority { get; set; } = 1;
 
         [System.ComponentModel.DataAnnotations.Schema.ForeignKey(nameof(BrandId))]
         public Brand Brand { get; set; }

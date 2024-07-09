@@ -15,11 +15,14 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
 
         public SelectListItem[] AvailableBrandSelectListItems { get; set; }
 
+        public bool Enabled { get; set; }
+
+        public int Priority { get; set; }
+
         [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [Display(Name = "Title")]
         public string Title { get; set; }
 
-        [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [Display(Name = "Description")]
         public string Description { get; set; }
 
@@ -46,6 +49,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
             Id = entity.Id;
             Title = entity.Title;
             Description = entity.Description;
+            Enabled = entity.Enabled;
+            Priority = entity.Priority;
             BrandId = entity.BrandId;
             FeatureImageId = entity.FeatureImageId;
             FeatureImageExtension = MimeTypes.MimeTypeMap.GetExtension(entity.FeatureImage.ContentType);
@@ -54,6 +59,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         public void Mergue(BrandPromotion entity)
         {
             entity.Title = Title;
+            entity.Enabled = Enabled;
+            entity.Priority = Priority;
             entity.Description = Description;
             entity.BrandId = BrandId;
         }

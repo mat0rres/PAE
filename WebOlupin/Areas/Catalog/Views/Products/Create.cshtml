@@ -26,6 +26,13 @@
     };
 
     Layout = "_BackendLayout";
+
+    var prioritySelectListItems = new List<SelectListItem>();
+
+    for (int i = 1; i <= 25; i++)
+    {
+        prioritySelectListItems.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+    }
 }
 
 @section styles {
@@ -94,18 +101,25 @@
                             @Html.TextBoxFor(model => model.Model, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Model, null, new { @class = "text-danger" })
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="checkbox">
+                            <label>
+                                @Html.EditorFor(model => model.Enabled) Enabled?
+                                @Html.ValidationMessageFor(model => model.Enabled)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             @Html.LabelFor(model => model.CategoryId, new { @class = "control-label" })
                             @Html.DropDownListFor(model => model.CategoryId, Model.AvailableCategorySelectListItems, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Model, null, new { @class = "text-danger" })
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="checkbox">
-                                <label>
-                                    @Html.EditorFor(model => model.Enabled) Enabled?
-                                    @Html.ValidationMessageFor(model => model.Enabled)
-                                </label>
-                            </div>
+                        <div class="col-sm-4 mb-3">
+                            @Html.LabelFor(model => model.Priority, new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.Priority, prioritySelectListItems, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Priority, null, new { @class = "text-danger" })
                         </div>
                     </div>
                     <div>

@@ -14,7 +14,7 @@
 
             if (target.Controller == "pageheaders") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-image");
 
-            if (target.Controller == "showcaseitems") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-file-image");
+            if (target.Controller == "campaigns") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-file-image");
 
             if (target.Controller == "brandpromotions") return new Microsoft.AspNetCore.Html.HtmlString("fas fa-fw fa-flag");
 

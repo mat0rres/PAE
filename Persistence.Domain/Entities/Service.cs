@@ -17,6 +17,6 @@
         public Framework.Guama.Media.Persistence.Entities.Image FeatureImage { get; set; }
         public System.Guid FeatureImageId { get; set; }
 
-        public int Priority { get; set; }
+        public int Priority { get; set; } = 1;
     }
 }

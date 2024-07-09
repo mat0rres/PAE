@@ -4,6 +4,10 @@
     {
         public System.Guid Id { get; set; }
 
+        public bool Enabled { get; set; }
+
+        public int Priority { get; set; }
+
         public BrandDisplayViewModel Brand { get; set; }
 
         public ImageDisplayViewModel FeatureImage { get; set; }
@@ -18,6 +22,8 @@
             Title = entity.Title;
             Description = entity.Description;
             Brand = new BrandDisplayViewModel();
+            Enabled = entity.Enabled;
+            Priority = entity.Priority;
             FeatureImage = new ImageDisplayViewModel();
 
             Brand.Import(entity.Brand);

@@ -6,12 +6,15 @@
 
         public string Name { get; set; }
 
+        public int Priority { get; set; }
+
         public CategoryDisplayViewModel Parent { get; set; }
 
         public void Import(PremierAutomotiveExport.Persistence.Domain.Entities.Category entity)
         {
             Id = entity.Id;
             Name = entity.Name;
+            Priority = entity.Priority;
 
             if (entity.Parent != null)
             {

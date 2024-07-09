@@ -26,6 +26,13 @@
     };
 
     Layout = "_BackendLayout";
+
+    var prioritySelectListItems = new List<SelectListItem>();
+
+    for (int i = 1; i <= 10; i++)
+    {
+        prioritySelectListItems.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
+    }
 }
 
 @section styles {
@@ -96,6 +103,11 @@
                                     @Html.ValidationMessageFor(model => model.IsFavorite)
                                 </label>
                             </div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            @Html.LabelFor(model => model.Priority, new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.Priority, prioritySelectListItems, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Priority, null, new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="mb-3">

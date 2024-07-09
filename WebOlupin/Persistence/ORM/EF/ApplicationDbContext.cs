@@ -82,5 +82,6 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Persistence.ORM.EF
         public DbSet<CommonContactRecord> CommonContactRecords {  get; set; }
         public DbSet<ProductForContactRecord> ProductForContactRecords { get; set; }
         public DbSet<Commercial> Commercials { get; set; }
+        public DbSet<Campaign> Campaigns { get; set; }
     }
 }

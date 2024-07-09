@@ -14,11 +14,14 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Display(Name = "Priority")]
+        public int Priority { get; set; }
+
         [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [Display(Name = "Brand")]
         public System.Guid BrandId { get; set; }
 
-        public SelectListItem[]? AvailableBrandSelectListItems { get; set; }
+        public SelectListItem[] AvailableBrandSelectListItems { get; set; }
 
         [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [Display(Name = "Model")]
@@ -28,7 +31,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-        public SelectListItem[]? AvailableCategorySelectListItems { get; set; }
+        public SelectListItem[] AvailableCategorySelectListItems { get; set; }
 
         [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [FormFileContentTypes(ContentTypes = new string[] { "image/png", "image/jpeg" }, ErrorMessage = "PNG_JPEG_FileAllowedOnlyMessage")]
@@ -37,7 +40,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
 
         public System.Guid FeatureImageId { get; set; }
 
-        public string? FeatureImageExtension { get; set; }
+        public string FeatureImageExtension { get; set; }
 
         public Product Export()
         {
@@ -53,6 +56,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
             Id = entity.Id;
             Enabled = entity.Enabled;
             Description = entity.Description;
+            Priority = entity.Priority;
             FeatureImageId = entity.FeatureImageId;
             FeatureImageExtension = MimeTypes.MimeTypeMap.GetExtension(entity.FeatureImage.ContentType);
             BrandId = entity.BrandId;
@@ -64,6 +68,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         {
             entity.Enabled = Enabled;
             entity.Description = Description;
+            entity.Priority = Priority;
             entity.CategoryId = CategoryId;
             entity.BrandId = BrandId;
             entity.Model = Model;

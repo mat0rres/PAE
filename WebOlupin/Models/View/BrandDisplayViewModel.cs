@@ -14,12 +14,15 @@
 
         public string Description { get; set; }
 
+        public int Priority { get; set; }
+
         public void Import(PremierAutomotiveExport.Persistence.Domain.Entities.Brand entity)
         {
             Id = entity.Id;
             Name = entity.Identity.Name;
             IsFavorite = entity.IsFavorite;
             PromotionalSlogan = entity.PromotionalSlogan;
+            Priority = entity.Priority;
             Description = entity.Description;
             Image = new ImageDisplayViewModel();
 

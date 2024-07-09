@@ -20,6 +20,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
 
         public bool Enabled { get; set; }
 
+        public int Priority { get; set; }
+
         public bool IsOnNavigation { get; set; }
 
         public System.Collections.Generic.List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> AvailableCategorySelectListItems { get; set; }
@@ -33,13 +35,13 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
             return entity;
         }
 
-        // TODO Fill AvailableCategorySelectListItems at Controller
         public void Import(Category entity)
         {
             Id = entity.Id;
             Name = entity.Name;
             ParentId = entity.ParentId;
             Enabled = entity.Enabled;
+            Priority = entity.Priority;
             IsOnNavigation = entity.IsOnNavigation;
         }
 
@@ -48,6 +50,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
             entity.Name = Name;
             entity.ParentId = ParentId;
             entity.Enabled = Enabled;
+            entity.Priority = Priority;
             entity.IsOnNavigation = IsOnNavigation;
         }
     }

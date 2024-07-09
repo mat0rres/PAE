@@ -20,6 +20,8 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        public int Priority { get; set; }
+
         [Required(ErrorMessage = "RequiredValidationErrorMessage")]
         [FormFileContentTypes(ContentTypes = new string[] { "image/png", "image/jpeg" }, ErrorMessage = "PNG_JPEG_FileAllowedOnlyMessage")]
         [Display(Name = "ImageFile")]

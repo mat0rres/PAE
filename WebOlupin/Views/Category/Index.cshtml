@@ -54,12 +54,12 @@ else
                         <p>@Html.Raw(item.Key.Description)</p>
                     }
                 </div>
-                <div class="row">
+                <div class="row justify-content-center">
                     @foreach (var _item in item.Value)
                     {
                         <div class="col-md-4 col-sm-6 text-center">
                             <a asp-action="index" asp-controller="product" asp-route-key="@_item.Id">
-                                <img style="max-height: 280px;" title="@_item.Model" src="/media/images/@_item.FeatureImage.Id.@_item.FeatureImage.Extension" />
+                                <img style="max-height: 280px; max-width: 280px;" title="@_item.Model" src="/media/images/@_item.FeatureImage.Id.@_item.FeatureImage.Extension" />
                                 <div class="text-center font-weight-bold">@_item.Model</div>
                             </a>
                         </div>
@@ -86,7 +86,7 @@ else
                 firstPlaced = true;
             }
 
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-sm-3">
                     <img class="img-fluid" src="/media/images/@item.Key.Image.Id.@item.Key.Image.Extension" title="@item.Key.Name" />
                 </div>
@@ -96,7 +96,7 @@ else
                         {
                             <div class="col-md-4 col-sm-6">
                                 <a asp-action="index" asp-controller="product" asp-route-key="@_item.Id">
-                                    <img class="img-fluid" title="@_item.Model" src="@_item.FeatureImage.Id.@_item.FeatureImage.Extension" />
+                                    <img style="max-height: 280px; max-width: 280px;" title="@_item.Model" src="@_item.FeatureImage.Id.@_item.FeatureImage.Extension" />
                                     <div class="text-center font-weight-bold">@_item.Model</div>
                                 </a>
                             </div>

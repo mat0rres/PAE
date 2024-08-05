@@ -46,12 +46,12 @@ else
             }
             else
             {
-                <div class="row">
+                <div class="row justify-content-center">
                     @foreach (var item in Model.Products)
                     {
                         <div class="col-md-4 col-sm-6 text-center">
                             <a asp-action="index" asp-controller="product" asp-route-key="@item.Id">
-                                <img style="max-height: 280px;" title="@item.Model" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" />
+                                <img style="max-height: 280px; max-width: 280px;" title="@item.Model" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" />
                                 <div class="text-center font-weight-bold">@item.Model</div>
                             </a>
                         </div>
@@ -83,12 +83,12 @@ else
                 }
                 else
                 {
-                    <div class="row">
+                    <div class="row justify-content-center">
                         @foreach (var item in Model.Products)
                         {
                             <div class="col-md-4 col-sm-6">
                                 <a asp-action="index" asp-controller="product" asp-route-key="@item.Id">
-                                    <img class="img-fluid" title="@item.Model" src="@item.FeatureImage.Id.@item.FeatureImage.Extension" />
+                                    <img style="max-height: 280px; max-width: 280px;" title="@item.Model" src="@item.FeatureImage.Id.@item.FeatureImage.Extension" />
                                     <div class="text-center font-weight-bold">@item.Model</div>
                                 </a>
                             </div>

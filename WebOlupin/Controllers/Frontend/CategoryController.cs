@@ -51,7 +51,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
 
                 var entity = categoryRepository.Get(key);
 
-                var products = productRepository.FindBy(_entity => _entity.Enabled && _entity.CategoryId == entity.Id).ToArray().GroupBy(_entity => _entity.Brand);
+                var products = productRepository.FindBy(_entity => _entity.Enabled && _entity.CategoryId == entity.Id).OrderBy(_entity => _entity.Priority).ToArray().GroupBy(_entity => _entity.Brand);
 
                 var model = new CategoryIndexViewModel
                 {

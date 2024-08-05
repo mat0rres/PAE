@@ -65,6 +65,23 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Site
 
         public override IActionResult Edit(CampaignInputViewModel modelInput)
         {
+            ModelState.ClearValidationState("ImageFile");
+            ModelState.MarkFieldValid("ImageFile");
+
+            if (Request.Form.Files.Count > 0)
+            {
+                var formFile = Request.Form.Files[0];
+
+                if (formFile.Length > 0)
+                {
+                    modelInput.ImageFile = formFile;
+
+                    var updateModelTask = TryUpdateModelAsync(modelInput);
+
+                    updateModelTask.Wait();
+                }
+            }
+
             return base.Edit(modelInput);
         }
 
@@ -91,11 +108,47 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Backend.Site
                 {
                     ContentType = model.ImageFile.ContentType,
                     Length = model.ImageFile.Length,
-                    About = string.Format("Image for Showcase Item: {0}", model.Id)
+                    About = string.Format("Image for Campaign: {0}", model.Id)
                 };
                 entity.ImageId = entity.Image.Id;
 
                 imageFileManager.SaveImageFileContent(entity.ImageId, memoryStream.ToArray(), entity.Image.ContentType);
+            }
+        }
+
+        protected override void PreEdit(Campaign entity, CampaignInputViewModel model)
+        {
+            base.PreEdit(entity, model);
+
+            if (model.ImageFile == null) return;
+
+            using (var memoryStream = new System.IO.MemoryStream())
+            {
+                model.ImageFile.CopyTo(memoryStream);
+
+                entity.Image = imageRepository.Add(new Image
+                {
+                    ContentType = model.ImageFile.ContentType,
+                    Length = model.ImageFile.Length,
+                    About = string.Format("Image for Campaign: {0}", model.Id)
+                }, User.Identity.Name, false);
+                entity.ImageId = entity.Image.Id;
+
+                imageFileManager.SaveImageFileContent(entity.Image.Id, memoryStream.ToArray(), entity.Image.ContentType);
+            }
+        }
+
+        protected override void PostEdit(Campaign entity, CampaignInputViewModel model)
+        {
+            base.PostEdit(entity, model);
+
+            if (model.ImageFile != null)
+            {
+                var deprecatedImage = imageRepository.Get(model.ImageId);
+
+                imageRepository.Delete(deprecatedImage, User.Identity.Name);
+
+                imageFileManager.DeleteImageFile(deprecatedImage);
             }
         }
 

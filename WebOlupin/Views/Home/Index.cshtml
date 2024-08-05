@@ -26,18 +26,27 @@ else
                     </div>
                     <div class="col-lg-3 col-md-2 d-none d-sm-block"></div>
                 </div>
-                <h1 class="my-4">@item.Title</h1>
+                <h1 class="mt-4 mb-3">@item.Title</h1>
+                @if (!string.IsNullOrEmpty(item.Description))
+                {
+                    <p class="mb-4">@Html.Raw(item.Description)</p>
+                }
                 <img class="img-fluid" src="/media/images/@item.FeatureImage.Id.@item.FeatureImage.Extension" title="@item.Brand.Name" />
-                <a class="btn btn-success btn-lg mt-4" asp-action="index" asp-controller="brand" asp-route-key="@item.Brand.Id">Conocer más</a>
+                <a class="btn btn-success btn-lg mt-4" asp-action="index" asp-controller="brand" asp-route-key="@item.Brand.Id">Ordenar ahora</a>
             </div>
         }
 
         <hr class="mt-0 mb-5" />
     }
 
-    <a href="https://drivingtowardschange.com/" target="_blank">
-        <img class="img-fluid" title="Driving Towards Change" src="/img/promo-link.jpg" />
-    </a>
+    @foreach (var item in Model.Campaigns)
+    {
+        <div class="mt-4">
+            <a href="@item.Url" target="_blank">
+                <img class="img-fluid" title="Driving Towards Change" src="/media/images/@item.Image.Id.@item.Image.Extension" />
+            </a>
+        </div>
+    }
 
     @if (Model.BrandSupportOffers.Length > 0)
     {
@@ -64,7 +73,7 @@ else
     {
         <hr class="my-5" />
 
-        <div class="row">
+        <div class="row justify-content-center">
             @foreach (var item in Model.Brands)
             {
                 <div class="col-lg-2 col-md-3 col-sm-4 d-table">

@@ -14,14 +14,16 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
         private readonly IEntityRepository<BrandPromotion, System.Guid> brandPromotionRepository;
         private readonly IEntityRepository<PageHeader, PageId> pageHeaderRepository;
         private readonly IEntityRepository<PageVisit, long> pageVisitRepository;
+        private readonly IEntityRepository<Campaign, System.Guid> campaignRepository;
 
-        public HomeController(IEntityRepository<PageVisit, long> pageVisitRepository, IEntityRepository<PageHeader, PageId> pageHeaderRepository, IEntityRepository<BrandPromotion, System.Guid> brandPromotionRepository, IEntityRepository<BrandSupportOffer, System.Guid> brandSupportOfferRepository, IEntityRepository<Brand, System.Guid> brandRepository)
+        public HomeController(IEntityRepository<Campaign, System.Guid> campaignRepository, IEntityRepository<PageVisit, long> pageVisitRepository, IEntityRepository<PageHeader, PageId> pageHeaderRepository, IEntityRepository<BrandPromotion, System.Guid> brandPromotionRepository, IEntityRepository<BrandSupportOffer, System.Guid> brandSupportOfferRepository, IEntityRepository<Brand, System.Guid> brandRepository)
         {
             this.brandRepository = brandRepository;
             this.brandSupportOfferRepository = brandSupportOfferRepository;
             this.brandPromotionRepository = brandPromotionRepository;
             this.pageHeaderRepository = pageHeaderRepository;
             this.pageVisitRepository = pageVisitRepository;
+            this.campaignRepository = campaignRepository;
         }
 
         public Microsoft.AspNetCore.Mvc.IActionResult Index()
@@ -48,7 +50,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
             var model = new Models.View.Frontend.HomeIndexViewModel
             {
                 Header = header,
-                BrandPromotions = brandPromotionRepository.GetAll().ToArray().Select(_entity =>
+                BrandPromotions = brandPromotionRepository.FindBy(_entity => _entity.Enabled).OrderBy(_entity => _entity.Priority).ToArray().Select(_entity =>
                 {
                     var _model = new BrandPromotionDisplayViewModel();
 
@@ -56,9 +58,9 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
 
                     return _model;
                 }).ToArray(),
-                BrandSupportOffers = brandSupportOfferRepository.FindBy(_entity => _entity.Enabled).GroupBy(_grouping => _grouping.Brand).ToArray().Select(_grouping =>
+                BrandSupportOffers = brandSupportOfferRepository.FindBy(_entity => _entity.Enabled).OrderBy(_entity => _entity.Priority).GroupBy(_grouping => _grouping.Brand).ToArray().Select(_grouping =>
                 {
-                    var _item = new KeyValuePair<BrandDisplayViewModel, BrandSupportOfferDisplayViewModel[]>(new BrandDisplayViewModel(), _grouping.Select(__entity =>
+                    var _item = new KeyValuePair<BrandDisplayViewModel, BrandSupportOfferDisplayViewModel[]>(new BrandDisplayViewModel(), _grouping.OrderBy(_entity => _entity.Priority).Select(__entity =>
                     {
                         var __model = new BrandSupportOfferDisplayViewModel
                         {
@@ -77,9 +79,17 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
 
                     return _item;
                 }).ToArray(),
-                Brands = brandRepository.GetAll().ToArray().Select(_entity =>
+                Brands = brandRepository.GetAll().OrderBy(_entity => _entity.Priority).ToArray().Select(_entity =>
                 {
                     var _model = new BrandDisplayViewModel();
+
+                    _model.Import(_entity);
+
+                    return _model;
+                }).ToArray(),
+                Campaigns = campaignRepository.FindBy(_entity => _entity.Enabled).OrderBy(_entity => _entity.Priority).ToArray().Select(_entity =>
+                {
+                    var _model = new CampaignDisplayViewModel();
 
                     _model.Import(_entity);
 

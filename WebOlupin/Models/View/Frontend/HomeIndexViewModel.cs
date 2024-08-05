@@ -9,5 +9,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Frontend
         public KeyValuePair<BrandDisplayViewModel, BrandSupportOfferDisplayViewModel[]>[] BrandSupportOffers { get; set; }
 
         public BrandDisplayViewModel[] Brands { get; set; }
+
+        public CampaignDisplayViewModel[] Campaigns { get; set; }
     }
 }

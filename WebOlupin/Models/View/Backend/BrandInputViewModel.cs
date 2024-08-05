@@ -45,6 +45,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
             Id = entity.Id;
             Name = entity.Identity.Name;
             IsFavorite = entity.IsFavorite;
+            Priority = entity.Priority;
             PromotionalSlogan = entity.PromotionalSlogan;
             Description = entity.Description;
             ImageId = entity.Identity.ImageId.Value;
@@ -55,6 +56,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Models.View.Backend
         {
             entity.Identity.Name = Name;
             entity.IsFavorite = IsFavorite;
+            entity.Priority = Priority;
             entity.PromotionalSlogan = PromotionalSlogan;
             entity.Description = Description;
         }

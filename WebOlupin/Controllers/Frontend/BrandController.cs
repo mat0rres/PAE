@@ -50,7 +50,7 @@ namespace MOROPO.PremierAutomotiveExport.WebOlupin.Controllers.Frontend
             {
                 Header = header,
                 Brand = new BrandDisplayViewModel(),
-                Products = productRepository.FindBy(_entity => _entity.BrandId == entity.Id).ToArray().Select(__entity =>
+                Products = productRepository.FindBy(_entity => _entity.Enabled && _entity.BrandId == entity.Id).OrderBy(_entity => _entity.Priority).ToArray().Select(__entity =>
                 {
                     var __model = new ProductDisplayViewModel();
 
